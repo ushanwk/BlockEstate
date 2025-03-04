@@ -1,5 +1,10 @@
+import ThemeToggle from "./ThemeToggle.jsx";
+
 export const Header = () => {
     return (
-        <>This is a header</>
+        <header class="bg-white dark:bg-black">
+            <h1 className="dark:text-white">This is a header</h1>
+            <ThemeToggle />
+        </header>
     )
 }
