@@ -4,6 +4,7 @@ import {HomePage} from "../pages/website/HomePage.jsx";
 import {AboutPage} from "../pages/website/AboutPage.jsx";
 import {AuthLayout} from "../layouts/AuthLayout.jsx";
 import {LoginPage} from "../pages/auth/LoginPage.jsx";
+import {RegisterTypePage} from "../pages/auth/RegisterTypePage.jsx";
 
 export const Index = () => {
     return (
@@ -18,6 +19,7 @@ export const Index = () => {
                 {/* Auth Routes */}
                 <Route path="/auth" element={<AuthLayout />}>
                     <Route index element={<LoginPage />} />
+                    <Route path="type" element={<RegisterTypePage />} />
                 </Route>
             </Routes>
         </BrowserRouter>

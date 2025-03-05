@@ -1,5 +1,7 @@
+import {Button} from "../../components/common/Button.jsx";
+
 export const HomePage = () => {
     return (
-        <>This is Home Page</>
+        <Button>Click Me</ Button>
     )
 }

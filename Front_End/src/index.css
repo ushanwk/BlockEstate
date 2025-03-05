@@ -1,6 +1,18 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+
+@theme {
+    --color-primary: #0274F9;
+    --color-light-bg-secondary: #F5FAFF;
+    --color-dark-bg-secondary: #1E1E2A;
+}
+
 *{
     @apply transition-colors duration-300;
+    font-family: Poppins;
+}
+
+.dark {
+    background-color: #181823;
 }
