@@ -6,12 +6,6 @@ export const HomePage = () => {
 
     return (
         <>
-            <Button border="border">Click Me</ Button>
-
-                <TextField
-                    label="Username"
-                    placeholder="Enter your username"
-                />
 
         </>
     )
