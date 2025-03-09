@@ -1,15 +1,16 @@
-export const Button = ({ children, bgColor, hoverColor, border, onClick }) => {
+export const Button = ({ children, hoverColor, border, onClick, large }) => {
     return (
         <button
             onClick={onClick}
-            className={`w-full py-2 text-white text-[14px] rounded-[5px] transition duration-300 ease-out ${
+            className={`font-medium w-full px-4 py-2 text-white text-[12px] rounded-[5px] transition duration-300 ease-out bg-[var(--color-primary)] ${
                 border ? "border-1 border-white" : ""
-            }`}
-            style={{
-                backgroundColor: bgColor || "var(--color-primary)",
-            }}
+            }
+            ${
+                large ? "text-[14px] px-5 py-3" : ""
+            }
+            `}
             onMouseEnter={(e) => (e.target.style.backgroundColor = hoverColor || "#0060D0")}
-            onMouseLeave={(e) => (e.target.style.backgroundColor = bgColor || "var(--color-primary)")}
+            onMouseLeave={(e) => (e.target.style.backgroundColor = "var(--color-primary)")}
         >
             {children}
         </button>
