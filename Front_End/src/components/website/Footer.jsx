@@ -6,7 +6,7 @@ import LinkedIcon from "../../assets/icons/LinkedIcon.png";
 
 export const Footer = () => {
     return (
-        <footer className="bg-[#002A5C] dark:bg-[#181823] text-white py-10">
+        <footer className="bg-[#002A5C] dark:bg-[#181823] text-white pb-5 pt-10">
             <div className="container mx-auto px-6 lg:px-20 text-center">
 
                 {/* Footer Grid */}
@@ -14,11 +14,11 @@ export const Footer = () => {
 
                     {/* Brand Section */}
                     <div className="flex flex-col items-center">
-                        <h3 className="text-2xl font-bold">BlockEstate</h3>
+                        <img src={LogoBarColor} alt="Cyprea Logo" className="mb-2 w-[150px] md:w-[200px] mt-[-3px]" />
                         <p className="text-gray-300 text-sm mt-3 max-w-sm mx-auto">
                             Please contact us if you have a specific problem or idea.
                         </p>
-                        <img src={LogoBarColor} alt="Cyprea Logo" className="mt-5 w-[150px] md:w-[200px]" />
+                        <p className="text-[var(--color-primary)] mt-2 text-sm">Blockestate.info@gmail.com</p>
                     </div>
 
                     {/* Quick Links */}
@@ -46,7 +46,7 @@ export const Footer = () => {
                 </div>
 
                 {/* Bottom Footer */}
-                <p className="text-center text-sm text-gray-400 mt-10 border-t border-gray-700 pt-5">
+                <p className="text-center text-sm text-gray-400 mt-10 border-t border-gray-500 pt-5">
                     © 2025 BlockEstate. All Rights Reserved.
                 </p>
             </div>

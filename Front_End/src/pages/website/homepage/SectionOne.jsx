@@ -1,4 +1,5 @@
 import { Button } from "../../../components/common/Button.jsx";
+import DownArrow from "../../../assets/images/website/homepage/DownArrow.png";
 
 export const SectionOne = () => {
     return (
@@ -7,7 +8,7 @@ export const SectionOne = () => {
             style={{ backgroundImage: `url('src/assets/images/website/homepage/HeroicBg.png')` }}
         >
             {/* Overlay */}
-            <div className="absolute inset-0 bg-[#003975] opacity-70 dark:bg-[#001E3D] dark:opacity-75"></div>
+            <div className="absolute inset-0 bg-[#003975] opacity-70 dark:bg-[#181823] dark:opacity-80"></div>
 
             {/* Section Content */}
             <div className="relative flex flex-col items-center text-white text-center z-20">
@@ -44,7 +45,12 @@ export const SectionOne = () => {
                     <Button children={"Get Your Own BLOCK"} border={"border"} large={true} />
                 </div>
 
+                <img
+                    src={DownArrow} alt="DownArrow"
+                    className="absolute bottom-[-180px] animate-bounce w-6"
+                />
             </div>
+
         </section>
     )
 }
