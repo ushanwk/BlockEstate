@@ -93,7 +93,7 @@ export const Header = () => {
                     </button>
 
                     {/* Mobile Nav Links */}
-                    <ul className="flex gap-8 list-none transition-colors duration-300">
+                    <ul className="flex flex-col text-center gap-8 list-none transition-colors duration-300">
                         {["Home", "About", "Properties", "Contact"].map((item) => (
                             <li
                                 key={item}
