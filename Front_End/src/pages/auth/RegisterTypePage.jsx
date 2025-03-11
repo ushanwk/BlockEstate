@@ -1,5 +1,11 @@
+import {CommonAuth} from "./CommonAuth.jsx";
+
 export const RegisterTypePage = () => {
     return (
-        <>This is register page</>
+        <CommonAuth section={
+            <div>
+                <h1>Register</h1>
+            </div>
+        } />
     )
 }

@@ -1,6 +1,7 @@
 import {Button} from "../../../components/common/Button.jsx";
 import {SectionOne} from "./SectionOne.jsx";
 import {SectionTwo} from "./SectionTwo.jsx";
+import {SectionThree} from "./SectionThree.jsx";
 
 export const HomePage = () => {
 
@@ -9,6 +10,7 @@ export const HomePage = () => {
         <main>
             <SectionOne />
             <SectionTwo />
+            <SectionThree />
         </main>
     )
 }

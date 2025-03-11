@@ -1,5 +1,11 @@
+import {CommonAuth} from "./CommonAuth.jsx";
+
 export const LoginPage = () => {
     return (
-        <>This is login page</>
+       <CommonAuth section={
+           <div>
+               <h1>Login</h1>
+           </div>
+       } />
     )
 }

@@ -8,7 +8,7 @@ export const SectionOne = () => {
             style={{ backgroundImage: `url('src/assets/images/website/homepage/HeroicBg.png')` }}
         >
             {/* Overlay */}
-            <div className="absolute inset-0 bg-[#003975] opacity-70 dark:bg-[#181823] dark:opacity-80"></div>
+            <div className="absolute inset-0 bg-[#003975] opacity-70 dark:bg-[#181823] dark:opacity-70"></div>
 
             {/* Section Content */}
             <div className="relative flex flex-col items-center text-white text-center z-20">
@@ -19,7 +19,7 @@ export const SectionOne = () => {
                 </h3>
 
                 {/* Line */}
-                <div className="bg-white h-1 drop-shadow-md w-[250px] sm:w-[400px] md:w-[500px] lg:w-[600px]"></div>
+                <div className="bg-white h-1 drop-shadow-md w-[300px] sm:w-[420px] md:w-[540px] lg:w-[600px]"></div>
 
                 {/* Main Title */}
                 <h1 className="font-bold mt-1 mb-1 drop-shadow-md text-[50px] sm:text-[70px] md:text-[90px] lg:text-[100px] m-0 leading-none">
@@ -29,7 +29,7 @@ export const SectionOne = () => {
 
                 {/* Tagline */}
                 <div className="bg-white px-3 py-2 text-[var(--color-primary)] rounded-[5px] drop-shadow-md font-bold
-                                text-[8px] sm:text-[14px] md:text-[16px] lg:text-[18px]">
+                                text-[8px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
                     Turning Real Estate Dreams into Reality with Secure Block Ownership
                 </div>
 
