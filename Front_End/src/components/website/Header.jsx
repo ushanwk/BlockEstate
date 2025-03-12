@@ -6,7 +6,7 @@ import LogoBarColor from "../../assets/icons/LogoBarColor.png";
 import { Button } from "../common/Button.jsx";
 
 export const Header = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
 
