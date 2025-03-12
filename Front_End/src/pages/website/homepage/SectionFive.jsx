@@ -5,7 +5,7 @@ import Stockholm from '../../../assets/images/website/homepage/SectionFive_Stock
 
 export const SectionFive = () => {
     return (
-        <section className="pb-12 pt-5 flex flex-col items-center justify-center px-[25px] sm:px-[30px] md:px-[60px] lg:px-[100px] xl:px-[200px]">
+        <section className="pb-20 pt-5 flex flex-col items-center justify-center px-[25px] sm:px-[30px] md:px-[60px] lg:px-[100px] xl:px-[200px]">
             <div className="grid grid-cols-1 md:grid-cols-5 gap-8 w-full">
 
                 {/* Large Left Div */}
