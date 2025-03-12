@@ -10,7 +10,7 @@ import Size from '../../assets/icons/Size.png'
 
 export const GridViewCard = ({ img, town, price, title, address, size, house, room, garage, agency_img, agency, days }) => {
     return (
-        <section className="h-full bg-white dark:bg-[var(--color-dark-bg-primary)] shadow-sm m-2 rounded-[5px] overflow-hidden relative w-[350px] sm:w-[500px] md:w-[600px] lg:w-[350px] xl:w-[400px] hover:scale-101">
+        <section className="h-full bg-white dark:bg-[var(--color-dark-bg-primary)] shadow-sm m-2 rounded-[5px] overflow-hidden relative w-[90vw] sm:w-[90vw] md:w-[600px] lg:w-[350px] xl:w-[400px] hover:scale-101">
             {/* Image Section with Overlay */}
             <div className="relative w-full h-2/3">
                 <img

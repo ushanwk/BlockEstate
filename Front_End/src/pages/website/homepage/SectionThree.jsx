@@ -117,7 +117,7 @@ export const SectionThree = () => {
                 <h1 className="font-light drop-shadow-md text-[28px] sm:text-[30px] md:text-[30px] lg:text-[35px] text-black dark:text-white text-center">What is BlockEstate</h1>
                 <h2 className="font-light text-[12px] sm:text-[14px] md:text-[14px] lg:text-[16px] text-[#999999] text-center mb-5">BlockEstate is a blockchain-powered platform that transforms real estate investments by allowing users to own property blocks and earn secure, passive income.</h2>
 
-                <section className="h-full dark:bg-[var(--color-dark-bg-primary)] shadow-sm m-2 rounded-[5px] overflow-hidden relative w-[350px] sm:w-[500px] md:w-[600px] lg:w-[350px] xl:w-[400px]">
+                <section className="h-full dark:bg-[var(--color-dark-bg-primary)] shadow-sm m-2 rounded-[5px] overflow-hidden relative w-[90vw] sm:w-[90vw] md:w-[600px] lg:w-[350px] xl:w-[400px]">
                     <div className="relative p-4 rounded-[5px] overflow-hidden h-44 sm:h-60">
                         <img
                             src={SectionTwo_Two}
@@ -136,7 +136,7 @@ export const SectionThree = () => {
                     </div>
                 </section>
 
-                <section className="h-full dark:bg-[var(--color-dark-bg-primary)] shadow-sm m-2 rounded-[5px] overflow-hidden relative w-[350px] sm:w-[500px] md:w-[600px] lg:w-[350px] xl:w-[400px]">
+                <section className="h-full dark:bg-[var(--color-dark-bg-primary)] shadow-sm m-2 rounded-[5px] overflow-hidden relative w-[90vw] sm:w-[90vw] md:w-[600px] lg:w-[350px] xl:w-[400px]">
                     <div className="relative p-4 rounded-[5px] overflow-hidden h-44 sm:h-60">
                         <img
                             src={SectionTwo_Three}
@@ -156,7 +156,7 @@ export const SectionThree = () => {
                 </section>
 
 
-                <section className="h-full bg-amber-400 dark:bg-[var(--color-dark-bg-primary)] shadow-sm m-2 rounded-[5px] overflow-hidden relative w-[350px] sm:w-[500px] md:w-[600px] lg:w-[350px] xl:w-[400px]">
+                <section className="h-full bg-amber-400 dark:bg-[var(--color-dark-bg-primary)] shadow-sm m-2 rounded-[5px] overflow-hidden relative w-[90vw] sm:w-[90vw] md:w-[600px] lg:w-[350px] xl:w-[400px]">
                     <div className="relative p-4 rounded-[5px] overflow-hidden h-44 sm:h-60">
                         <img
                             src={SectionTwo_Four}
