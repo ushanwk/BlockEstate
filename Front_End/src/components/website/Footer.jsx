@@ -6,7 +6,7 @@ import LinkedIcon from "../../assets/icons/LinkedIcon.png";
 
 export const Footer = () => {
     return (
-        <footer className="bg-[#002A5C] dark:bg-[#181823] text-white pb-5 pt-10">
+        <footer className="bg-[#002A5C] dark:bg-gray-900 text-white pb-5 pt-16">
             <div className="container mx-auto px-6 lg:px-20 text-center">
 
                 {/* Footer Grid */}

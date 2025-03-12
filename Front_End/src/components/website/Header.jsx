@@ -25,7 +25,7 @@ export const Header = () => {
             className={`fixed top-0 left-0 w-full py-5 px-4 sm:px-5 md:px-6 lg:px-8 xl:px-36 
                 z-50 border-b transition-[background,box-shadow] duration-300 ${
                 isScrolled
-                    ? "bg-white dark:bg-[var(--color-dark-bg-primary)] shadow-md border-white dark:border-gray-700"
+                    ? "bg-white dark:bg-gray-900 shadow-md border-white dark:border-gray-700"
                     : "bg-transparent border-white"
             }`}
         >
