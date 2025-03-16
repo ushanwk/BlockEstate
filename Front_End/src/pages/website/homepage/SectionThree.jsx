@@ -15,18 +15,18 @@ export const SectionThree = () => {
                         <p className='font-light text-[14px] mt-3 text-gray-400'>BlockEstate is a blockchain-powered platform that transforms real estate investments by allowing users to own property blocks and earn secure, passive income.</p>
                         <div className='w-16 h-[1px] bg-gray-400 mt-16 dark: dark:bg-white'></div>
                     </div>
-                    <div className="relative p-4 rounded-[5px] overflow-hidden mb-1">
+                    <div className="relative p-4 rounded-[5px] overflow-hidden mb-1 group">
                         {/* Full-Sized Image */}
                         <img
                             src={SectionTwo_One}
                             alt="Background Image"
-                            className="absolute inset-0 w-full h-full object-fit"
+                            className="absolute inset-0 w-full h-full object-fit transition-transform group-hover:scale-102"
                         />
 
                         {/* Overlay Text */}
                         <div className="relative z-10">
-                            <h1 className='font-light text-[20px] text-white'>What is BlockState</h1>
-                            <p className='font-light text-[14px] mt-3 text-gray-200'>BlockEstate is a blockchain-powered platform that transforms real estate investments by allowing users to own property blocks and earn secure, passive income.</p>
+                            <h1 className='font-light text-[20px] text-white'>Why Choose BlockEstate?</h1>
+                            <p className='font-light text-[14px] mt-3 text-gray-200'>We make real estate simple, secure, and accessible to all. Blockchain ensures secure, tamper-proof, and transparent transactions.</p>
                         </div>
 
                         {/* Optional: Dark Overlay for Better Visibility */}
@@ -41,11 +41,11 @@ export const SectionThree = () => {
 
                 {/* Column 2: Tall Row + Short Row */}
                 <div className="grid grid-rows-[2fr_1fr] gap-4">
-                    <div className="relative p-4 rounded-[5px] overflow-hidden">
+                    <div className="relative p-4 rounded-[5px] overflow-hidden group">
                         <img
                             src={SectionTwo_Two}
                             alt="Background Image"
-                            className="absolute inset-0 w-full h-full object-fit"
+                            className="absolute inset-0 w-full h-full object-fit group-hover:scale-102"
                         />
 
                         {/* Overlay Text */}
@@ -58,11 +58,11 @@ export const SectionThree = () => {
                         <div className="absolute inset-0 bg-black/40"></div>
                     </div>
 
-                    <div className="relative p-4 rounded-[5px] overflow-hidden">
+                    <div className="relative p-4 rounded-[5px] overflow-hidden group">
                         <img
                             src={SectionTwo_Three}
                             alt="Background Image"
-                            className="absolute inset-0 w-full h-full object-fit"
+                            className="absolute inset-0 w-full h-full object-fit group-hover:scale-102"
                         />
 
                         {/* Overlay Text */}
@@ -78,11 +78,11 @@ export const SectionThree = () => {
 
                 {/* Column 3: Short Row + Tall Row (Fixed) */}
                 <div className="grid grid-rows-[1fr_2fr] gap-4">
-                    <div className="relative p-4 rounded-[5px] overflow-hidden">
+                    <div className="relative p-4 rounded-[5px] overflow-hidden group">
                         <img
                             src={SectionTwo_Four}
                             alt="Background Image"
-                            className="absolute inset-0 w-full h-full object-fit"
+                            className="absolute inset-0 w-full h-full object-fit group-hover:scale-102"
                         />
 
                         {/* Overlay Text */}
@@ -94,11 +94,11 @@ export const SectionThree = () => {
                         {/* Optional: Dark Overlay for Better Visibility */}
                         <div className="absolute inset-0 bg-black/40"></div>
                     </div>
-                    <div className="relative p-4 rounded-[5px] overflow-hidden">
+                    <div className="relative p-4 rounded-[5px] overflow-hidden group">
                         <img
                             src={SectionTwo_Five}
                             alt="Background Image"
-                            className="absolute inset-0 w-full h-full object-fit"
+                            className="absolute inset-0 w-full h-full object-fit group-hover:scale-102"
                         />
 
                         {/* Overlay Text */}

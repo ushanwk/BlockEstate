@@ -1,4 +1,5 @@
 import LogoBarColor from '../../assets/icons/LogoBarColor.png'
+import {TextField} from "../../components/common/TextField.jsx";
 
 export const CommonAuth = ({section}) => {
     return (
@@ -9,7 +10,7 @@ export const CommonAuth = ({section}) => {
             </section>
 
             <section className='border-2 w-full hidden lg:block'>
-
+                <TextField placeholder={"Hello"} />
             </section>
         </section>
     )

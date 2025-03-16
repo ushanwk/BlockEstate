@@ -47,10 +47,10 @@ export const SectionSeven = () => {
                 </div>
 
                 {/* Right Side - Testimonial Slider */}
-                <div className="relative bg-white dark:bg-[var(--color-dark-bg-primary)] shadow-md p-6 sm:p-8 rounded-lg">
+                <div className="relative bg-white dark:bg-[var(--color-dark-bg-primary)] shadow-sm p-6 sm:p-8 rounded-lg">
 
                     {/* Testimonial Content */}
-                    <p className="text-gray-700 dark:text-gray-200 text-base sm:text-lg text-center">{testimonials[currentIndex].text}</p>
+                    <p className="text-gray-700 dark:text-gray-200 text-base sm:text-lg text-center font-light">{testimonials[currentIndex].text}</p>
 
                     {/* User Info */}
                     <div className="flex items-center justify-center mt-6">
@@ -69,13 +69,13 @@ export const SectionSeven = () => {
                     <div className="flex justify-between mt-6">
                         <button
                             onClick={prevTestimonial}
-                            className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+                            className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition text-[12px]"
                         >
                             ← Previous
                         </button>
                         <button
                             onClick={nextTestimonial}
-                            className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+                            className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition text-[12px]"
                         >
                             Next →
                         </button>

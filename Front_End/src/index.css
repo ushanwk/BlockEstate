@@ -5,8 +5,8 @@
 @theme {
     --color-primary: #0274F9;
     --color-light-bg-secondary: #F5FAFF;
-    --color-dark-bg-primary: #181823;
-    --color-dark-bg-secondary: #1E1E2A;
+    --color-dark-bg-primary: #101828;
+    --color-dark-bg-secondary: #152037;
 }
 
 *{
@@ -15,5 +15,5 @@
 }
 
 .dark {
-    background-color: #181823;
+    background-color: #101828;
 }

@@ -1,4 +1,4 @@
-import {GridViewCard} from "../../../components/property_cards/GridViewCard.jsx";
+import {GridViewCard} from "../../../components/propertycards/GridViewCard.jsx";
 import PropertyOne from '../../../assets/images/samples/PropertyOne.png'
 import PropertyTwo from '../../../assets/images/samples/PropertyTwo.png'
 import PropertyThree from '../../../assets/images/samples/PropertyThree.png'
