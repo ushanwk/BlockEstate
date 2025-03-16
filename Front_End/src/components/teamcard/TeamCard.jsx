@@ -9,7 +9,7 @@ export const TeamCard = ({ member }) => {
 
     return (
         <div
-            className="relative w-74 h-auto rounded-lg overflow-hidden shadow-lg transition-all duration-300"
+            className="relative w-72 h-auto rounded-lg overflow-hidden shadow-lg transition-all duration-300"
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
         >
@@ -45,9 +45,9 @@ export const TeamCard = ({ member }) => {
                     <div className="relative w-74 h-auto rounded-lg overflow-hidden transition-all duration-300">
                         {/* Icons Section */}
                         <div className="mt-7 flex justify-center gap-4">
-                            <Facebook className="w-6 h-6 p-1 border-[0.5px] border-gray-600 dark:border-gray-400 rounded-md dark:text-white text-black transition-colors duration-300" />
-                            <Globe className="w-6 h-6 p-1 border-[0.5px] border-gray-600 dark:border-gray-400 rounded-md dark:text-white text-black transition-colors duration-300" />
-                            <Linkedin className="w-6 h-6 p-1 border-[0.5px] border-gray-600 dark:border-gray-400 rounded-md dark:text-white text-black transition-colors duration-300" />
+                            <Facebook className="w-6 h-6 p-1 border-[0.5px] border-gray-600 dark:border-gray-400 rounded-md dark:text-white text-black transition-colors duration-300 hover:bg-white/100 dark:hover:bg-black/100" />
+                            <Globe className="w-6 h-6 p-1 border-[0.5px] border-gray-600 dark:border-gray-400 rounded-md dark:text-white text-black transition-colors duration-300 hover:bg-white/100 dark:hover:bg-black/100" />
+                            <Linkedin className="w-6 h-6 p-1 border-[0.5px] border-gray-600 dark:border-gray-400 rounded-md dark:text-white text-black transition-colors duration-300 hover:bg-white/100 dark:hover:bg-black/100" />
                         </div>
                     </div>
                 </div>
