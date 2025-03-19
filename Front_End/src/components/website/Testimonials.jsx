@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-export const SectionSeven = () => {
+export const Testimonials = () => {
 
     const testimonials = [
         {

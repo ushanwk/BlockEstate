@@ -4,8 +4,8 @@ import {SectionTwo} from "./SectionTwo.jsx";
 import {SectionThree} from "./SectionThree.jsx";
 import {SectionFour} from "./SectionFour.jsx";
 import {SectionFive} from "./SectionFive.jsx";
-import {SectionSix} from "./SectionSix.jsx";
-import {SectionSeven} from "./SectionSeven.jsx";
+import {Agencies} from "../../../components/website/Agencies.jsx";
+import {Testimonials} from "../../../components/website/Testimonials.jsx";
 
 export const HomePage = () => {
 
@@ -17,8 +17,8 @@ export const HomePage = () => {
             <SectionThree />
             <SectionFour />
             <SectionFive />
-            <SectionSix />
-            <SectionSeven />
+            <Agencies />
+            <Testimonials />
         </main>
     )
 }

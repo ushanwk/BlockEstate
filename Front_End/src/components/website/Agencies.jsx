@@ -1,7 +1,7 @@
-import AgencyOne from '../../../assets/images/samples/AgencyOne.png'
-import AgencyTwo from '../../../assets/images/samples/AgencyTwo.png'
+import AgencyOne from '../../assets/images/samples/AgencyOne.png'
+import AgencyTwo from '../../assets/images/samples/AgencyTwo.png'
 
-export const SectionSix = () => {
+export const Agencies = () => {
     return (
         <section className="py-20 flex flex-col items-center justify-center px-[25px] sm:px-[30px] md:px-[60px] lg:px-[100px] xl:px-[200px] border-t-1 border-gray-200 dark:border-gray-700">
             <h1 className="font-light drop-shadow-md text-[20px] sm:text-[30px] md:text-[30px] lg:text-[35px] text-black dark:text-white text-center">Our Top Real Estate Agencies</h1>
