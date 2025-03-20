@@ -20,12 +20,12 @@ export const ContactPage = () => {
                 <div className="max-w-[1350px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
 
                     <div>
-                        <h1 className="text-[25px] md:text-[30px] font-light text-center md:text-left dark:text-white">Contact Us</h1>
+                        <h1 className="text-[25px] md:text-[30px] font-light text-center md:text-left dark:text-white mt-8">Contact Us</h1>
                         <p className="text-[#999999] text-[16px] font-light">We're here to assist you anytime</p>
 
                         <div className="mt-8 space-y-6">
                             <p className="text-[#999999] text-[14px] mb-10 font-light">
-                                Have questions or <span className="text-black">need assistance?</span>  We're here to help! Reach out to us for any inquiries about donations, charity partnerships, or general support. Our team is <span className="text-black">ready to assist you</span> with the best solutions.
+                                Have questions or <span className="text-black dark:text-white">need assistance?</span>  We're here to help! Reach out to us for any inquiries about donations, charity partnerships, or general support. Our team is <span className="text-black dark:text-white">ready to assist you</span> with the best solutions.
                             </p>
 
                             <div className="flex flex-col items-center md:items-start pb-5">
@@ -35,7 +35,7 @@ export const ContactPage = () => {
                                         h-auto" />
                                         <div>
                                             <p className="text-[12px] text-[#999999] font-light">Contact Number</p>
-                                            <p className="font-[15px] font-regular">(+94) 71 4742 066</p>
+                                            <p className="font-[15px] font-regular dark:text-white">(+94) 71 4742 066</p>
                                         </div>
                                     </div>
 
@@ -43,7 +43,7 @@ export const ContactPage = () => {
                                         <img src={Email} alt="email" className="w-[40px] h-auto" />
                                         <div>
                                             <p className="text-[12px] text-[#999999] font-light">Email</p>
-                                            <p className="font-[15px] font-regular">Blockestate.info@gmail.com</p>
+                                            <p className="font-[15px] font-regular dark:text-white">Blockestate.info@gmail.com</p>
                                         </div>
                                     </div>
 
@@ -51,7 +51,7 @@ export const ContactPage = () => {
                                         <img src={Location} alt="location" className="w-[40px] h-auto" />
                                         <div>
                                             <p className="text-[12px] text-[#999999] font-light">Location</p>
-                                            <p className="font-[15px] font-regular">Bosewell place, Colombo 06, Srilanka</p>
+                                            <p className="font-[15px] font-regular dark:text-white">Bosewell place, Colombo 06, Srilanka</p>
                                         </div>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@ export const ContactPage = () => {
 
                             <div className="border-t py-8 border-[#999999] w-full flex items-center md:items-start">
                                 <div className="w-full">
-                                    <h3 className="text-[14px] font-medium">Business Hours</h3>
+                                    <h3 className="text-[14px] font-medium dark:text-white">Business Hours</h3>
                                     <div className="mt-2 space-y-1">
                                         <p className="text-[12px] text-[#999999]">Monday to Friday: 9 AM – 6 PM</p>
                                         <p className="text-[12px] text-[#999999]">Saturday: 10 AM – 2 PM</p>
@@ -67,7 +67,7 @@ export const ContactPage = () => {
                                     </div>
                                 </div>
                                 <div className="w-full">
-                                    <h3 className="text-[14px] font-medium">Support Policy</h3>
+                                    <h3 className="text-[14px] font-medium dark:text-white">Support Policy</h3>
                                     <div className="mt-2 space-y-1">
                                         <p className="text-[12px] text-[#999999]">
                                             We aim to respond to all inquiries <br/> within 24 hours. For urgent <br/> matters, please call us directly
@@ -80,7 +80,7 @@ export const ContactPage = () => {
                     </div>
 
 
-                    <div className="bg-white p-12 rounded-[5px] shadow-lg">
+                    <div className="bg-white dark:bg-[var(--color-dark-bg-primary)] p-12 rounded-[5px] shadow-lg">
                         <h2 className="text-[25px] md:text-[30px] font-light text-center md:text-left dark:text-white">Get in touch</h2>
                         <p className="text-[#999999] text-[16px] font-light">Drop us a message today!</p>
 
@@ -97,7 +97,7 @@ export const ContactPage = () => {
 
                             <TextField label="Email" />
 
-                            <TextField label="First Name" />
+                            <TextField label="Message" />
 
                             <div className="mt-6">
                                 <Button children="Send Message"/>
