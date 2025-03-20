@@ -5,6 +5,7 @@ import {AboutPage} from "../pages/website/aboutpage/AboutPage.jsx";
 import {AuthLayout} from "../layouts/AuthLayout.jsx";
 import {LoginPage} from "../pages/auth/LoginPage.jsx";
 import {RegisterTypePage} from "../pages/auth/RegisterTypePage.jsx";
+import {ContactPage} from "../pages/website/contactpage/ContactPage.jsx";
 
 export const Index = () => {
     return (
@@ -14,6 +15,7 @@ export const Index = () => {
                 <Route path="/" element={<WebsiteLayout />}>
                     <Route index element={<HomePage />} />
                     <Route path="about" element={<AboutPage />} />
+                    <Route path="contact" element={<ContactPage />} />
                 </Route>
 
                 {/* Auth Routes */}

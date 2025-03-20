@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "../common/ThemeToggle.jsx";
-import LogoBarWhite from "../../assets/icons/LogoBarWhite.png";
-import LogoBarColor from "../../assets/icons/LogoBarColor.png";
+import LogoBarWhite from "../../assets/icons/common/LogoBarWhite.png";
+import LogoBarColor from "../../assets/icons/common/LogoBarColor.png";
 import { Button } from "../common/Button.jsx";
 
 export const Header = () => {

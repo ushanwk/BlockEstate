@@ -1,10 +1,10 @@
-import HeartWhite from '../../assets/icons/HeartWhite.png'
-import MaximizeWhite from '../../assets/icons/MaximizeWhite.png'
+import HeartWhite from '../../assets/icons/website/homepage/HeartWhite.png'
+import MaximizeWhite from '../../assets/icons/website/homepage/MaximizeWhite.png'
 import { Paperclip } from "lucide-react";
-import House from '../../assets/icons/House.png'
-import Room from '../../assets/icons/Rooms.png'
-import Garage from '../../assets/icons/Garage.png'
-import Size from '../../assets/icons/Size.png'
+import House from '../../assets/icons/website/homepage/House.png'
+import Room from '../../assets/icons/website/homepage/Rooms.png'
+import Garage from '../../assets/icons/website/homepage/Garage.png'
+import Size from '../../assets/icons/website/homepage/Size.png'
 
 
 

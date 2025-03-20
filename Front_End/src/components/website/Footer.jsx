@@ -1,8 +1,8 @@
-import LogoBarColor from "../../assets/icons/LogoBarColor.png";
-import FBIcon from "../../assets/icons/FBIcon.png";
-import InstaIcon from "../../assets/icons/InstaIcon.png";
-import XICon from "../../assets/icons/XICon.png";
-import LinkedIcon from "../../assets/icons/LinkedIcon.png";
+import LogoBarColor from "../../assets/icons/common/LogoBarColor.png";
+import FBIcon from "../../assets/icons/common/FBIcon.png";
+import InstaIcon from "../../assets/icons/common/InstaIcon.png";
+import XICon from "../../assets/icons/common/XIcon.png";
+import LinkedIcon from "../../assets/icons/common/LinkedIcon.png";
 
 export const Footer = () => {
     return (

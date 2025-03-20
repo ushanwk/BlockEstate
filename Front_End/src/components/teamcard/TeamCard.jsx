@@ -1,7 +1,7 @@
 import { useState } from "react";
-import FbIconColor from "../../assets/icons/FBIconColor.png";
-import WebIconColor from "../../assets/icons/WebIconColor.png";
-import LinkedInIconColor from "../../assets/icons/LinkedInIconColor.png";
+import FbIconColor from "../../assets/icons/common/FBIconColor.png";
+import WebIconColor from "../../assets/icons/common/WebIconColor.png";
+import LinkedInIconColor from "../../assets/icons/common/LinkedInIconColor.png";
 import { Facebook, Globe, Linkedin } from "lucide-react";
 
 export const TeamCard = ({ member }) => {

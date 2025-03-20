@@ -1,4 +1,4 @@
-import LogoBarColor from '../../assets/icons/LogoBarColor.png'
+import LogoBarColor from '../../assets/icons/common/LogoBarColor.png'
 import {TextField} from "../../components/common/TextField.jsx";
 
 export const CommonAuth = ({section}) => {
