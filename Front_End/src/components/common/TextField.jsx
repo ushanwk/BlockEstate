@@ -13,7 +13,7 @@ export const TextField = ({ label, placeholder, value, onChange}) => {
                 value={value}
                 onChange={onChange}
                 placeholder={placeholder}
-                className="w-full p-2 text-[14px] rounded-[5px] outline-none transition duration-300 ease-out
+                className="w-full p-2 text-[12px] rounded-[5px] outline-none transition duration-300 ease-out
                 dark:bg-transparent dark:text-[#ffffff] border dark:border-[#5D5D65]
                 border-[#D9D9D9] dark:focus:border-[#0274F9] focus:border-[#0274F9] dark:font-extralight"
             />

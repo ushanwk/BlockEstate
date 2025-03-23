@@ -35,7 +35,7 @@ export const ContactPage = () => {
                                         h-auto" />
                                         <div>
                                             <p className="text-[12px] text-[#999999] font-light">Contact Number</p>
-                                            <p className="font-[15px] font-regular dark:text-white">(+94) 71 4742 066</p>
+                                            <p className="font-[15px] font-light dark:text-white">(+94) 71 4742 066</p>
                                         </div>
                                     </div>
 
@@ -43,7 +43,7 @@ export const ContactPage = () => {
                                         <img src={Email} alt="email" className="w-[40px] h-auto" />
                                         <div>
                                             <p className="text-[12px] text-[#999999] font-light">Email</p>
-                                            <p className="font-[15px] font-regular dark:text-white">Blockestate.info@gmail.com</p>
+                                            <p className="font-[15px] font-light dark:text-white">Blockestate.info@gmail.com</p>
                                         </div>
                                     </div>
 
@@ -51,7 +51,7 @@ export const ContactPage = () => {
                                         <img src={Location} alt="location" className="w-[40px] h-auto" />
                                         <div>
                                             <p className="text-[12px] text-[#999999] font-light">Location</p>
-                                            <p className="font-[15px] font-regular dark:text-white">Bosewell place, Colombo 06, Srilanka</p>
+                                            <p className="font-[15px] font-light dark:text-white">Bosewell place, Colombo 06, Srilanka</p>
                                         </div>
                                     </div>
                                 </div>

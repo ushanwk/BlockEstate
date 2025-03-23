@@ -4,8 +4,10 @@ import {HomePage} from "../pages/website/homepage/HomePage.jsx";
 import {AboutPage} from "../pages/website/aboutpage/AboutPage.jsx";
 import {AuthLayout} from "../layouts/AuthLayout.jsx";
 import {LoginPage} from "../pages/auth/LoginPage.jsx";
-import {RegisterTypePage} from "../pages/auth/RegisterTypePage.jsx";
+import {InvestorRegisterPage} from "../pages/auth/InvestorRegisterPage.jsx";
 import {ContactPage} from "../pages/website/contactpage/ContactPage.jsx";
+import {AgencyRegisterPage} from "../pages/auth/AgencyRegisterPage.jsx";
+import {TypeSelect} from "../pages/auth/TypeSelect.jsx";
 
 export const Index = () => {
     return (
@@ -21,7 +23,9 @@ export const Index = () => {
                 {/* Auth Routes */}
                 <Route path="/auth" element={<AuthLayout />}>
                     <Route index element={<LoginPage />} />
-                    <Route path="type" element={<RegisterTypePage />} />
+                    <Route path="type" element={<TypeSelect />} />
+                    <Route path="investor-register" element={<InvestorRegisterPage />} />
+                    <Route path="agency-register" element={<AgencyRegisterPage />} />
                 </Route>
             </Routes>
         </BrowserRouter>

@@ -10,7 +10,7 @@ const teamMembers = [
         role: "Founder & CEO",
         image: CeoImage,
         description:
-            "Tharushi is the visionary behind BlockEstate, dedicated to bridging the gap between donors and charities. Her leadership drives innovation, transparency, and impactful giving.",
+            "Ushan is the visionary behind BlockEstate, dedicated to bridging the gap between donors and charities. Her leadership drives innovation, transparency, and impactful giving.",
         social: [
             { platform: "facebook", link: "#" },
             { platform: "twitter", link: "#" },
