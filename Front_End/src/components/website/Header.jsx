@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { useLocation, Link } from "react-router-dom";
 import ThemeToggle from "../common/ThemeToggle.jsx";
 import LogoBarWhite from "../../assets/icons/common/LogoBarWhite.png";
 import LogoBarColor from "../../assets/icons/common/LogoBarColor.png";
 import { Button } from "../common/Button.jsx";
+import {useNavigate} from "react-router-dom";
 
 export const Header = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     // Detect scroll position and update state
     useEffect(() => {
@@ -40,19 +44,32 @@ export const Header = () => {
                     alt="logo"
                 />
 
-
-
                 {/* Nav Links - Hidden on Mobile */}
                 <nav className="hidden md:flex items-center gap-8">
                     <ul className="flex gap-8 list-none">
-                        {["Home", "About", "Properties", "Contact"].map((item) => (
-                            <li
-                                key={item}
-                                className={`text-[14px] cursor-pointer relative after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-[2px] after:bg-[var(--color-primary)] hover:text-[var(--color-primary)] after:transition-all after:duration-300 hover:after:w-full ${
-                                    isScrolled ? "text-black dark:text-white" : "text-white"
-                                }`}
-                            >
-                                {item}
+                        {[
+                            { name: "Home", path: "/" },
+                            { name: "About", path: "/about" },
+                            { name: "Properties", path: "/properties" },
+                            { name: "Contact", path: "/contact" }
+                        ].map(({ name, path }) => (
+                            <li key={name} className="relative">
+                                <Link
+                                    to={path}
+                                    className={`text-[14px] cursor-pointer relative 
+                                        after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] 
+                                        after:bg-white after:transition-all after:duration-300
+                                        hover:after:w-full hover:text-white 
+                                        ${
+                                        location.pathname === path
+                                            ? "after:w-full text-white"
+                                            : "after:w-0"
+                                    } 
+                                        ${isScrolled ? "text-black dark:text-white" : "text-white"}
+                                    `}
+                                >
+                                    {name}
+                                </Link>
                             </li>
                         ))}
                     </ul>
@@ -67,7 +84,10 @@ export const Header = () => {
                             className="w-10 h-10 rounded-full border-2 border-gray-400 cursor-pointer"
                         />
                     ) : (
-                        <Button children={"Get Started"} border={"border"} />
+                        <Button
+                            onclick={() => navigate("/auth")}
+                            children={"Get Started"} border={"border"}
+                        />
                     )}
                     <ThemeToggle />
                 </div>
@@ -94,18 +114,32 @@ export const Header = () => {
 
                     {/* Mobile Nav Links */}
                     <ul className="flex flex-col text-center gap-8 list-none transition-colors duration-300">
-                        {["Home", "About", "Properties", "Contact"].map((item) => (
-                            <li
-                                key={item}
-                                className={`cursor-pointer relative after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-[2px] after:bg-[var(--color-primary)] 
-                                            hover:text-[var(--color-primary)] after:transition-all after:duration-300 hover:after:w-full 
-                                            ${isScrolled ? "text-black dark:text-white" : "text-white"}`}
-                            >
-                                {item}
+                        {[
+                            { name: "Home", path: "/" },
+                            { name: "About", path: "/about" },
+                            { name: "Properties", path: "/properties" },
+                            { name: "Contact", path: "/contact" }
+                        ].map(({ name, path }) => (
+                            <li key={name} className="relative">
+                                <Link
+                                    to={path}
+                                    className={`text-[18px] cursor-pointer relative 
+                                        after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] 
+                                        after:bg-white after:transition-all after:duration-300
+                                        hover:after:w-full hover:text-white 
+                                        ${
+                                        location.pathname === path
+                                            ? "after:w-full text-white"
+                                            : "after:w-0"
+                                    } 
+                                    `}
+                                    onClick={() => setMenuOpen(false)} // Close menu after clicking
+                                >
+                                    {name}
+                                </Link>
                             </li>
                         ))}
                     </ul>
-
 
                     {/* Button OR Profile Picture & Theme Toggle in Mobile Menu */}
                     {isLoggedIn ? (
@@ -115,7 +149,10 @@ export const Header = () => {
                             className="w-20 h-20 rounded-full border-2 border-white cursor-pointer"
                         />
                     ) : (
-                        <Button children={"Get Started"} border={"border"} bgColor={"#5F8DBA"} />
+                        <Button
+                            onclick={() => navigate("/auth")}
+                            children={"Get Started"} border={"border"}
+                        />
                     )}
 
                     <ThemeToggle />

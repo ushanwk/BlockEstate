@@ -16,7 +16,7 @@ export const CommonAuth = ({section, image, topic, text}) => {
             <section className='p-[15px] w-full hidden lg:block relative'>
                 <div className="h-full rounded-[10px] w-full relative">
                     <img src={image} className="h-full object-cover rounded-[10px] w-full" alt="Login"/>
-                    <div className="absolute inset-0 bg-[#003F82]/40 flex flex-col items-center justify-end p-8 text-white rounded-[10px]">
+                    <div className="absolute inset-0 bg-[#003F82]/40 dark:bg-black/50 flex flex-col items-center justify-end p-8 text-white rounded-[10px]">
                         <h2 className="text-[26px] font-light text-center max-w-[350px]">{topic}</h2>
                         <p className="text-[14px] font-light text-center mt-2 max-w-[400px]">{text}</p>
                     </div>

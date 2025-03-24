@@ -1,7 +1,7 @@
-export const Button = ({ children, hoverColor, border, onClick, large }) => {
+export const Button = ({ children, hoverColor, border, large, onclick }) => {
     return (
         <button
-            onClick={onClick}
+            onClick={onclick}
             className={`font-medium w-full px-4 py-2 text-white text-[12px] rounded-[5px] transition duration-300 ease-out bg-[var(--color-primary)] ${
                 border ? "border-1 border-white" : ""
             }

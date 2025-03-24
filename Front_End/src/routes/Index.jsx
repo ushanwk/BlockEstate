@@ -18,6 +18,7 @@ export const Index = () => {
                     <Route index element={<HomePage />} />
                     <Route path="about" element={<AboutPage />} />
                     <Route path="contact" element={<ContactPage />} />
+                    <Route path="properties" element={<ContactPage />} />
                 </Route>
 
                 {/* Auth Routes */}
