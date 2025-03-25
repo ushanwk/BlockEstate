@@ -16,7 +16,7 @@ export const ForgetPasswordPage = () => {
                                 </div>
 
                                 <div className="w-full mt-[45px]">
-                                    <TextField label="Enter Email" placeholder="Enter your register email" />
+                                    <TextField label="Registered Email" placeholder="Enter your register email" />
                                 </div>
 
                                 <div className="mt-16">

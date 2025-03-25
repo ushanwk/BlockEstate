@@ -45,7 +45,7 @@ export const LoginPage = () => {
                                    <div className="mt-6">
                                        <PasswordField placeholder="Enter your password" label="Password" />
                                        <div className="mt-[-10px] text-right">
-                                           <a href="#" className="text-[10px] text-black/60 dark:text-white/50 hover:text-blue-500 cursor-pointer">Forgot Password?</a>
+                                           <a href="/auth/forget" className="text-[10px] text-black/60 dark:text-white/50 hover:text-blue-500 cursor-pointer">Forgot Password?</a>
                                        </div>
                                    </div>
                                </div>

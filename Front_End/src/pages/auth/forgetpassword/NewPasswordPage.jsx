@@ -1,5 +1,4 @@
 import NewPasswordBg from "../../../assets/images/auth/newpasswordpage/NewPAsswordBg.png";
-import {TextField} from "../../../components/common/TextField.jsx";
 import {Button} from "../../../components/common/Button.jsx";
 import {CommonAuth} from "../CommonAuth.jsx";
 import {PasswordField} from "../../../components/common/PasswordField.jsx";
