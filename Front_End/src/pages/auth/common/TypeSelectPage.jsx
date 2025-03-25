@@ -1,15 +1,15 @@
-import TypeSelectBg from "../../assets/images/auth/typeselectregisterpage/TypeSelectBg.png";
-import {CommonAuth} from "./CommonAuth.jsx";
-import Agency from "../../assets/images/auth/typeselectregisterpage/Agency.png";
-import Investor from "../../assets/images/auth/typeselectregisterpage/Investor.png";
+import TypeSelectBg from "../../../assets/images/auth/typeselectregisterpage/TypeSelectBg.png";
+import {CommonAuth} from "../CommonAuth.jsx";
+import Agency from "../../../assets/images/auth/typeselectregisterpage/Agency.png";
+import Investor from "../../../assets/images/auth/typeselectregisterpage/Investor.png";
 import {useNavigate} from "react-router-dom";
 
-export const TypeSelect = () => {
+export const TypeSelectPage = () => {
 
     const navigate = useNavigate();
 
     return (
-        <CommonAuth image={TypeSelectBg} topic="Revolutionizing Real Estate with Blockchain" text="A secure, transparent, and innovative platform to invest in real estate and earn passive income."
+        <CommonAuth image={TypeSelectBg} topic="Revolutionizing Real Estate with Blockchain" text="A secure, transparent, and innovative platform to invest in real estate and earn passive income"
                     section={
                         <div className="mt-16 flex items-center justify-center">
                             <div className="bg-white dark:bg-[var(--color-dark-bg-secondary)] p-8 rounded-lg w-full">

@@ -7,7 +7,7 @@ export const PasswordField = ({ label, placeholder, value, onChange }) => {
     return (
         <div className="mb-4 relative">
             {/* Label */}
-            <label className="block text-[14px] mb-2 text-left dark:text-[#ffffff] dark:font-extralight">
+            <label className="block text-[13px] mb-2 text-left dark:text-[#ffffff] dark:font-extralight">
                 {label}
             </label>
 

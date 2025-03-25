@@ -1,15 +1,15 @@
-import {CommonAuth} from "./CommonAuth.jsx";
-import LoginBg from "../../assets/images/auth/loginpage/LoginBg.png"
-import {PasswordField} from "../../components/common/PasswordField.jsx";
-import {TextField} from "../../components/common/TextField.jsx";
-import AppleIcon from "../../assets/icons/auth/AppleIcon.png";
-import GoogleIcon from "../../assets/icons/auth/GoogleIcon.png";
-import {Button} from "../../components/common/Button.jsx";
+import {CommonAuth} from "../CommonAuth.jsx";
+import LoginBg from "../../../assets/images/auth/loginpage/LoginBg.png"
+import {PasswordField} from "../../../components/common/PasswordField.jsx";
+import {TextField} from "../../../components/common/TextField.jsx";
+import AppleIcon from "../../../assets/icons/auth/AppleIcon.png";
+import GoogleIcon from "../../../assets/icons/auth/GoogleIcon.png";
+import {Button} from "../../../components/common/Button.jsx";
 
 
 export const LoginPage = () => {
     return (
-       <CommonAuth image={LoginBg} topic="Revolutionizing Real Estate with Blockchain" text="A secure, transparent, and innovative platform to invest in real estate and earn passive income."
+       <CommonAuth image={LoginBg} topic="Revolutionizing Real Estate with Blockchain" text="A secure, transparent, and innovative platform to invest in real estate and earn passive income"
                    section={
                        <div className="mt-8 flex items-center justify-center">
                            <div className="bg-white dark:bg-[var(--color-dark-bg-secondary)] p-8 rounded-lg w-full">

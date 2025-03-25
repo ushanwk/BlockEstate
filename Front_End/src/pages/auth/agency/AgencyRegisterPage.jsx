@@ -1,12 +1,11 @@
-import {CommonAuth} from "./CommonAuth.jsx";
-import RegisterBg from "../../assets/images/auth/investorregisterpage/RegisterBg.png";
-import GoogleIcon from "../../assets/icons/auth/GoogleIcon.png";
-import AppleIcon from "../../assets/icons/auth/AppleIcon.png";
-import {TextField} from "../../components/common/TextField.jsx";
-import {PasswordField} from "../../components/common/PasswordField.jsx";
-import {Button} from "../../components/common/Button.jsx";
+import {CommonAuth} from "../CommonAuth.jsx";
+import RegisterBg from "../../../assets/images/auth/investorregisterpage/RegisterBg.png";
+import GoogleIcon from "../../../assets/icons/auth/GoogleIcon.png";
+import AppleIcon from "../../../assets/icons/auth/AppleIcon.png";
+import {TextField} from "../../../components/common/TextField.jsx";
+import {Button} from "../../../components/common/Button.jsx";
 
-export const InvestorRegisterPage = () => {
+export const AgencyRegisterPage = () => {
     return (
         <CommonAuth image={RegisterBg} topic="Join a Trusted Real Estate Community" text="A secure, transparent, and innovative platform to invest in real estate and earn passive income"
                     section={
@@ -39,19 +38,16 @@ export const InvestorRegisterPage = () => {
                                 <div className="mt-8">
                                     <div className="flex gap-4">
                                         <div className="w-full">
-                                            <TextField placeholder="Enter first name" label="First Name" />
-                                        </div>
-                                        <div className="w-full">
-                                            <TextField placeholder="Enter last name" label="Last Name" />
+                                            <TextField placeholder="Enter agency name" label="Agency Name" />
                                         </div>
                                     </div>
 
                                     <div className="flex gap-4 mt-2">
                                         <div className="w-full">
-                                            <TextField placeholder="Enter NIC" label="NIC Number" />
+                                            <TextField placeholder="Enter country" label="Country" />
                                         </div>
                                         <div className="w-full">
-                                            <TextField placeholder="Enter address" label="Address" />
+                                            <TextField placeholder="Enter contact person" label="Contact Person" />
                                         </div>
                                     </div>
 
