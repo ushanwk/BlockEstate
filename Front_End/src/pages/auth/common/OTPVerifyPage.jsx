@@ -1,4 +1,4 @@
-import OtpBg from "../../../assets/images/auth/otppage/OtpBg.png";
+import OtpBg from "../../../assets/images/auth/common/OtpBg.png";
 import {CommonAuth} from "../CommonAuth.jsx";
 import {Button} from "../../../components/common/Button.jsx";
 import {OTPField} from "../../../components/common/OTPField.jsx";

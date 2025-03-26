@@ -1,5 +1,5 @@
 import {CommonAuth} from "../CommonAuth.jsx";
-import LoginBg from "../../../assets/images/auth/loginpage/LoginBg.png"
+import LoginBg from "../../../assets/images/auth/common/LoginBg.png"
 import {PasswordField} from "../../../components/common/PasswordField.jsx";
 import {TextField} from "../../../components/common/TextField.jsx";
 import AppleIcon from "../../../assets/icons/auth/AppleIcon.png";

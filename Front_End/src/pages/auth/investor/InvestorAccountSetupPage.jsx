@@ -1,4 +1,4 @@
-import InvestorSetupBg from "../../../assets/images/auth/investoraccountsetuppage/InvestorAccountSetupBg.png";
+import InvestorSetupBg from "../../../assets/images/auth/investor/InvestorAccountSetupBg.png";
 import {TextField} from "../../../components/common/TextField.jsx";
 import {Button} from "../../../components/common/Button.jsx";
 import {CommonAuth} from "../CommonAuth.jsx";

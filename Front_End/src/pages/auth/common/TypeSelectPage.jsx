@@ -1,7 +1,7 @@
-import TypeSelectBg from "../../../assets/images/auth/typeselectregisterpage/TypeSelectBg.png";
+import TypeSelectBg from "../../../assets/images/auth/common/TypeSelectBg.png";
 import {CommonAuth} from "../CommonAuth.jsx";
-import Agency from "../../../assets/images/auth/typeselectregisterpage/Agency.png";
-import Investor from "../../../assets/images/auth/typeselectregisterpage/Investor.png";
+import Agency from "../../../assets/images/auth/common/Agency.png";
+import Investor from "../../../assets/images/auth/common/Investor.png";
 import {useNavigate} from "react-router-dom";
 
 export const TypeSelectPage = () => {

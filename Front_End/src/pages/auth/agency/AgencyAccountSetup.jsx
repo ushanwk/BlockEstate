@@ -1,7 +1,7 @@
 import {TextField} from "../../../components/common/TextField.jsx";
 import {Button} from "../../../components/common/Button.jsx";
 import {CommonAuth} from "../CommonAuth.jsx";
-import AgencySetupBg from "../../../assets/images/auth/agencysetuppage/AgencySetupBg.png";
+import AgencySetupBg from "../../../assets/images/auth/agency/AgencySetupBg.png";
 import {PasswordField} from "../../../components/common/PasswordField.jsx";
 import {ImageUploadField} from "../../../components/common/ImageUploadField.jsx";
 

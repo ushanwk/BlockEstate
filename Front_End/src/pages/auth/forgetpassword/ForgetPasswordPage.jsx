@@ -1,4 +1,4 @@
-import ForgetPasswordBg from "../../../assets/images/auth/forgetpasswordpage/FogetPasswordBg.png";
+import ForgetPasswordBg from "../../../assets/images/auth/common/FogetPasswordBg.png";
 import {OTPField} from "../../../components/common/OTPField.jsx";
 import {Button} from "../../../components/common/Button.jsx";
 import {CommonAuth} from "../CommonAuth.jsx";

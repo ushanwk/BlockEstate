@@ -1,5 +1,5 @@
 import {CommonAuth} from "../CommonAuth.jsx";
-import RegisterBg from "../../../assets/images/auth/investorregisterpage/RegisterBg.png";
+import RegisterBg from "../../../assets/images/auth/investor/RegisterBg.png";
 import GoogleIcon from "../../../assets/icons/auth/GoogleIcon.png";
 import AppleIcon from "../../../assets/icons/auth/AppleIcon.png";
 import {TextField} from "../../../components/common/TextField.jsx";

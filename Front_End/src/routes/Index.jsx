@@ -14,6 +14,7 @@ import {NewPasswordPage} from "../pages/auth/forgetpassword/NewPasswordPage.jsx"
 import {InvestorAccountSetupPage} from "../pages/auth/investor/InvestorAccountSetupPage.jsx";
 import {AgencyAccountSetup} from "../pages/auth/agency/AgencyAccountSetup.jsx";
 import {AgencyApprovePage} from "../pages/auth/agency/AgencyApprovePage.jsx";
+import {AdminDashboardLayout} from "../layouts/AdminDashboardLayout.jsx";
 
 export const Index = () => {
     return (
@@ -42,6 +43,11 @@ export const Index = () => {
                     <Route path="agency-register" element={<AgencyRegisterPage />} />
                     <Route path="agency-setup" element={<AgencyAccountSetup />} />
                     <Route path="agency-approve" element={<AgencyApprovePage />} />
+                </Route>
+
+                {/* Admin Routes */}
+                <Route path="/admin" element={<AdminDashboardLayout />}>
+
                 </Route>
             </Routes>
         </BrowserRouter>
