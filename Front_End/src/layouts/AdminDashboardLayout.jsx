@@ -1,47 +1,49 @@
 import ColorLogoBar from "../assets/icons/common/LogoBarColor.png";
 import {useEffect, useState} from "react";
-import DashboardBlack from "../assets/icons/admin/DasboardBlack.png";
-import DashboardBlue from "../assets/icons/admin/DasboardBlue.png";
-import DashboardWhite from "../assets/icons/admin/DashboardWhite.png";
-import UserBlack from "../assets/icons/admin/UserBlack.png";
-import UserBlue from "../assets/icons/admin/UserBlue.png";
-import UserWhite from "../assets/icons/admin/UserWhite.png";
-import PropertyBlack from "../assets/icons/admin/PropertyBlack.png";
-import PropertyBlue from "../assets/icons/admin/PropertyBlue.png";
-import PropertyWhite from "../assets/icons/admin/PropertyWhite.png";
-import AgencyBlack from "../assets/icons/admin/AgencyBlack.png";
-import AgencyBlue from "../assets/icons/admin/AgencyBlue.png";
-import AgencyWhite from "../assets/icons/admin/AgencyWhite.png";
-import ResaleBlack from "../assets/icons/admin/ResaleBlack.png";
-import ResaleBlue from "../assets/icons/admin/ResaleBlue.png";
-import ResaleWhite from "../assets/icons/admin/ResaleWhite.png";
-import TransactionBlack from "../assets/icons/admin/TransactionBlack.png";
-import TransactionBlue from "../assets/icons/admin/TransactionBlue.png";
-import TransactionWhite from "../assets/icons/admin/TransactionWhite.png";
-import SponsorBlack from "../assets/icons/admin/SponsoredBlack.png";
-import SponsorBlue from "../assets/icons/admin/SponsoredBlue.png";
-import SponsorWhite from "../assets/icons/admin/SponsoredWhite.png";
-import AnalyticsBlack from "../assets/icons/admin/AnalyticsBlack.png";
-import AnalyticsBlue from "../assets/icons/admin/AnalyticsBlue.png";
-import AnalyticsWhite from "../assets/icons/admin/AnalyticsWhite.png";
-import SettingsBlack from "../assets/icons/admin/SettingBlack.png";
-import SettingsBlue from "../assets/icons/admin/SettingBlue.png";
-import SettingWhite from "../assets/icons/admin/SettingWhite.png";
-import ProfileBlack from "../assets/icons/admin/ProfileBlack.png";
-import ProfileBlue from "../assets/icons/admin/ProfileBlue.png";
-import ProfileWhite from "../assets/icons/admin/ProfileWhite.png";
-import {Outlet} from "react-router-dom";
+import DashboardBlack from "../assets/icons/admin/common/DasboardBlack.png";
+import DashboardBlue from "../assets/icons/admin/common/DasboardBlue.png";
+import DashboardWhite from "../assets/icons/admin/common/DashboardWhite.png";
+import UserBlack from "../assets/icons/admin/common/UserBlack.png";
+import UserBlue from "../assets/icons/admin/common/UserBlue.png";
+import UserWhite from "../assets/icons/admin/common/UserWhite.png";
+import PropertyBlack from "../assets/icons/admin/common/PropertyBlack.png";
+import PropertyBlue from "../assets/icons/admin/common/PropertyBlue.png";
+import PropertyWhite from "../assets/icons/admin/common/PropertyWhite.png";
+import AgencyBlack from "../assets/icons/admin/common/AgencyBlack.png";
+import AgencyBlue from "../assets/icons/admin/common/AgencyBlue.png";
+import AgencyWhite from "../assets/icons/admin/common/AgencyWhite.png";
+import ResaleBlack from "../assets/icons/admin/common/ResaleBlack.png";
+import ResaleBlue from "../assets/icons/admin/common/ResaleBlue.png";
+import ResaleWhite from "../assets/icons/admin/common/ResaleWhite.png";
+import TransactionBlack from "../assets/icons/admin/common/TransactionBlack.png";
+import TransactionBlue from "../assets/icons/admin/common/TransactionBlue.png";
+import TransactionWhite from "../assets/icons/admin/common/TransactionWhite.png";
+import SponsorBlack from "../assets/icons/admin/common/SponsoredBlack.png";
+import SponsorBlue from "../assets/icons/admin/common/SponsoredBlue.png";
+import SponsorWhite from "../assets/icons/admin/common/SponsoredWhite.png";
+import AnalyticsBlack from "../assets/icons/admin/common/AnalyticsBlack.png";
+import AnalyticsBlue from "../assets/icons/admin/common/AnalyticsBlue.png";
+import AnalyticsWhite from "../assets/icons/admin/common/AnalyticsWhite.png";
+import SettingsBlack from "../assets/icons/admin/common/SettingBlack.png";
+import SettingsBlue from "../assets/icons/admin/common/SettingBlue.png";
+import SettingWhite from "../assets/icons/admin/common/SettingWhite.png";
+import ProfileBlack from "../assets/icons/admin/common/ProfileBlack.png";
+import ProfileBlue from "../assets/icons/admin/common/ProfileBlue.png";
+import ProfileWhite from "../assets/icons/admin/common/ProfileWhite.png";
+import {Outlet, useNavigate} from "react-router-dom";
+import {X} from "lucide-react";
+import {Button} from "../components/common/Button.jsx";
 
 export const AdminDashboardLayout = () => {
 
     const [activeTab, setActiveTab] = useState("dashboard");
 
     const images = {
-        dashboard: 'src/assets/images/admin/DashboardBg.png',
-        user: 'src/assets/images/admin/UserBg.png',
-        property: 'src/assets/images/admin/PropertyBg.png',
-        agency: 'src/assets/images/admin/AgencyBg.png',
-        sponsored: 'src/assets/images/admin/SponseredBg.png',
+        dashboard: 'src/assets/images/admin/common/DashboardBg.png',
+        user: 'src/assets/images/admin/common/UserBg.png',
+        property: 'src/assets/images/admin/common/PropertyBg.png',
+        agency: 'src/assets/images/admin/common/AgencyBg.png',
+        sponsored: 'src/assets/images/admin/common/SponseredBg.png',
     };
 
 
@@ -69,12 +71,49 @@ export const AdminDashboardLayout = () => {
     // Time //////////////////////////////////////////////
 
 
+    const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+
+    // Detect screen size change
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 1440) {
+                setIsSidebarCollapsed(true);
+            } else {
+                setIsSidebarCollapsed(false);
+            }
+        };
+
+        window.addEventListener("resize", handleResize);
+        handleResize(); // Check initial screen size
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+
+    const navigate = useNavigate();
+
+    if(isSidebarCollapsed){
+        return (
+            <section className="w-[100vw] h-[100vh] bg-[var(--color-light-bg-secondary)] dark:bg-[var(--color-dark-bg-secondary)] flex justify-center items-center">
+                <div className="lg:w-[600px] sm:w-[500px] w-[80%] bg-white dark:bg-[var(--color-dark-bg-primary)] rounded-[10px] border border-[var(--color-primary)]/20 flex flex-col justify-center items-center text-center px-8 md:px-16 py-10">
+                    <div className="w-10 h-10 rounded-full bg-red-200 flex items-center justify-center mb-6">
+                        <X className="text-red-600" />
+                    </div>
+
+                    <p className="text-black dark:text-white mb-10">The admin dashboard is optimized for larger screens. Please access it from a desktop or a device with a resolution of 1440px or higher.</p>
+
+                    <a href="/" className='w-full'>
+                        <Button border="border" children="Log Out" />
+                    </a>
+                </div>
+            </section>
+        );
+    }
     return (
         <main className="w-[100vw] h-[100vh] flex bg-cover bg-center overflow-hidden">
             <div className="h-full w-[16%] min-w-[250px] bg-white dark:bg-[var(--color-dark-bg-primary)] flex flex-col  items-center py-10 px-6">
                 <img src={ColorLogoBar} alt="Color Logo" className="w-36" />
 
-                <div className="w-full flex flex-col gap-5 mt-24">
+                <div className="w-full flex flex-col gap-5 mt-36">
                     <div
                         className={`flex gap-[8px] items-center text-[14px] pl-3 w-full h-10 text-center rounded-md cursor-pointer 
                         ${activeTab === "dashboard" ? "bg-[var(--color-primary)]/10 border-1 border-[var(--color-primary)]" : "hover:bg-gray-100 dark:hover:bg-gray-800"}`}
@@ -99,7 +138,7 @@ export const AdminDashboardLayout = () => {
                 <div className="w-full flex flex-col gap-3 mt-2">
                     <div
                         className={`flex gap-[8px] items-center text-[14px] pl-3 w-full h-10 text-center rounded-md cursor-pointer 
-                        ${activeTab === "user" ? "bg-[var(--color-primary)]/10 border-1 border-[var(--color-primary)] " : "hover:bg-gray-100 dark:hover:bg-gray-800"}`}
+                        ${activeTab === "user" ? "bg-[var(--color-primary)]/10 border-1 border-[var(--color-primary)]" : "hover:bg-gray-100 dark:hover:bg-gray-800"}`}
                         onClick={() => setActiveTab("user")}
                     >
                         {/* Light Mode Image */}
@@ -276,7 +315,7 @@ export const AdminDashboardLayout = () => {
                              className={`w-[16px] pb-[1px] ${activeTab === "profile" ? "hidden" : "block dark:hidden"}`} />
 
                         {/* Dark Mode Image */}
-                        <img src={PropertyWhite} alt="profile White"
+                        <img src={ProfileWhite} alt="profile White"
                              className={`w-[16px] pb-[1px] ${activeTab === "profile" ? "hidden" : "hidden dark:block"}`} />
 
                         {/* Selected Tab Image (Blue) */}
@@ -292,7 +331,7 @@ export const AdminDashboardLayout = () => {
                 <Outlet />
             </div>
 
-            <div className="h-full w-[14%] min-w-[200px] bg-[var(--color-dark-bg-primary)]">
+            <div className="h-full w-[14%] min-w-[230px] bg-[var(--color-dark-bg-primary)]">
                 <div
                     className="w-full h-2/3 bg-cover flex flex-col items-center py-10"
                     style={{ backgroundImage: `url(${images[activeTab] || 'src/assets/images/admin/DashboardBg.png'})` }}
