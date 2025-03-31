@@ -30,20 +30,73 @@ import SettingWhite from "../assets/icons/admin/common/SettingWhite.png";
 import ProfileBlack from "../assets/icons/admin/common/ProfileBlack.png";
 import ProfileBlue from "../assets/icons/admin/common/ProfileBlue.png";
 import ProfileWhite from "../assets/icons/admin/common/ProfileWhite.png";
-import {Outlet, useNavigate} from "react-router-dom";
+import DashboardBg from "../assets/images/admin/common/DashboardBg.png";
+import UserBg from "../assets/images/admin/common/UserBg.png";
+import PropertyBg from "../assets/images/admin/common/PropertyBg.png";
+import AgencyBg from "../assets/images/admin/common/AgencyBg.png";
+import SponsoredBg from "../assets/images/admin/common/SponseredBg.png";
+import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {X} from "lucide-react";
 import {Button} from "../components/common/Button.jsx";
 
 export const AdminDashboardLayout = () => {
 
-    const [activeTab, setActiveTab] = useState("dashboard");
+    // Detect screen size change
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 1440) {
+                setIsSidebarCollapsed(true);
+            } else {
+                setIsSidebarCollapsed(false);
+            }
+        };
+
+        window.addEventListener("resize", handleResize);
+        handleResize(); // Check initial screen size
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+
+
+
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    // Determine active tab based on current route
+    const getActiveTab = () => {
+        const path = location.pathname;
+        if (path.endsWith('/admin')) return 'dashboard';
+        if (path.endsWith('/admin/user')) return 'user';
+        if (path.endsWith('/admin/property')) return 'property';
+        if (path.endsWith('/admin/agency')) return 'agency';
+        if (path.endsWith('/admin/resale')) return 'resale';
+        if (path.endsWith('/admin/transaction')) return 'transaction';
+        if (path.endsWith('/admin/sponsored')) return 'sponsored';
+        if (path.endsWith('/admin/analytic')) return 'analytic';
+        if (path.endsWith('/admin/setting')) return 'setting';
+        if (path.endsWith('/admin/profile')) return 'profile';
+        return 'dashboard';
+    };
+
+    const [activeTab, setActiveTab] = useState(getActiveTab());
+
+    // Update activeTab when route changes
+    useEffect(() => {
+        console.log(activeTab);
+        setActiveTab(getActiveTab());
+    }, [location.pathname]);
 
     const images = {
-        dashboard: 'src/assets/images/admin/common/DashboardBg.png',
-        user: 'src/assets/images/admin/common/UserBg.png',
-        property: 'src/assets/images/admin/common/PropertyBg.png',
-        agency: 'src/assets/images/admin/common/AgencyBg.png',
-        sponsored: 'src/assets/images/admin/common/SponseredBg.png',
+        dashboard: DashboardBg,
+        user: UserBg,
+        property: PropertyBg,
+        agency: AgencyBg,
+        resale: DashboardBg,
+        transaction: DashboardBg,
+        sponsored: SponsoredBg,
+        analytic: DashboardBg,
+        setting: DashboardBg,
+        profile: DashboardBg
     };
 
 
@@ -73,23 +126,6 @@ export const AdminDashboardLayout = () => {
 
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
-    // Detect screen size change
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth < 1440) {
-                setIsSidebarCollapsed(true);
-            } else {
-                setIsSidebarCollapsed(false);
-            }
-        };
-
-        window.addEventListener("resize", handleResize);
-        handleResize(); // Check initial screen size
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
-
-    const navigate = useNavigate();
 
     if(isSidebarCollapsed){
         return (
@@ -117,7 +153,7 @@ export const AdminDashboardLayout = () => {
                     <div
                         className={`flex gap-[8px] items-center text-[14px] pl-3 w-full h-10 text-center rounded-md cursor-pointer 
                         ${activeTab === "dashboard" ? "bg-[var(--color-primary)]/10 border-1 border-[var(--color-primary)]" : "hover:bg-gray-100 dark:hover:bg-gray-800"}`}
-                        onClick={() => setActiveTab("dashboard")}
+                        onClick={() => {navigate("/admin")}}
                     >
                         {/* Light Mode Image */}
                         <img src={DashboardBlack} alt="dashboard Black"
@@ -139,7 +175,7 @@ export const AdminDashboardLayout = () => {
                     <div
                         className={`flex gap-[8px] items-center text-[14px] pl-3 w-full h-10 text-center rounded-md cursor-pointer 
                         ${activeTab === "user" ? "bg-[var(--color-primary)]/10 border-1 border-[var(--color-primary)]" : "hover:bg-gray-100 dark:hover:bg-gray-800"}`}
-                        onClick={() => setActiveTab("user")}
+                        onClick={() => {navigate("/admin/user")}}
                     >
                         {/* Light Mode Image */}
                         <img src={UserBlack} alt="user Black"
@@ -161,7 +197,7 @@ export const AdminDashboardLayout = () => {
                     <div
                         className={`flex gap-[8px] items-center text-[14px] pl-3 w-full h-10 text-center rounded-md cursor-pointer 
                         ${activeTab === "property" ? "bg-[var(--color-primary)]/10 border-1 border-[var(--color-primary)]" : "hover:bg-gray-100 dark:hover:bg-gray-800"}`}
-                        onClick={() => setActiveTab("property")}
+                        onClick={() => navigate("/admin/property")}
                     >
                         {/* Light Mode Image */}
                         <img src={PropertyBlack} alt="property Black"
@@ -182,7 +218,7 @@ export const AdminDashboardLayout = () => {
                     <div
                         className={`flex gap-[8px] items-center text-[14px] pl-3 w-full h-10 text-center rounded-md  cursor-pointer 
                         ${activeTab === "agency" ? "bg-[var(--color-primary)]/10 border-1 border-[var(--color-primary)]" : "hover:bg-gray-100 dark:hover:bg-gray-800"}`}
-                        onClick={() => setActiveTab("agency")}
+                        onClick={() => navigate("/admin/agency")}
                     >
                         {/* Light Mode Image */}
                         <img src={AgencyBlack} alt="agency Black"
@@ -203,7 +239,7 @@ export const AdminDashboardLayout = () => {
                     <div
                         className={`flex gap-[8px] items-center text-[14px] pl-3 w-full h-10 text-center rounded-md cursor-pointer 
                         ${activeTab === "resale" ? "bg-[var(--color-primary)]/10 border-1 border-[var(--color-primary)]" : "hover:bg-gray-100 dark:hover:bg-gray-800"}`}
-                        onClick={() => setActiveTab("resale")}
+                        onClick={() => navigate("/admin/resale")}
                     >
                         {/* Light Mode Image */}
                         <img src={ResaleBlack} alt="resale Black"
@@ -224,7 +260,7 @@ export const AdminDashboardLayout = () => {
                     <div
                         className={`flex gap-[8px] items-center text-[14px] pl-3 w-full h-10 text-center rounded-md cursor-pointer 
                         ${activeTab === "transaction" ? "bg-[var(--color-primary)]/10 border-1 border-[var(--color-primary)]" : "hover:bg-gray-100 dark:hover:bg-gray-800"}`}
-                        onClick={() => setActiveTab("transaction")}
+                        onClick={() => navigate("/admin/transaction")}
                     >
                         {/* Light Mode Image */}
                         <img src={TransactionBlack} alt="transaction Black"
@@ -245,7 +281,7 @@ export const AdminDashboardLayout = () => {
                     <div
                         className={`flex gap-[8px] items-center text-[14px] pl-3 w-full h-10 text-center rounded-md cursor-pointer 
                         ${activeTab === "sponsored" ? "bg-[var(--color-primary)]/10 border-1 border-[var(--color-primary)]" : "hover:bg-gray-100 dark:hover:bg-gray-800"}`}
-                        onClick={() => setActiveTab("sponsored")}
+                        onClick={() => navigate("/admin/sponsored")}
                     >
                         {/* Light Mode Image */}
                         <img src={SponsorBlack} alt="sponsored Black"
@@ -266,7 +302,7 @@ export const AdminDashboardLayout = () => {
                     <div
                         className={`flex gap-[8px] items-center text-[14px] pl-3 w-full h-10 text-center rounded-md cursor-pointer 
                         ${activeTab === "analytic" ? "bg-[var(--color-primary)]/10 border-1 border-[var(--color-primary)]" : "hover:bg-gray-100 dark:hover:bg-gray-800"}`}
-                        onClick={() => setActiveTab("analytic")}
+                        onClick={() => navigate("/admin/analytic")}
                     >
                         {/* Light Mode Image */}
                         <img src={AnalyticsBlack} alt="analytic Black"
@@ -287,7 +323,7 @@ export const AdminDashboardLayout = () => {
                     <div
                         className={`flex gap-[8px] items-center text-[14px] pl-3 w-full h-10 text-center rounded-md cursor-pointer 
                         ${activeTab === "setting" ? "bg-[var(--color-primary)]/10 border-1 border-[var(--color-primary)]" : "hover:bg-gray-100 dark:hover:bg-gray-800"}`}
-                        onClick={() => setActiveTab("setting")}
+                        onClick={() => navigate("/admin/setting")}
                     >
                         {/* Light Mode Image */}
                         <img src={SettingsBlack} alt="setting Black"
@@ -308,7 +344,7 @@ export const AdminDashboardLayout = () => {
                     <div
                         className={`flex gap-[8px] items-center text-[14px] pl-3 w-full h-10 text-center rounded-md cursor-pointer 
                         ${activeTab === "profile" ? "bg-[var(--color-primary)]/10 border-1 border-[var(--color-primary)]" : "hover:bg-gray-100 dark:hover:bg-gray-800"}`}
-                        onClick={() => setActiveTab("profile")}
+                        onClick={() => navigate("/admin/profile")}
                     >
                         {/* Light Mode Image */}
                         <img src={ProfileBlack} alt="profile Black"
