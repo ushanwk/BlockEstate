@@ -18,6 +18,7 @@ import {AdminDashboardLayout} from "../layouts/AdminDashboardLayout.jsx";
 import {AdminDashboard} from "../pages/admin/dashboard/AdminDashboard.jsx";
 import {UserManagement} from "../pages/admin/user/UserManagement.jsx";
 import {SingleUserManagement} from "../pages/admin/user/SingleUserManagement.jsx";
+import {AgenciesManagement} from "../pages/admin/agency/AgenciesManagement.jsx";
 
 export const Index = () => {
     return (
@@ -56,7 +57,9 @@ export const Index = () => {
                     <Route path="user/:userId" element={<SingleUserManagement />} />
 
                     <Route path="property" element={<UserManagement />} />
-                    <Route path="agency" element={<UserManagement />} />
+
+                    <Route path="agency" element={<AgenciesManagement />} />
+
                     <Route path="resale" element={<UserManagement />} />
                     <Route path="transaction" element={<UserManagement />} />
                     <Route path="sponsored" element={<UserManagement />} />

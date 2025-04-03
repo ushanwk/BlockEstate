@@ -23,7 +23,7 @@ export const Button = ({
             style={{
                 backgroundColor: red ? 'transparent' : (bgColor || defaultBg),
                 color: red ? 'rgb(239 68 68)' : textColor,
-                border: red ? '1px solid rgb(239 68 68)' : 'none'
+                border: red ? '1px solid rgb(239 68 68)' : border ? "1px solid white" : 'none',
             }}
             onMouseEnter={(e) => {
                 if (!red) {
