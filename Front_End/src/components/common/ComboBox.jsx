@@ -86,7 +86,7 @@ export const ComboBox = ({
                             filteredOptions.map((option) => (
                                 <div
                                     key={option.value}
-                                    className={`flex items-center justify-between px-3 py-2 text-[12px] cursor-pointer
+                                    className={`text-black dark:text-white flex items-center justify-between px-3 py-2 text-[12px] cursor-pointer
                     hover:dark:bg-[#2A2A32] hover:bg-gray-100
                     ${value === option.value ? 'dark:bg-[#2A2A32] bg-gray-100' : ''}`}
                                     onClick={() => handleSelect(option)}

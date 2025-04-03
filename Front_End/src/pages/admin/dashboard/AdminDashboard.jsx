@@ -64,7 +64,7 @@ export const AdminDashboard = () => {
                 <h1 className="dark:text-white text-[18px] font-light">Platform Growth Analytics</h1>
             </section>
 
-            <section className="flex gap-5 mt-8">
+            <section className="flex gap-5 mt-5">
                 <section className="w-full h-96 rounded-[5px] bg-white dark:bg-[var(--color-dark-bg-primary)] border border-[var(--color-primary)]/10 py-5 px-6">
                     <h1 className="dark:text-white text-[18px] font-light">Platform Growth Analytics</h1>
                 </section>

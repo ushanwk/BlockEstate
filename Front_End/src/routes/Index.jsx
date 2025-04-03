@@ -17,6 +17,7 @@ import {AgencyApprovePage} from "../pages/auth/agency/AgencyApprovePage.jsx";
 import {AdminDashboardLayout} from "../layouts/AdminDashboardLayout.jsx";
 import {AdminDashboard} from "../pages/admin/dashboard/AdminDashboard.jsx";
 import {UserManagement} from "../pages/admin/user/UserManagement.jsx";
+import {SingleUserManagement} from "../pages/admin/user/SingleUserManagement.jsx";
 
 export const Index = () => {
     return (
@@ -50,7 +51,10 @@ export const Index = () => {
                 {/* Admin Routes */}
                 <Route path="/admin" element={<AdminDashboardLayout />}>
                     <Route index element={<AdminDashboard />} />
+
                     <Route path="user" element={<UserManagement />} />
+                    <Route path="user/:userId" element={<SingleUserManagement />} />
+
                     <Route path="property" element={<UserManagement />} />
                     <Route path="agency" element={<UserManagement />} />
                     <Route path="resale" element={<UserManagement />} />

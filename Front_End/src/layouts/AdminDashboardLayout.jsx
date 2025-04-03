@@ -62,19 +62,18 @@ export const AdminDashboardLayout = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    // Determine active tab based on current route
     const getActiveTab = () => {
         const path = location.pathname;
-        if (path.endsWith('/admin')) return 'dashboard';
-        if (path.endsWith('/admin/user')) return 'user';
-        if (path.endsWith('/admin/property')) return 'property';
-        if (path.endsWith('/admin/agency')) return 'agency';
-        if (path.endsWith('/admin/resale')) return 'resale';
-        if (path.endsWith('/admin/transaction')) return 'transaction';
-        if (path.endsWith('/admin/sponsored')) return 'sponsored';
-        if (path.endsWith('/admin/analytic')) return 'analytic';
-        if (path.endsWith('/admin/setting')) return 'setting';
-        if (path.endsWith('/admin/profile')) return 'profile';
+        if (path.startsWith('/admin/user')) return 'user';
+        if (path.startsWith('/admin/property')) return 'property';
+        if (path.startsWith('/admin/agency')) return 'agency';
+        if (path.startsWith('/admin/resale')) return 'resale';
+        if (path.startsWith('/admin/transaction')) return 'transaction';
+        if (path.startsWith('/admin/sponsored')) return 'sponsored';
+        if (path.startsWith('/admin/analytic')) return 'analytic';
+        if (path.startsWith('/admin/setting')) return 'setting';
+        if (path.startsWith('/admin/profile')) return 'profile';
+        if (path === '/admin' || path === '/admin/') return 'dashboard';
         return 'dashboard';
     };
 

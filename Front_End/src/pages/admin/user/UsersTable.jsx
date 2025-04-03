@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { User, Mail, Shield, CheckCircle, XCircle, Clock, Edit, Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
+import {useNavigate} from "react-router-dom";
 
 export const UsersTable = ({ filters }) => {
     const allUsers = [
@@ -102,7 +103,13 @@ export const UsersTable = ({ filters }) => {
     ];
 
     const [currentPage, setCurrentPage] = useState(1);
-    const usersPerPage = 6;
+    const usersPerPage = 5;
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [filters.searchTerm, filters.role, filters.status]);
+
 
     const filteredUsers = allUsers.filter(user => {
         const searchMatch = user.name.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
@@ -127,8 +134,13 @@ export const UsersTable = ({ filters }) => {
         }
     };
 
-    const handleEdit = (userId) => console.log(`Edit user ${userId}`);
+    const handleEdit = (userId) => {
+        console.log(`Edit user ${userId}`)
+        navigate(`${userId}`);
+    };
+
     const handleDelete = (userId) => console.log(`Delete user ${userId}`);
+
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     const renderPageNumbers = () => {
@@ -155,7 +167,7 @@ export const UsersTable = ({ filters }) => {
                     onClick={() => paginate(num)}
                     className={`px-3 py-1 rounded ${currentPage === num
                         ? 'bg-blue-600 text-white'
-                        : 'hover:bg-gray-200 dark:hover:bg-gray-700'}`}
+                        : 'hover:bg-gray-200 dark:hover:bg-gray-700 text-black dark:text-white/50'}`}
                 >
                     {num}
                 </button>
@@ -191,10 +203,10 @@ export const UsersTable = ({ filters }) => {
                     </th>
                 </tr>
                 </thead>
-                <tbody className="bg-white dark:bg-[#1E1E24] divide-y divide-gray-200 dark:divide-[#5D5D65]">
+                <tbody className="divide-y divide-gray-200 dark:divide-[#5D5D65]">
                 {currentUsers.length > 0 ? (
                     currentUsers.map(user => (
-                        <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-[#2A2A32]">
+                        <tr key={user.id} className="hover:bg-gray-100/60 dark:hover:bg-blue-900/20">
                             <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="flex items-center">
                                     <div className="flex-shrink-0 h-10 w-10 rounded-full bg-blue-200 dark:bg-blue-700 flex items-center justify-center overflow-hidden">
