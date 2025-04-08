@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 const authRouter = Router();
 
-authRouter.get('/sign-up', (req, res) => {
+authRouter.get('/register', (req, res) => {
     res.send({message: "Auth sign up!"});
 })
 
