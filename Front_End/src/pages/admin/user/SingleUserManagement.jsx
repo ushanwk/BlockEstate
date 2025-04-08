@@ -14,7 +14,7 @@ export const SingleUserManagement = () => {
 
     const user ={
         id: 1,
-            name: 'John Anderson',
+        name: 'John Anderson',
         email: 'john.anderson@email.com',
         role: 'Investor',
         status: 'Active',
@@ -130,7 +130,7 @@ export const SingleUserManagement = () => {
                             <PasswordField label="New Password" placeholder="Enter new password" />
                         </div>
                         <div className="w-full">
-                            <PasswordField label="Email" placeholder="Re-enter password" />
+                            <PasswordField label="Confirm Password" placeholder="Re-enter password" />
                         </div>
                     </div>
 

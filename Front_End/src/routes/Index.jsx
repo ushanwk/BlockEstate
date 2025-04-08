@@ -19,6 +19,7 @@ import {AdminDashboard} from "../pages/admin/dashboard/AdminDashboard.jsx";
 import {UserManagement} from "../pages/admin/user/UserManagement.jsx";
 import {SingleUserManagement} from "../pages/admin/user/SingleUserManagement.jsx";
 import {AgenciesManagement} from "../pages/admin/agency/AgenciesManagement.jsx";
+import {SingleAgencyManagement} from "../pages/admin/agency/SingleAgencyManagement.jsx";
 
 export const Index = () => {
     return (
@@ -59,6 +60,8 @@ export const Index = () => {
                     <Route path="property" element={<UserManagement />} />
 
                     <Route path="agency" element={<AgenciesManagement />} />
+                    <Route path="agency/:agencyId" element={<SingleAgencyManagement />} />
+
 
                     <Route path="resale" element={<UserManagement />} />
                     <Route path="transaction" element={<UserManagement />} />

@@ -4,6 +4,7 @@ import {ComboBox} from "../../../components/common/ComboBox.jsx";
 import {Button} from "../../../components/common/Button.jsx";
 import {useRef, useState} from "react";
 import {AgenciesTable} from "./AgenciesTable.jsx";
+import {CountryComboBox} from "../../../components/common/CountryComboBox.jsx";
 
 export const AgenciesManagement = () => {
 
@@ -16,16 +17,6 @@ export const AgenciesManagement = () => {
     // Create refs for the ComboBox components
     const countryComboBoxRef = useRef(null);
     const statusComboBoxRef = useRef(null);
-
-    // In AgenciesManagement.jsx, update the country options:
-    const countryOptions = [
-        { value: null, label: 'All Countries' },
-        { value: 'United States', label: 'United States' },
-        { value: 'Canada', label: 'Canada' },
-        { value: 'United Kingdom', label: 'United Kingdom' },
-        { value: 'Australia', label: 'Australia' },
-        { value: 'United Arab Emirates', label: 'Un Arab Emirates' }
-    ];
 
     const statusOptions = [
         { value: null, label: 'All Statuses' },  // Null value for "All" option
@@ -79,10 +70,9 @@ export const AgenciesManagement = () => {
                     />
                 </div>
                 <div className="w-64">
-                    <ComboBox
+                    <CountryComboBox
                         ref={countryComboBoxRef}
                         placeholder="Country"
-                        options={countryOptions}
                         value={filters.country}
                         onChange={handleCountryChange}
                     />
