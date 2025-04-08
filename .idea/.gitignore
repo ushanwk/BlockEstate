@@ -7,7 +7,3 @@
 /dataSources/
 /dataSources.local.xml
 
-.env
-.env.*.local
-
-/node_modules
