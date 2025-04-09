@@ -16,7 +16,6 @@ app.use(cookieParser());
 // Routes
 app.use('/api/auth/', authRouter);
 
-
 app.use(errorMiddleware);
 
 app.get('/', (req, res) => {
