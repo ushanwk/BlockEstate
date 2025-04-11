@@ -43,7 +43,7 @@ export const ContactPage = () => {
                                         <img src={Email} alt="email" className="w-[40px] h-auto" />
                                         <div>
                                             <p className="text-[12px] text-[#999999] font-light">Email</p>
-                                            <p className="font-[15px] font-light dark:text-white">Blockestate.info@gmail.com</p>
+                                            <p className="font-[15px] font-light dark:text-white">Blockestate.sup@gmail.com</p>
                                         </div>
                                     </div>
 
