@@ -14,4 +14,4 @@
 firebase.config.js
 
 # Firebase key
-firebase.key.json
+/Back_End/firebase.key.json
