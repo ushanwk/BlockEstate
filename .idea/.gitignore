@@ -9,5 +9,7 @@
 
 
 **/node_modules/
+
 .env.production.local
 firebase.config.js
+firebase.key.json

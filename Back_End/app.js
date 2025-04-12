@@ -1,7 +1,7 @@
 import express from 'express';
 import connectToDatabase from "./database/mongodb.js";
 import errorMiddleware from "./middlewares/error.middleware.js";
-import { PORT } from './config/env.js';
+import { PORT } from './config/env.config.js';
 import authRouter from './routes/auth.routes.js'
 import cookieParser from "cookie-parser";
 import cors from "cors";

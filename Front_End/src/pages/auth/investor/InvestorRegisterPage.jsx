@@ -10,7 +10,7 @@ import {useNavigate} from "react-router-dom";
 
 export const InvestorRegisterPage = () => {
 
-    const navigation = useNavigate();
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         firstName: "",
@@ -81,7 +81,7 @@ export const InvestorRegisterPage = () => {
                 description: 'You can now verify your email',
             });
 
-            navigation("/auth/otp");
+            navigate("/auth/otp");
         }
     };
 

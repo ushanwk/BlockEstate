@@ -4,13 +4,16 @@ import { Button } from "../../../components/common/Button.jsx";
 import { OTPField } from "../../../components/common/OTPField.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { toast } from "sonner"; // 🔥 Make sure you've installed & imported Sonner toast
+import { toast } from "sonner";
+import {useNavigate} from "react-router-dom";
 
 export const OTPVerifyPage = () => {
     const [typedOtp, setTypedOtp] = useState("");
     const [correctOtp, setCorrectOtp] = useState("");
     const [expiresAt, setExpiresAt] = useState(0);
     const [timeLeft, setTimeLeft] = useState(0);
+
+    const navigate = useNavigate();
 
     // Format time like 01:25
     const formatTime = (seconds) => {
@@ -76,7 +79,15 @@ export const OTPVerifyPage = () => {
             toast.success("OTP Verified", {
                 description: "OTP Verified Successfully!",
             });
-            // Proceed to next step here...
+
+            const savedData = JSON.parse(localStorage.getItem("dataOne"));
+
+            if (savedData.role === "INVESTOR") {
+                navigate('/auth/investor-setup');
+            } else {
+                navigate('/auth/investor-setup');
+            }
+
         } else {
             toast.error("Invalid OTP", {
                 description: "Invalid OTP. Please try again.",
