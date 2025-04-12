@@ -12,4 +12,6 @@
 
 .env.production.local
 firebase.config.js
+
+# Firebase key
 firebase.key.json
