@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
 const investorSchema = new mongoose.Schema({
+    firebaseId: {
+        type: String,
+        required: true,
+    },
     firstName: {
         type: String,
         minlength: 2,

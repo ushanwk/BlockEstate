@@ -6,7 +6,8 @@ export const CountryComboBox = ({
                                     onChange,
                                     placeholder = "Select country",
                                     className = "",
-                                    disabled = false
+                                    disabled = false,
+                                    select
                                 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
@@ -211,6 +212,7 @@ export const CountryComboBox = ({
         { value: 'Zimbabwe', label: 'Zimbabwe' }
     ];
 
+
     // Close dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -242,7 +244,7 @@ export const CountryComboBox = ({
             {/* Input with dropdown toggle */}
             <div
                 className={`flex items-center justify-between w-full p-2 text-[12px] rounded-[5px] outline-none transition duration-300 ease-out
-          dark:bg-transparent text-gray-400 dark:text-[#5D5D65] border dark:border-[#5D5D65]
+          dark:bg-transparent text-gray-500 dark:text-[#5D5D65] border dark:border-[#5D5D65]
           border-[#D9D9D9] dark:focus:border-[#0274F9] focus:border-[#0274F9] dark:font-extralight
           ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                 onClick={() => !disabled && setIsOpen(!isOpen)}

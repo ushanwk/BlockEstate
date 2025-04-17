@@ -5,9 +5,76 @@ import {TextField} from "../../../components/common/TextField.jsx";
 import AppleIcon from "../../../assets/icons/auth/AppleIcon.png";
 import GoogleIcon from "../../../assets/icons/auth/GoogleIcon.png";
 import {Button} from "../../../components/common/Button.jsx";
+import {GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword} from "firebase/auth";
+import {auth} from "../../../firebase/firebase.config.js";
+import {toast} from "sonner";
+import {useState} from "react";
 
 
 export const LoginPage = () => {
+
+    const [emailOrUsername, setEmailOrUsername] = useState("");
+    const [password, setPassword] = useState("");
+
+
+    const handleLoginGoogle = async () => {
+
+        const provider = new GoogleAuthProvider();
+
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            const firebaseId = user.uid;
+
+            const res = await fetch(`http://localhost:5500/api/auth/check-firebase-user/${firebaseId}`);
+            const data = await res.json();
+
+            console.log(data.exists)
+
+            if (data.exists) {
+                toast.success("Account Exist");
+            } else {
+                await result.user.delete();
+                toast.error("Account not registered. Please sign up first.");
+            }
+
+        } catch (err) {
+            console.error("Google login error:", err);
+            toast.error("Something went wrong");
+        }
+    };
+
+    const handleSubmit = async () => {
+        if (!emailOrUsername || !password) {
+            toast.error("Please enter your credentials");
+            return;
+        }
+
+        try {
+            // You can still validate if it's a valid email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailOrUsername)) {
+                toast.error("Please enter a valid email address.");
+                return;
+            }
+
+            const userCredential = await signInWithEmailAndPassword(
+                auth,
+                emailOrUsername,
+                password
+            );
+
+
+            toast.success("Login successful!");
+
+        } catch (error) {
+            console.error("Firebase login error:", error);
+
+            toast.error("Incorrect email or password.");
+        }
+    }
+
+
     return (
        <CommonAuth image={LoginBg} topic="Revolutionizing Real Estate with Blockchain" text="A secure, transparent, and innovative platform to invest in real estate and earn passive income"
                    section={
@@ -20,7 +87,9 @@ export const LoginPage = () => {
 
                                <div className="flex gap-4 my-8 mt-[45px]">
                                    <button
-                                       className="flex items-center justify-center w-full h-[38px] py-2 border-black/10 border-[0.5px] rounded-[5px] md:text-[13px] text-[12px] gap-2 cursor-pointer font-normal hover:border-black/30 dark:text-white dark:bg-white/10">
+                                       className="flex items-center justify-center w-full h-[38px] py-2 border-black/10 border-[0.5px] rounded-[5px] md:text-[13px] text-[12px] gap-2 cursor-pointer font-normal hover:border-black/30 dark:text-white dark:bg-white/10"
+                                       onClick={handleLoginGoogle}
+                                   >
                                        <img src={GoogleIcon} alt="Google" className="md:w-5 w-3"/>
                                        Login with Google
                                    </button>
@@ -39,11 +108,17 @@ export const LoginPage = () => {
 
                                <div className="mt-8">
                                    <div className="mt-6">
-                                       <TextField placeholder="Enter your username or email" label="Username or Email" />
+                                       <TextField placeholder="Enter your username or email" label="Username or Email"
+                                                  value={emailOrUsername}
+                                                  onChange={(e) => setEmailOrUsername(e.target.value)}
+                                       />
                                    </div>
 
                                    <div className="mt-6">
-                                       <PasswordField placeholder="Enter your password" label="Password" />
+                                       <PasswordField placeholder="Enter your password" label="Password"
+                                                      value={password}
+                                                      onChange={(e) => setPassword(e.target.value)}
+                                       />
                                        <div className="mt-[-10px] text-right">
                                            <a href="/auth/forget" className="text-[10px] text-black/60 dark:text-white/50 hover:text-blue-500 cursor-pointer">Forgot Password?</a>
                                        </div>
@@ -51,7 +126,7 @@ export const LoginPage = () => {
                                </div>
 
                                <div className="mt-6">
-                                   <Button children="Login"/>
+                                   <Button children="Login" onclick={handleSubmit}/>
                                </div>
 
                                <div className="mt-4 text-center">

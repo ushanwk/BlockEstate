@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
 const agencySchema = new mongoose.Schema({
+    firebaseId: {
+        type: String,
+        required: true,
+    },
     agencyName:{
         type: String,
         minlength: 2,

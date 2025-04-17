@@ -131,6 +131,47 @@ export const InvestorAccountSetupPage = () => {
 
         const savedData = JSON.parse(localStorage.getItem("dataOne"));
 
+        if(savedData.google === true){
+
+            const formDataToSend = new FormData();
+
+            formDataToSend.append("email", savedData.email);
+            formDataToSend.append("firebaseId", savedData.uid);
+            formDataToSend.append("displayName", formData.displayName);
+            formDataToSend.append("password", formData.password);
+            formDataToSend.append("profilePicture", formData.profilePicture);
+
+            try {
+
+                setLoading(true);
+
+                await axios.post(
+                    "http://localhost:5500/api/auth/register-investor-google",
+                    formDataToSend,
+                    {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                        },
+                    }
+                );
+                setLoading(false);
+
+                toast.success("Registration successfully!", {
+                    description: "Your account created successfully",
+                });
+
+            } catch (error) {
+                console.error("Error fetching:", error);
+                toast.error("Error", {
+                    description: "Error sending. Please try again.",
+                });
+            } finally {
+                localStorage.removeItem("dataOne");
+            }
+
+            return;
+        }
+
         const formDataToSend = new FormData();
 
         formDataToSend.append("email", savedData.email);
@@ -142,7 +183,6 @@ export const InvestorAccountSetupPage = () => {
         formDataToSend.append("displayName", formData.displayName);
         formDataToSend.append("password", formData.password);
         formDataToSend.append("profilePicture", formData.profilePicture);
-
 
 
         try {
@@ -157,7 +197,8 @@ export const InvestorAccountSetupPage = () => {
                         "Content-Type": "multipart/form-data",
                     },
                 }
-            );setLoading(false);
+            );
+            setLoading(false);
 
             toast.success("Registration successfully!", {
                 description: "Your account created successfully",
@@ -168,6 +209,8 @@ export const InvestorAccountSetupPage = () => {
             toast.error("Error", {
                 description: "Error sending. Please try again.",
             });
+        } finally {
+            localStorage.removeItem("dataOne");
         }
 
     };

@@ -36,9 +36,6 @@ export const OTPVerifyPage = () => {
             setExpiresAt(response.data.expiresAt);
             setTypedOtp("");
 
-            toast.success("OTP Sent", {
-                description: "A new OTP has been sent to your email.",
-            });
         } catch (error) {
             console.error("Error fetching OTP:", error);
             toast.error("OTP Error", {
@@ -49,7 +46,11 @@ export const OTPVerifyPage = () => {
 
     // Run once to fetch OTP
     useEffect(() => {
-        fetchOtp();
+        fetchOtp().then(()=>{
+            toast.success("OTP Sent", {
+                description: "A new OTP has been sent to your email.",
+            });
+        });
     }, []);
 
     // Countdown timer
@@ -85,7 +86,7 @@ export const OTPVerifyPage = () => {
             if (savedData.role === "INVESTOR") {
                 navigate('/auth/investor-setup');
             } else {
-                navigate('/auth/investor-setup');
+                navigate('/auth/agency-setup');
             }
 
         } else {

@@ -7,6 +7,7 @@ import {Button} from "../../../components/common/Button.jsx";
 import {useState} from "react";
 import {toast} from "sonner";
 import {useNavigate} from "react-router-dom";
+import {handleGoogleRegister} from "../../../firebase/auth.js";
 
 export const InvestorRegisterPage = () => {
 
@@ -85,6 +86,12 @@ export const InvestorRegisterPage = () => {
         }
     };
 
+    const handleGoogleSignIn = () => {
+        handleGoogleRegister().then(() => {
+            navigate("/auth/investor-setup");
+        });
+    }
+
     return (
         <CommonAuth image={RegisterBg} topic="Join a Trusted Real Estate Community" text="A secure, transparent, and innovative platform to invest in real estate and earn passive income"
                     section={
@@ -97,7 +104,9 @@ export const InvestorRegisterPage = () => {
 
                                 <div className="flex gap-4 my-8 mt-[45px]">
                                     <button
-                                        className="flex items-center justify-center w-full h-[38px] py-2 border-black/10 border-[0.5px] rounded-[5px] md:text-[13px] text-[12px] gap-2 cursor-pointer font-normal hover:border-black/30 dark:text-white dark:bg-white/10">
+                                        className="flex items-center justify-center w-full h-[38px] py-2 border-black/10 border-[0.5px] rounded-[5px] md:text-[13px] text-[12px] gap-2 cursor-pointer font-normal hover:border-black/30 dark:text-white dark:bg-white/10"
+                                        onClick={handleGoogleSignIn}
+                                    >
                                         <img src={GoogleIcon} alt="Google" className="md:w-5 w-3"/>
                                         Login with Google
                                     </button>
