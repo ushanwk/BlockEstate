@@ -1,16 +1,22 @@
-import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import {useState, useEffect, useRef} from "react";
+import {Menu, X, LogOut, Pencil } from "lucide-react";
 import { useLocation, Link } from "react-router-dom";
 import ThemeToggle from "../common/ThemeToggle.jsx";
 import LogoBarWhite from "../../assets/icons/common/LogoBarWhite.png";
 import LogoBarColor from "../../assets/icons/common/LogoBarColor.png";
 import { Button } from "../common/Button.jsx";
 import {useNavigate} from "react-router-dom";
+import {useAuth} from "../../context/AuthContext.jsx";
+import axios from "axios";
+import {onAuthStateChanged} from "firebase/auth";
+import {auth} from "../../firebase/firebase.config.js";
+
 
 export const Header = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -23,6 +29,66 @@ export const Header = () => {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+
+    const { signOutUser } = useAuth();
+
+    const [profileImageUrl, setProfileImageUrl] = useState(null);
+
+    async function getUserProfilePicture(currentUser) {
+        const firebaseUid = currentUser.uid;
+
+        const token = await currentUser.getIdToken();
+
+        const res = await axios.post(
+            "http://localhost:5500/api/user/get-user-image",
+            {firebaseUid},
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+
+        setProfileImageUrl(res.data.image);
+    }
+
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if (currentUser) {
+                getUserProfilePicture(currentUser);
+                setIsLoggedIn(true);
+            } else {
+                // user is logged out
+                console.log('No user signed in');
+                setIsLoggedIn(false);
+            }
+        });
+
+        return () => unsubscribe();
+    }, []);
+
+
+
+
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const dropdownRef = useRef();
+
+    useEffect(() => {
+        // Close dropdown when clicking outside
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setDropdownOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+
 
     return (
         <header
@@ -62,7 +128,7 @@ export const Header = () => {
                                         hover:after:w-full hover:text-white 
                                         ${
                                         location.pathname === path
-                                            ? "after:w-full text-white"
+                                            ? `after:w-full ${isScrolled ? "underline dark:no-underline" :null}`
                                             : "after:w-0"
                                     } 
                                         ${isScrolled ? "text-black dark:text-white" : "text-white"}
@@ -76,13 +142,42 @@ export const Header = () => {
                 </nav>
 
                 {/* Right Side - Profile Picture OR Button & Theme Toggle */}
-                <div className="hidden md:flex gap-3 items-center">
+                <div className="hidden md:flex gap-6 items-center">
                     {isLoggedIn ? (
-                        <img
-                            src="https://i.pravatar.cc/40"
-                            alt="Profile"
-                            className="w-10 h-10 rounded-full border-2 border-gray-400 cursor-pointer"
-                        />
+                        <div className="relative" ref={dropdownRef}>
+                            <img
+                                src={profileImageUrl}
+                                alt="Profile"
+                                className="w-12 h-12 rounded-full border-2 border-white cursor-pointer"
+                                onClick={() => setDropdownOpen(!dropdownOpen)}
+                            />
+
+                            {dropdownOpen && (
+                                <div className="absolute right-0 mt-2 w-36 bg-white dark:bg-gray-800 text-black dark:text-white rounded-lg shadow-lg z-50">
+                                    <button
+                                        onClick={() => {
+                                            setDropdownOpen(false);
+                                            // navigate("/profile");
+                                        }}
+                                        className="flex items-center gap-2 w-full text-[12px] text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                                    >
+                                        <Pencil size={16} />
+                                        Edit Profile
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            signOutUser();
+                                            setDropdownOpen(false);
+                                        }}
+                                        className="flex items-center gap-2 w-full text-[12px] text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                                    >
+                                        <LogOut size={16} />
+                                        Sign Out
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+
                     ) : (
                         <Button
                             onclick={() => navigate("/auth")}
@@ -144,7 +239,7 @@ export const Header = () => {
                     {/* Button OR Profile Picture & Theme Toggle in Mobile Menu */}
                     {isLoggedIn ? (
                         <img
-                            src="https://i.pravatar.cc/80"
+                            src={profileImageUrl}
                             alt="Profile"
                             className="w-20 h-20 rounded-full border-2 border-white cursor-pointer"
                         />

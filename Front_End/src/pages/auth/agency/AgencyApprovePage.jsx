@@ -81,7 +81,7 @@ export const AgencyApprovePage = () => {
                 });
             }catch (error) {
                 console.error("Error fetching:", error);
-                toast.error("Error", {
+                toast.error("Registration Failed", {
                     description: "Error sending. Please try again.",
                 });
             } finally {

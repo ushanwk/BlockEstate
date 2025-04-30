@@ -9,11 +9,13 @@ import {toast} from "sonner";
 import imageCompression from "browser-image-compression";
 import axios from "axios";
 import {FullScreenLoader} from "../../../components/common/FullScreenLoader.jsx";
-import {Section} from "lucide-react";
+import {useNavigate} from "react-router-dom";
 
 export const InvestorAccountSetupPage = () => {
 
     const [loading, setLoading] = useState(false);
+
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         displayName: "",
@@ -159,6 +161,8 @@ export const InvestorAccountSetupPage = () => {
                 toast.success("Registration successfully!", {
                     description: "Your account created successfully",
                 });
+
+                navigate("/");
 
             } catch (error) {
                 console.error("Error fetching:", error);

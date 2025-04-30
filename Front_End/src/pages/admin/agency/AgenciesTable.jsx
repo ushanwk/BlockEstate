@@ -1,111 +1,84 @@
-import React, {useEffect, useState} from 'react';
-import { Building, Mail, Home, MapPin, CheckCircle, XCircle, Clock, Edit, Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
-import {useNavigate} from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import {
+    Building, Mail, Home, MapPin,
+    CheckCircle, XCircle, Clock,
+    Edit, Trash2, ChevronLeft,
+    ChevronRight, Loader2
+} from 'lucide-react';
+import { useNavigate } from "react-router-dom";
+import { auth } from "../../../firebase/firebase.config.js";
+import axios from "axios";
+import { onAuthStateChanged } from "firebase/auth";
 
 export const AgenciesTable = ({ filters }) => {
-    const allAgencies = [
-        {
-            id: 1,
-            name: 'Prime Realty',
-            email: 'info@primerealty.com',
-            propertyCount: 24,
-            status: 'Approved',
-            country: 'United States',
-            logo: 'https://placehold.co/100x100/3B82F6/FFFFFF?text=PR'
-        },
-        {
-            id: 2,
-            name: 'Urban Spaces',
-            email: 'contact@urbanspaces.com',
-            propertyCount: 15,
-            status: 'Approved',
-            country: 'Canada',
-            logo: 'https://placehold.co/100x100/10B981/FFFFFF?text=US'
-        },
-        {
-            id: 3,
-            name: 'Coastal Homes',
-            email: 'support@coastalhomes.com',
-            propertyCount: 8,
-            status: 'Pending',
-            country: 'Australia',
-            logo: 'https://placehold.co/100x100/F59E0B/FFFFFF?text=CH'
-        },
-        {
-            id: 4,
-            name: 'Metro Properties',
-            email: 'hello@metroprops.com',
-            propertyCount: 32,
-            status: 'Approved',
-            country: 'United Kingdom',
-            logo: 'https://placehold.co/100x100/8B5CF6/FFFFFF?text=MP'
-        },
-        {
-            id: 5,
-            name: 'Summit Estates',
-            email: 'admin@summitestates.com',
-            propertyCount: 0,
-            status: 'Rejected',
-            country: 'United Arab Emirates',
-            logo: 'https://placehold.co/100x100/EF4444/FFFFFF?text=SE'
-        },
-        {
-            id: 6,
-            name: 'Horizon Realty',
-            email: 'team@horizonrealty.com',
-            propertyCount: 18,
-            status: 'Approved',
-            country: 'United States',
-            logo: 'https://placehold.co/100x100/0EA5E9/FFFFFF?text=HR'
-        },
-        {
-            id: 7,
-            name: 'Elite Properties',
-            email: 'info@eliteprops.com',
-            propertyCount: 12,
-            status: 'Approved',
-            country: 'Canada',
-            logo: 'https://placehold.co/100x100/6366F1/FFFFFF?text=EP'
-        },
-        {
-            id: 8,
-            name: 'Golden Gate Realty',
-            email: 'contact@goldengate.com',
-            propertyCount: 27,
-            status: 'Pending',
-            country: 'United States',
-            logo: 'https://placehold.co/100x100/F97316/FFFFFF?text=GG'
-        },
-        {
-            id: 9,
-            name: 'Paramount Estates',
-            email: 'support@paramount.com',
-            propertyCount: 5,
-            status: 'Approved',
-            country: 'United Kingdom',
-            logo: 'https://placehold.co/100x100/EC4899/FFFFFF?text=PE'
-        },
-        {
-            id: 10,
-            name: 'Skyline Properties',
-            email: 'hello@skylineprops.com',
-            propertyCount: 21,
-            status: 'Approved',
-            country: 'Australia',
-            logo: 'https://placehold.co/100x100/14B8A6/FFFFFF?text=SP'
-        }
-    ];
-
+    const [allAgencies, setAllAgencies] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const agenciesPerPage = 5;
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchAgencies = async () => {
+            try {
+                setLoading(true);
+                setError(null);
+
+                const user = await new Promise((resolve, reject) => {
+                    const unsubscribe = onAuthStateChanged(auth, (user) => {
+                        unsubscribe();
+                        if (user) {
+                            resolve(user);
+                        } else {
+                            reject("User not signed in");
+                        }
+                    });
+                });
+
+                const token = await user.getIdToken();
+
+                const response = await axios.get("http://localhost:5500/api/user/get-agency-users", {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+
+                if (response.data.success && Array.isArray(response.data.data)) {
+                    const transformedAgencies = response.data.data.map((agency) => ({
+                        id: agency.firebaseId,
+                        name: agency.displayName || 'No name',
+                        email: agency.email || 'No email',
+                        country: agency.country || 'No country',
+                        propertyCount: agency.propertyCount || 0,
+                        status: agency.approvalStatus
+                            ? agency.approvalStatus.charAt(0).toUpperCase() + agency.approvalStatus.slice(1).toLowerCase()
+                            : 'Pending',
+                        logo: agency.profileImageUrl,
+                        emailVerified: agency.emailVerified,
+                    }));
+
+                    setAllAgencies(transformedAgencies);
+
+                    console.log(transformedAgencies.status)
+                } else {
+                    throw new Error("Invalid API response format");
+                }
+            } catch (error) {
+                console.error("Error fetching agencies:", error);
+                setError(error.message || "Failed to load agencies");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchAgencies();
+    }, []);
 
     useEffect(() => {
         setCurrentPage(1);
     }, [filters.searchTerm, filters.country, filters.status]);
 
     const filteredAgencies = allAgencies.filter(agency => {
-        const searchMatch = agency.name.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
+        const searchMatch =
+            agency.name.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
             agency.email.toLowerCase().includes(filters.searchTerm.toLowerCase());
         const countryMatch = !filters.country || agency.country === filters.country;
         const statusMatch = !filters.status || agency.status === filters.status;
@@ -127,29 +100,47 @@ export const AgenciesTable = ({ filters }) => {
         }
     };
 
-    const handleEdit = (agencyId) => {
-        console.log(`Edit agency ${agencyId}`)
-        navigate(`${agencyId}`);
-    };
-
+    const handleEdit = (agencyId) => navigate(`${agencyId}`);
     const handleDelete = (agencyId) => console.log(`Delete agency ${agencyId}`);
-
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     const renderPageNumbers = () => {
         const pageNumbers = [];
+        const maxVisiblePages = 5;
+        let startPage, endPage;
 
-        if (currentPage > 2) pageNumbers.push(1);
-        if (currentPage > 3) pageNumbers.push('...');
+        if (totalPages <= maxVisiblePages) {
+            startPage = 1;
+            endPage = totalPages;
+        } else {
+            const maxPagesBeforeCurrent = Math.floor(maxVisiblePages / 2);
+            const maxPagesAfterCurrent = Math.ceil(maxVisiblePages / 2) - 1;
 
-        for (let i = Math.max(1, currentPage - 1);
-             i <= Math.min(totalPages, currentPage + 1);
-             i++) {
+            if (currentPage <= maxPagesBeforeCurrent) {
+                startPage = 1;
+                endPage = maxVisiblePages;
+            } else if (currentPage + maxPagesAfterCurrent >= totalPages) {
+                startPage = totalPages - maxVisiblePages + 1;
+                endPage = totalPages;
+            } else {
+                startPage = currentPage - maxPagesBeforeCurrent;
+                endPage = currentPage + maxPagesAfterCurrent;
+            }
+        }
+
+        if (startPage > 1) {
+            pageNumbers.push(1);
+            if (startPage > 2) pageNumbers.push('...');
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
             pageNumbers.push(i);
         }
 
-        if (currentPage < totalPages - 2) pageNumbers.push('...');
-        if (currentPage < totalPages - 1) pageNumbers.push(totalPages);
+        if (endPage < totalPages) {
+            if (endPage < totalPages - 1) pageNumbers.push('...');
+            pageNumbers.push(totalPages);
+        }
 
         return pageNumbers.map((num, idx) => (
             num === '...' ? (
@@ -202,7 +193,22 @@ export const AgenciesTable = ({ filters }) => {
                 </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 dark:divide-[#5D5D65]">
-                {currentAgencies.length > 0 ? (
+                {loading ? (
+                    <tr>
+                        <td colSpan="6" className="px-6 py-8 text-center">
+                            <div className="flex justify-center items-center space-x-2">
+                                <Loader2 className="h-6 w-6 animate-spin text-blue-500" />
+                                <span className="text-gray-500 dark:text-gray-400">Loading agencies...</span>
+                            </div>
+                        </td>
+                    </tr>
+                ) : error ? (
+                    <tr>
+                        <td colSpan="6" className="px-6 py-4 text-center text-sm text-red-500">
+                            Error: {error}
+                        </td>
+                    </tr>
+                ) : currentAgencies.length > 0 ? (
                     currentAgencies.map(agency => (
                         <tr key={agency.id} className="hover:bg-gray-100/60 dark:hover:bg-blue-900/20">
                             <td className="px-6 py-4 whitespace-nowrap">
@@ -212,14 +218,17 @@ export const AgenciesTable = ({ filters }) => {
                                             <img src={agency.logo} alt={agency.name} className="h-full w-full object-cover" />
                                         ) : (
                                             <span className="text-blue-600 dark:text-blue-300 font-medium">
-                                                {agency.name.charAt(0)}
-                                            </span>
+                          {agency.name.charAt(0)}
+                        </span>
                                         )}
                                     </div>
                                     <div className="ml-4">
                                         <div className="text-sm font-medium text-gray-900 dark:text-white">
                                             {agency.name}
                                         </div>
+                                        {agency.emailVerified && (
+                                            <div className="text-xs text-green-500">Email Verified</div>
+                                        )}
                                     </div>
                                 </div>
                             </td>
@@ -230,16 +239,16 @@ export const AgenciesTable = ({ filters }) => {
                                 {agency.country}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                <span className="px-2 inline-flex text-xs leading-5 font-medium rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                                    {agency.propertyCount} {agency.propertyCount === 1 ? 'property' : 'properties'}
-                                </span>
+                  <span className="px-2 inline-flex text-xs leading-5 font-medium rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                    {agency.propertyCount} {agency.propertyCount === 1 ? 'property' : 'properties'}
+                  </span>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="flex items-center">
                                     {getStatusIcon(agency.status)}
                                     <span className="ml-2 text-sm text-gray-900 dark:text-gray-200">
-                                        {agency.status}
-                                    </span>
+                      {agency.status}
+                    </span>
                                 </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -272,7 +281,7 @@ export const AgenciesTable = ({ filters }) => {
                 </tbody>
             </table>
 
-            {filteredAgencies.length > 0 && (
+            {!loading && !error && filteredAgencies.length > 0 && (
                 <div className="flex items-center justify-between px-6 py-3 bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-[#5D5D65]">
                     <div className="text-sm text-gray-700 dark:text-gray-300">
                         Showing {indexOfFirstAgency + 1} to {Math.min(indexOfLastAgency, filteredAgencies.length)} of {filteredAgencies.length} agencies

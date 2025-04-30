@@ -19,7 +19,7 @@ export const UserManagement = () => {
     const roleOptions = [
         { value: null, label: 'All Roles' },
         { value: 'Admin', label: 'Admin' },
-        { value: 'Estate Agency', label: 'Estate Agency' },
+        { value: 'Agency', label: 'Agency' },
         { value: 'Investor', label: 'Investor' }
     ];
 

@@ -57,8 +57,6 @@ export const AdminDashboardLayout = () => {
     }, []);
 
 
-
-
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -81,7 +79,6 @@ export const AdminDashboardLayout = () => {
 
     // Update activeTab when route changes
     useEffect(() => {
-        console.log(activeTab);
         setActiveTab(getActiveTab());
     }, [location.pathname]);
 
@@ -97,7 +94,6 @@ export const AdminDashboardLayout = () => {
         setting: DashboardBg,
         profile: DashboardBg
     };
-
 
     // Time //////////////////////////////////////////////
     const [time, setTime] = useState(new Date());

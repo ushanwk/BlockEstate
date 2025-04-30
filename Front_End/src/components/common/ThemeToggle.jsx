@@ -5,7 +5,6 @@ const ThemeToggle = () => {
     const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
     useEffect(() => {
-        // Apply theme when component mounts
         document.documentElement.classList.toggle("dark", theme === "dark");
         localStorage.setItem("theme", theme);
     }, [theme]);
@@ -21,3 +20,7 @@ const ThemeToggle = () => {
 };
 
 export default ThemeToggle;
+
+
+
+

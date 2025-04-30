@@ -9,6 +9,8 @@ import {GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword} from "f
 import {auth} from "../../../firebase/firebase.config.js";
 import {toast} from "sonner";
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 
 export const LoginPage = () => {
@@ -16,6 +18,7 @@ export const LoginPage = () => {
     const [emailOrUsername, setEmailOrUsername] = useState("");
     const [password, setPassword] = useState("");
 
+    const navigate = useNavigate();
 
     const handleLoginGoogle = async () => {
 
@@ -32,29 +35,40 @@ export const LoginPage = () => {
             console.log(data.exists)
 
             if (data.exists) {
-                toast.success("Account Exist");
+                toast.success("Login successfully!", {
+                    description: "Your have successfully logged in",
+                });
+
+                navigate("/");
             } else {
                 await result.user.delete();
-                toast.error("Account not registered. Please sign up first.");
+                toast.error("Account not registered.", {
+                   description: "Not registered. Please sign up first.",
+                });
             }
 
         } catch (err) {
             console.error("Google login error:", err);
-            toast.error("Something went wrong");
+            toast.error("Something went wrong", {
+                description: "Please try again later."
+            });
         }
     };
 
     const handleSubmit = async () => {
         if (!emailOrUsername || !password) {
-            toast.error("Please enter your credentials");
+            toast.error("Empty credentials", {
+                description: "Please enter your credentials",
+            });
             return;
         }
 
         try {
-            // You can still validate if it's a valid email format
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(emailOrUsername)) {
-                toast.error("Please enter a valid email address.");
+                toast.error("Invalid Email", {
+                    description: "Please enter a valid email address",
+                });
                 return;
             }
 
@@ -64,13 +78,31 @@ export const LoginPage = () => {
                 password
             );
 
+            const firebaseUid = userCredential.user.uid;
 
-            toast.success("Login successful!");
+            const res = await axios.post(
+                "http://localhost:5500/api/user/get-user-role",
+                { firebaseUid }
+            );
+
+            toast.success("Login successfully!", {
+                description: "Your have successfully logged in",
+            });
+
+            if(res.data.role === "ADMIN"){
+                navigate("/admin");
+            }else{
+                navigate("/");
+            }
+
+
 
         } catch (error) {
             console.error("Firebase login error:", error);
 
-            toast.error("Incorrect email or password.");
+            toast.error("Incorrect email or password.", {
+                description: "Please try again later."
+            });
         }
     }
 

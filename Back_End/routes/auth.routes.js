@@ -5,6 +5,7 @@ import admin from "../config/firebaseAdmin.config.js";
 import User from "../models/user.model.js";
 import Investor from "../models/investor.model.js";
 import Agency from "../models/agency.model.js";
+import Admin from "../models/admin.model.js";
 
 const storage = multer.memoryStorage();
 
@@ -557,7 +558,6 @@ authRouter.get('/check-firebase-user/:firebaseId', async (req, res) => {
         res.json({ exists: false });
     }
 });
-
 
 
 export default authRouter;

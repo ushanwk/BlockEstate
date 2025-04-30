@@ -1,7 +1,28 @@
 import { Button } from "../../../components/common/Button.jsx";
 import DownArrow from "../../../assets/images/website/homepage/DownArrow.png";
+import {useAuth} from "../../../context/AuthContext.jsx";
 
 export const SectionOne = () => {
+
+    const { user } = useAuth();
+
+    async function handleClick() {
+        if (user) {
+            const token = await user.getIdToken();
+
+            const response = await fetch("http://localhost:5500/api/auth/profile", {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            });
+
+            const data = await response.json();
+            console.log(data);
+        }
+    }
+
     return (
         <section
             className="w-full h-[100vh] bg-cover bg-center relative flex items-center justify-center px-4"
@@ -42,7 +63,7 @@ export const SectionOne = () => {
 
                 {/* CTA Button */}
                 <div className="mt-8">
-                    <Button children={"Get Your Own BLOCK"} border={"border"} large={true} />
+                    <Button children={"Get Your Own BLOCK"} border={"border"} large={true} onclick={handleClick} />
                 </div>
 
                 <img

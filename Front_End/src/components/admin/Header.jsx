@@ -3,15 +3,24 @@ import { BellRing } from 'lucide-react';
 import {useEffect, useState} from "react";
 import { CalendarRange } from 'lucide-react';
 import ThemeToggle from "../common/ThemeToggle.jsx";
+import axios from "axios";
+import {useAuth} from "../../context/AuthContext.jsx";
+import {onAuthStateChanged} from "firebase/auth";
+import { auth } from "../../firebase/firebase.config.js";
+import {Button} from "../common/Button.jsx";
+import {useNavigate} from "react-router-dom";
 
 export const Header = () => {
+
+    const navigate = useNavigate();
+
 
     const [currentDate, setCurrentDate] = useState(new Date());
 
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentDate(new Date());
-        }, 1000 * 60); // Update every minute (no need for seconds precision for date)
+        }, 1000 * 60);
 
         return () => clearInterval(timer);
     }, []);
@@ -21,6 +30,43 @@ export const Header = () => {
         day: 'numeric',
         year: 'numeric'
     });
+
+
+    const [profileImageUrl, setProfileImageUrl] = useState(null);
+
+    const { signOutUser } = useAuth();
+
+    async function getUserProfilePicture(currentUser) {
+        const firebaseUid = currentUser.uid;
+
+        const token = await currentUser.getIdToken();
+
+        const res = await axios.post(
+            "http://localhost:5500/api/user/get-user-image",
+            {firebaseUid},
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+
+        setProfileImageUrl(res.data.image);
+    }
+
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if (currentUser) {
+                getUserProfilePicture(currentUser);
+            } else {
+                // user is logged out
+                console.log('No user signed in');
+            }
+        });
+
+        return () => unsubscribe();
+    }, []);
 
 
     return (
@@ -45,8 +91,15 @@ export const Header = () => {
 
                     <ThemeToggle />
 
+                    <div className="w-20">
+                        <Button red="red" children="Logout" onclick={() => {
+                            signOutUser();
+                            navigate("/auth");
+                        }} />
+                    </div>
+
                     <img
-                        src="https://i.pravatar.cc/50"
+                        src={profileImageUrl}
                         alt="Daniel Carter"
                         className="w-10 h-10 rounded-full border-2 border-blue-400"
                     />
