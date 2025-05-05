@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import adminRouter from "./routes/admin.routes.js";
 import userRouter from "./routes/user.routes.js";
+import propertyRouter from "./routes/property.routes.js";
 
 
 const app = express();
@@ -20,6 +21,7 @@ app.use(cors());
 app.use('/api/auth/', authRouter);
 app.use('/api/admin/', adminRouter);
 app.use('/api/user/', userRouter);
+app.use('/api/property/', propertyRouter);
 
 app.use(errorMiddleware);
 

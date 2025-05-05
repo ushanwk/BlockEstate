@@ -1,108 +1,68 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-    User, Mail, Shield, CheckCircle,
-    XCircle, Clock, Edit, Trash2,
-    ChevronLeft, ChevronRight, Loader2, Search
+    Home, MapPin, Layers, DollarSign,
+    Ruler, Edit, Trash2, ChevronLeft,
+    ChevronRight, Loader2, Search
 } from 'lucide-react';
-import { useNavigate } from "react-router-dom";
-import { auth } from "../../../firebase/firebase.config.js";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import { onAuthStateChanged } from "firebase/auth";
 
-export const UsersTable = ({ filters }) => {
-    const [allUsers, setAllUsers] = useState([]);
-    const [loading, setLoading] = useState(true);
+export const PropertyTable = ({ filters }) => {
+    const [allProperties, setAllProperties] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const usersPerPage = 5;
+    const propertiesPerPage = 5;
     const navigate = useNavigate();
 
+
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchProperties = async () => {
             try {
                 setLoading(true);
                 setError(null);
-
-                const user = await new Promise((resolve, reject) => {
-                    const unsubscribe = onAuthStateChanged(auth, (user) => {
-                        unsubscribe();
-                        if (user) {
-                            resolve(user);
-                        } else {
-                            reject("User not signed in");
-                        }
-                    });
-                });
-
-                const token = await user.getIdToken();
-
-                const response = await axios.get("http://localhost:5500/api/user/get-all-users", {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-
-                if (response.data.success && Array.isArray(response.data.data)) {
-
-                    const transformedUsers = response.data.data
-                        .filter(user => user.role !== "AGENCY") // ✅ filter out AGENCY users
-                        .map(user => ({
-                            id: user.firebaseId,
-                            name: user.displayName || 'No name',
-                            email: user.email || 'No email',
-                            role: user.role
-                                ? user.role.charAt(0).toUpperCase() + user.role.slice(1).toLowerCase()
-                                : 'No role',
-                            status: user.isActive
-                                ? user.isActive.charAt(0).toUpperCase() + user.isActive.slice(1).toLowerCase()
-                                : 'Inactive',
-                            profilePic: user.profileImageUrl,
-                        }));
-
-
-                    setAllUsers(transformedUsers);
-                } else {
-                    throw new Error("Invalid API response format");
-                }
-            } catch (error) {
-                console.error("Error fetching users:", error);
-                setError(error.message || "Failed to load users");
+                const response = await axios.get('http://localhost:5500/api/property/getAll');
+                setAllProperties(response.data);
+            } catch (err) {
+                console.error("Failed to fetch properties:", err);
+                setError("Failed to load properties. Please try again later.");
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchUsers();
+        fetchProperties();
     }, []);
 
-    useEffect(() => {
-        setCurrentPage(1);
-    }, [filters.searchTerm, filters.role, filters.status]);
 
-    const filteredUsers = allUsers.filter(user => {
-        const searchMatch =
-            user.name.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
-            user.email.toLowerCase().includes(filters.searchTerm.toLowerCase());
-        const roleMatch = !filters.role || user.role === filters.role;
-        const statusMatch = !filters.status || user.status === filters.status;
-        return searchMatch && roleMatch && statusMatch;
+    // Filter properties based on filters from parent
+    const filteredProperties = allProperties.filter(property => {
+        const nameMatch = property.name.toLowerCase().includes(filters.searchTerm.toLowerCase());
+        const countryMatch = !filters.country || property.country === filters.country;
+        const priceMatch =
+            (!filters.minPrice || property.blockPrice >= filters.minPrice) &&
+            (!filters.maxPrice || property.blockPrice <= filters.maxPrice);
+
+        return nameMatch && countryMatch && priceMatch;
     });
 
     // Pagination calculations
-    const indexOfLastUser = currentPage * usersPerPage;
-    const indexOfFirstUser = indexOfLastUser - usersPerPage;
-    const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
-    const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+    const indexOfLastProperty = currentPage * propertiesPerPage;
+    const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage;
+    const currentProperties = filteredProperties.slice(indexOfFirstProperty, indexOfLastProperty);
+    const totalPages = Math.ceil(filteredProperties.length / propertiesPerPage);
 
-    const getStatusIcon = (status) => {
-        switch (status) {
-            case 'Active': return <CheckCircle className="h-4 w-4 text-green-500" />;
-            case 'Pending': return <Clock className="h-4 w-4 text-yellow-500" />;
-            case 'Inactive': return <XCircle className="h-4 w-4 text-red-500" />;
-            default: return null;
-        }
+    // Reset to first page when filters change
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [filters.searchTerm, filters.country, filters.minPrice, filters.maxPrice]);
+
+
+    const handleEdit = (propertyId) => {
+        navigate(`${propertyId}`);
     };
 
-    const handleEdit = (userId) => navigate(`${userId}`);
-    const handleDelete = (userId) => console.log(`Delete user ${userId}`);
+    const handleDelete = (propertyId) => console.log(`Delete property ${propertyId}`);
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     const renderPageNumbers = () => {
@@ -167,21 +127,31 @@ export const UsersTable = ({ filters }) => {
                 <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-[#9CA3AF] uppercase tracking-wider">
                         <div className="flex items-center">
-                            <User className="h-4 w-4 mr-2" /> User
+                            <Home className="h-4 w-4 mr-2" /> Property
+                        </div>
+                    </th>
+                    <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-[#9CA3AF] uppercase tracking-wider">
+                        <div className="flex items-center">
+                            <Layers className="h-4 w-4 mr-2" /> Total Blocks
+                        </div>
+                    </th>
+                    <th className="px-6 py-3 text-xs font-medium text-gray-500 dark:text-[#9CA3AF] uppercase tracking-wider">
+                        <div className="flex items-center">
+                            <DollarSign className="h-4 w-4 mr-2" /> Block Price
                         </div>
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-[#9CA3AF] uppercase tracking-wider">
                         <div className="flex items-center">
-                            <Mail className="h-4 w-4 mr-2" /> Email
+                            <MapPin className="h-4 w-4 mr-2" /> Country
                         </div>
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-[#9CA3AF] uppercase tracking-wider">
+                        City
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-[#9CA3AF] uppercase tracking-wider">
                         <div className="flex items-center">
-                            <Shield className="h-4 w-4 mr-2" /> Role
+                            <Ruler className="h-4 w-4 mr-2" /> Size
                         </div>
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-[#9CA3AF] uppercase tracking-wider">
-                        Status
                     </th>
                     <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-[#9CA3AF] uppercase tracking-wider">
                         Action
@@ -194,67 +164,56 @@ export const UsersTable = ({ filters }) => {
                         <td colSpan="5" className="px-6 py-8 text-center">
                             <div className="flex justify-center items-center space-x-2">
                                 <Loader2 className="h-6 w-6 animate-spin text-blue-500" />
-                                <span className="text-gray-500 dark:text-gray-400">Loading users...</span>
+                                <span className="text-gray-500 dark:text-gray-400">Loading Properties...</span>
                             </div>
                         </td>
                     </tr>
                 ) : error ? (
                     <tr>
-                        <td colSpan="5" className="px-6 py-4 text-center text-sm text-red-500">
+                        <td colSpan="8" className="px-6 py-4 text-center text-sm text-red-500">
                             Error: {error}
                         </td>
                     </tr>
-                ) : currentUsers.length > 0 ? (
-                    currentUsers.map(user => (
-                        <tr key={user.id} className="hover:bg-gray-100/60 dark:hover:bg-blue-900/20">
-                            <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="flex items-center">
-                                    <div className="flex-shrink-0 h-10 w-10 rounded-full bg-blue-200 dark:bg-blue-700 flex items-center justify-center overflow-hidden">
-                                        {user.profilePic ? (
-                                            <img src={user.profilePic} alt={user.name} className="h-full w-full object-cover" />
-                                        ) : (
-                                            <span className="text-blue-600 dark:text-blue-300 font-medium">
-                          {user.name.charAt(0)}
-                        </span>
-                                        )}
-                                    </div>
-                                    <div className="ml-4">
-                                        <div className="text-sm font-medium text-gray-900 dark:text-white">
-                                            {user.name}
-                                        </div>
-                                    </div>
+                ) : currentProperties.length > 0 ? (
+                    currentProperties.map(property => (
+                        <tr key={property.id} className="hover:bg-gray-100/60 dark:hover:bg-blue-900/20">
+                            <td className="px-6 py-4 whitespace-nowrap flex items-center gap-2">
+                                <div className="flex-shrink-0 h-10 w-10 rounded-full bg-blue-200 dark:bg-blue-700 flex items-center justify-center overflow-hidden">
+                                    <span className="text-blue-600 dark:text-blue-300 font-medium">
+                                        {property.name.charAt(0)}</span>
+                                </div>
+                                <div className="text-sm font-medium text-gray-900 dark:text-white">
+                                    {property.name}
                                 </div>
                             </td>
+                            <td className="px-6 py-4 text-left pl-20 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                {property.totalBlocks}
+                            </td>
+                            <td className="px-6 py-4 text-left pl-12 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                ${property.blockPrice.toLocaleString()}
+                            </td>
+                            <td className="px-6 py-4 text-center pl-2 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                {property.country}
+                            </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                                {user.email}
+                                {property.city}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                    ${user.role === 'Admin' ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200' :
-                      user.role === 'Agency' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
-                          'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'}`}>
-                    {user.role}
-                  </span>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="flex items-center">
-                                    {getStatusIcon(user.status)}
-                                    <span className="ml-2 text-sm text-gray-900 dark:text-gray-200">
-                      {user.status}
-                    </span>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                <div className="px-2 inline-flex text-xs leading-5 font-medium rounded-full bg-blue-100 text-green-800 dark:bg-green-900 dark:text-blue-200">
+                                    {property.size}
                                 </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div className="flex justify-end space-x-2">
                                     <button
-                                        onClick={() => handleEdit(user.id)}
+                                        onClick={() => handleEdit(property.id)}
                                         className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
                                         title="Edit"
                                     >
                                         <Edit className="h-5 w-5" />
                                     </button>
                                     <button
-                                        onClick={() => handleDelete(user.id)}
+                                        onClick={() => handleDelete(property.id)}
                                         className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300"
                                         title="Delete"
                                     >
@@ -269,7 +228,7 @@ export const UsersTable = ({ filters }) => {
                         <td colSpan="8" className="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
                             <div className="flex items-center justify-center space-y-2">
                                 <Search className="h-4 w-4 text-gray-400" />
-                                <span>No users found matching your criteria</span>
+                                <span>No properties found matching your criteria</span>
                             </div>
                         </td>
                     </tr>
@@ -277,10 +236,10 @@ export const UsersTable = ({ filters }) => {
                 </tbody>
             </table>
 
-            {!loading && !error && filteredUsers.length > 0 && (
+            {!loading && !error && filteredProperties.length > 0 && (
                 <div className="flex items-center justify-between px-6 py-3 bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-[#5D5D65]">
                     <div className="text-sm text-gray-700 dark:text-gray-300">
-                        Showing {indexOfFirstUser + 1} to {Math.min(indexOfLastUser, filteredUsers.length)} of {filteredUsers.length} users
+                        Showing {indexOfFirstProperty + 1} to {Math.min(indexOfLastProperty, filteredProperties.length)} of {filteredProperties.length} properties
                     </div>
                     <div className="flex space-x-2">
                         <button

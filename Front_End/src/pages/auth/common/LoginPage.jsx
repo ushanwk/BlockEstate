@@ -89,10 +89,14 @@ export const LoginPage = () => {
                 description: "Your have successfully logged in",
             });
 
-            if(res.data.role === "ADMIN"){
+            if(res.data.role === "ADMIN") {
                 navigate("/admin");
             }else{
-                navigate("/");
+                if(res.data.role === "INVESTOR"){
+                    navigate("/");
+                }else{
+                    navigate("/agency");
+                }
             }
 
 

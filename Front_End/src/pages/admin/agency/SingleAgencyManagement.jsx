@@ -1,37 +1,122 @@
 import {useParams} from "react-router-dom";
 import {Header} from "../../../components/admin/Header.jsx";
 import {Button} from "../../../components/common/Button.jsx";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {TextField} from "../../../components/common/TextField.jsx";
 import {PasswordField} from "../../../components/common/PasswordField.jsx";
 import { ScrollText, HardDriveDownload } from "lucide-react";
+import {onAuthStateChanged} from "firebase/auth";
+import {auth} from "../../../firebase/firebase.config.js";
+import axios from "axios";
+import {toast} from "sonner";
 
 
 export const SingleAgencyManagement = () => {
 
-    //User id clicked
     const { agencyId } = useParams();
-    console.log(agencyId);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [agency, setAgency] = useState({});
 
-    const agency = {
-        id: 1,
-        name: 'Prime Realty',
-        email: 'info@primerealty.com',
-        propertyCount: 24,
-        status: 'Approved',
-        country: 'United States',
-        logo: 'https://placehold.co/100x100/3B82F6/FFFFFF?text=PR',
-        tin: 'TIN-123 6789 90987'
+
+    const getFirebaseToken = () => {
+        return new Promise((resolve, reject) => {
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    const token = await user.getIdToken();
+                    resolve(token);
+                } else {
+                    reject("No Firebase user logged in");
+                }
+            });
+        });
+    };
+
+    const fetchUser = async () => {
+        try{
+            const token = await getFirebaseToken();
+            const userId = agencyId;
+
+            const res = await fetch(`http://localhost:5500/api/user/get-profile/${userId}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (!res.ok) throw new Error("Failed to fetch user data");
+            const data = await res.json();
+
+            setAgency({
+                id: data.data.firebaseId,
+                name: data.data.name,
+                email: data.data.email,
+                propertyCount: 24,
+                status: data.data.extra.approveStatus,
+                country: data.data.extra.country,
+                logo: data.data.profileImageUrl,
+                tin: data.data.extra.tinNumber,
+            })
+        } catch (err) {
+            console.error("Error fetching user details:", err);
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+
     }
+
+    useEffect( () => {
+        fetchUser();
+        console.log(agency)
+    },[agencyId])
+
+
+    const updateAgencyStatus = async (newStatus) => {
+        try {
+            const userId = agencyId;
+
+            const res = await axios.patch(`http://localhost:5500/api/user/update-agency-status/${userId}`, {
+                status: newStatus,
+            });
+
+            if (res.status === 200) {
+                setAgency((prev) => ({ ...prev, status: newStatus }));
+                toast.success("Successfully Updated", {
+                    description: "Successfully updated agency status",
+                });
+            }
+        } catch (err) {
+            console.error("Failed to update agency status", err);
+            toast.error("Error in updating", err, {
+                description: "Error updating agency status",
+            });
+        }
+    };
+
+
 
     const getStatusIcon = (status) => {
         switch (status) {
-            case 'Approved': return  <div className="px-3 py-1 rounded-full bg-green-500/20 text-green-500 text-[9px] font-bold">{status}</div>;
-            case 'Pending': return <div className="px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-500 text-[9px] font-bold">{status}</div>;
-            case 'Rejected': return <div className="px-3 py-1 rounded-full bg-red-500/20 text-red-500 text-[9px] font-bold">{status}</div>;
+            case 'APPROVED': return  <div className="px-3 py-1 rounded-full bg-green-500/20 text-green-500 text-[9px] font-bold">{status}</div>;
+            case 'PENDING': return <div className="px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-500 text-[9px] font-bold">{status}</div>;
+            case 'REJECTED': return <div className="px-3 py-1 rounded-full bg-red-500/20 text-red-500 text-[9px] font-bold">{status}</div>;
             default: return null;
         }
     };
+
+    if (loading) {
+        return <div className="text-center mt-20 text-gray-500 dark:text-gray-300">Loading user details...</div>;
+    }
+
+    if (error) {
+        return <div className="text-center mt-20 text-red-500">Error: {error}</div>;
+    }
+
+    if (!agency) {
+        return <div className="text-center mt-20 text-gray-500">User not found.</div>;
+    }
 
     return (
         <main>
@@ -47,14 +132,43 @@ export const SingleAgencyManagement = () => {
                     <div>
                         <h1 className="dark:text-white text-[18px] font-light">Profile Details</h1>
                     </div>
-                    <div className="flex items-center gap-3">
-                        <div className="w-24">
-                            <Button red="red" children="Reject" />
-                        </div>
-                        <div className="w-24">
-                            <Button green="green" children="Approve" />
-                        </div>
-                    </div>
+                    {
+                        agency.status === "PENDING" ? (
+                            <div className="flex items-center gap-3">
+                                <div className="w-24">
+                                    <Button red="red" children="Reject" onclick={() => {
+                                        updateAgencyStatus("REJECTED")}} />
+                                </div>
+                                <div className="w-24">
+                                    <Button green="green" children="Approve" onclick={() => {
+                                        updateAgencyStatus("APPROVED")}} />
+                                </div>
+                            </div>
+                        ):null
+                    }
+
+                    {
+                        agency.status === "APPROVED" ? (
+                            <div className="flex items-center gap-3">
+                                <div className="w-24">
+                                    <Button red="red" children="Reject" onclick={() => {
+                                        updateAgencyStatus("REJECTED")}} />
+                                </div>
+                            </div>
+                        ):null
+                    }
+
+                    {
+                        agency.status === "REJECTED" ? (
+                            <div className="flex items-center gap-3">
+                                <div className="w-24">
+                                    <Button green="green" children="Approve" onclick={() => {
+                                        updateAgencyStatus("APPROVED")}} />
+                                </div>
+                            </div>
+                        ):null
+                    }
+
                 </div>
 
                 <div className="flex justify-between items-center mt-4">
@@ -102,7 +216,10 @@ export const SingleAgencyManagement = () => {
                             <TextField label="Contact Person Name" placeholder={agency.name} />
                         </div>
                         <div className="w-full">
-                            <TextField label="Business Email" placeholder={agency.email} />
+                            <label className="block text-[13px] mt-[-12px] mb-2 text-left dark:text-[#ffffff] dark:font-extralight">Registered Country</label>
+                            <div className="w-full p-2 text-[12px] rounded-[5px] dark:text-[#ffffff] border dark:border-[#5D5D65] border-[#D9D9D9] dark:font-extralight bg-gray-200 dark:bg-gray-700">
+                                {agency.email}
+                            </div>
                         </div>
                     </div>
 

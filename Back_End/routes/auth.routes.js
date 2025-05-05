@@ -6,6 +6,7 @@ import User from "../models/user.model.js";
 import Investor from "../models/investor.model.js";
 import Agency from "../models/agency.model.js";
 import Admin from "../models/admin.model.js";
+import {createInvestorWallet} from "../services/blockchain.service.js";
 
 const storage = multer.memoryStorage();
 
@@ -97,6 +98,9 @@ authRouter.post('/register-investor', upload, async (req, res) => {
             address,
         });
         await newInvestor.save();
+
+        const wallet = await createInvestorWallet(uid);
+
 
         await sendWelcomeEmail(email, displayName);
 
@@ -204,6 +208,7 @@ authRouter.post('/register-investor-google', upload, async (req, res) => {
 
         await sendWelcomeEmail(email, displayName);
 
+        const wallet = await createInvestorWallet(uid);
 
         return res.status(200).json({
             message: "Registered successfully!",

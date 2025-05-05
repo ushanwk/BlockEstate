@@ -139,6 +139,7 @@ export const AdminDashboardLayout = () => {
             </section>
         );
     }
+
     return (
         <main className="w-[100vw] h-[100vh] flex bg-cover bg-center overflow-hidden">
             <div className="h-full w-[16%] min-w-[250px] bg-white dark:bg-[var(--color-dark-bg-primary)] flex flex-col  items-center py-10 px-6">

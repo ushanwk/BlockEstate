@@ -20,6 +20,14 @@ import {UserManagement} from "../pages/admin/user/UserManagement.jsx";
 import {SingleUserManagement} from "../pages/admin/user/SingleUserManagement.jsx";
 import {AgenciesManagement} from "../pages/admin/agency/AgenciesManagement.jsx";
 import {SingleAgencyManagement} from "../pages/admin/agency/SingleAgencyManagement.jsx";
+import {AgencyDashboardLayout} from "../layouts/AgencyDashboardLayout.jsx";
+import {AgencyDashboard} from "../pages/agency/dashboard/AgencyDashboard.jsx";
+import {PropertyManagement} from "../pages/agency/property/PropertyManagement.jsx";
+import {ProfileManagement} from "../pages/agency/profile/ProfileManagement.jsx";
+import {SponsorshipManagement} from "../pages/agency/sponsorship/SponsorshipManagement.jsx";
+import {FinanceManagement} from "../pages/agency/financial/FinanceManagement.jsx";
+import {AddNewProperty} from "../pages/agency/property/AddNewProperty.jsx";
+import {SinglePropertyManagement} from "../pages/agency/property/SinglePropertyManagement.jsx";
 
 export const Index = () => {
     return (
@@ -69,6 +77,19 @@ export const Index = () => {
                     <Route path="analytic" element={<UserManagement />} />
                     <Route path="setting" element={<UserManagement />} />
                     <Route path="profile" element={<UserManagement />} />
+                </Route>
+
+                {/* Agency Routes */}
+                <Route path="/agency" element={<AgencyDashboardLayout />}>
+                    <Route index element={<AgencyDashboard />} />
+
+                    <Route path="properties" element={<PropertyManagement />} />
+                    <Route path="properties/:id" element={<SinglePropertyManagement />}></Route>
+                    <Route path="properties/add" element={<AddNewProperty />} />
+
+                    <Route path="profile" element={<ProfileManagement />} />
+                    <Route path="sponsorships" element={<SponsorshipManagement />} />
+                    <Route path="financials" element={<FinanceManagement />} />
                 </Route>
 
             </Routes>

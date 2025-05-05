@@ -56,8 +56,6 @@ export const AgenciesTable = ({ filters }) => {
                     }));
 
                     setAllAgencies(transformedAgencies);
-
-                    console.log(transformedAgencies.status)
                 } else {
                     throw new Error("Invalid API response format");
                 }

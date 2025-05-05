@@ -1,35 +1,90 @@
-import {Header} from "../../../components/admin/Header.jsx";
-import React from "react";
-import {useParams} from "react-router-dom";
-import {Button} from "../../../components/common/Button.jsx";
-import {TextField} from "../../../components/common/TextField.jsx";
-import {PasswordField} from "../../../components/common/PasswordField.jsx";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../../firebase/firebase.config.js"
+import { Header } from "../../../components/admin/Header.jsx";
+import { Button } from "../../../components/common/Button.jsx";
+import { TextField } from "../../../components/common/TextField.jsx";
+import { PasswordField } from "../../../components/common/PasswordField.jsx";
 
 export const SingleUserManagement = () => {
-
-    //User id clicked
     const { userId } = useParams();
-    console.log(userId);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [user, setUser] = useState({});
 
-    const user ={
-        id: 1,
-        name: 'John Anderson',
-        email: 'john.anderson@email.com',
-        role: 'Investor',
-        status: 'Active',
-        profilePic: 'https://randomuser.me/api/portraits/men/32.jpg'
-    }
+    const getFirebaseToken = () => {
+        return new Promise((resolve, reject) => {
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    const token = await user.getIdToken();
+                    resolve(token);
+                } else {
+                    reject("No Firebase user logged in");
+                }
+            });
+        });
+    };
+
+    const fetchUser = async () => {
+        try {
+            const token = await getFirebaseToken();
+            const res = await fetch(`http://localhost:5500/api/user/get-profile/${userId}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (!res.ok) throw new Error("Failed to fetch user data");
+            const data = await res.json();
+
+
+            // console.log(data.data.status)
+            setUser({
+                firebaseId: data.data.firebaseId,
+                name: data.data.name,
+                email: data.data.email,
+                role: data.data.role,
+                status: data.data.status,
+                profilePic: data.data.profileImageUrl,
+                createdAt: data.data.createdAt,
+                updatedAt: data.data.createdAt,
+            })
+        } catch (err) {
+            console.error("Error fetching user details:", err);
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchUser();
+    }, [userId]);
 
 
 
     const getStatusIcon = (status) => {
         switch (status) {
-            case 'Active': return  <div className="px-3 py-1 rounded-full bg-green-500/20 text-green-500 text-[9px] font-bold">{status}</div>;
-            case 'Pending': return <div className="px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-500 text-[9px] font-bold">{status}</div>;
-            case 'Inactive': return <div className="px-3 py-1 rounded-full bg-red-500/20 text-red-500 text-[9px] font-bold">{status}</div>;
+            case 'ACTIVE': return <div className="px-3 py-1 rounded-full bg-green-500/20 text-green-500 text-[9px] font-bold">{status}</div>;
+            case 'INACTIVE': return <div className="px-3 py-1 rounded-full bg-red-500/20 text-red-500 text-[9px] font-bold">{status}</div>;
             default: return null;
         }
     };
+
+    if (loading) {
+        return <div className="text-center mt-20 text-gray-500 dark:text-gray-300">Loading user details...</div>;
+    }
+
+    if (error) {
+        return <div className="text-center mt-20 text-red-500">Error: {error}</div>;
+    }
+
+    if (!user) {
+        return <div className="text-center mt-20 text-gray-500">User not found.</div>;
+    }
 
     return (
         <main>
@@ -72,8 +127,8 @@ export const SingleUserManagement = () => {
                     </div>
 
                     <div className="text-end flex flex-col gap-[5px]">
-                        <p className="text-gray-400 dark:text-gray-500 text-[12px]">Created At: <span className="text-black dark:text-white">24/12/2024</span></p>
-                        <p className="text-gray-400 dark:text-gray-500 text-[12px]">Updated At: <span className="text-black dark:text-white">24/03/2025</span></p>
+                        <p className="text-gray-400 dark:text-gray-500 text-[12px]">Created At: <span className="text-black dark:text-white">{user.createdAt}</span></p>
+                        <p className="text-gray-400 dark:text-gray-500 text-[12px]">Updated At: <span className="text-black dark:text-white">{user.updatedAt}</span></p>
                         <div className="flex items-center gap-3 justify-end">
                             <p className="text-gray-400 dark:text-gray-500 text-[12px]">Status:</p>
                             <div className="flex items-center">
@@ -96,7 +151,10 @@ export const SingleUserManagement = () => {
                             <TextField label="Display Name" placeholder={user.name} />
                         </div>
                         <div className="w-full">
-                            <TextField label="Email" placeholder={user.email} />
+                            <label className="block text-[13px] mb-2 text-left dark:text-[#ffffff] dark:font-extralight">Registered Country</label>
+                            <div className="w-full p-2 text-[12px] rounded-[5px] dark:text-[#ffffff] border dark:border-[#5D5D65] border-[#D9D9D9] dark:font-extralight bg-gray-200 dark:bg-gray-700">
+                                {user.email}
+                            </div>
                         </div>
                     </div>
 
@@ -145,5 +203,5 @@ export const SingleUserManagement = () => {
             </section>
 
         </main>
-    )
-}
+    );
+};

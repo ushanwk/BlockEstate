@@ -3,6 +3,8 @@ import User from "../models/user.model.js";
 import verifyFirebaseToken from "../middlewares/verifyToken.middleware.js";
 import admin from "firebase-admin";
 import Agency from "../models/agency.model.js";
+import Admin from "../models/admin.model.js";
+import Investor from "../models/investor.model.js";
 
 const userRouter = Router();
 
@@ -140,6 +142,120 @@ userRouter.get("/get-agency-users", verifyFirebaseToken, async (req, res) => {
     } catch (error) {
         console.error("Error fetching agency users:", error);
         res.status(500).json({ success: false, message: "Server Error" });
+    }
+});
+
+
+userRouter.get("/get-profile/:firebaseId", verifyFirebaseToken, async (req, res) => {
+    const { firebaseId } = req.params;
+
+    try {
+        // Step 1: Get user from main User table
+        const user = await User.findOne({ firebaseId });
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+
+        // Step 2: Get Firebase user data
+        const firebaseUser = await admin.auth().getUser(firebaseId);
+        const firebaseData = {
+            email: firebaseUser.email,
+            displayName: firebaseUser.displayName,
+            photoURL: firebaseUser.photoURL,
+            emailVerified: firebaseUser.emailVerified
+        };
+
+        // Step 3: Fetch role-based data
+        let roleData = {};
+        let name = ""; // Full name
+
+        if (user.role === "INVESTOR") {
+            const investor = await Investor.findOne({ firebaseId });
+            if (investor) {
+                roleData = {
+                    firstName: investor.firstName,
+                    lastName: investor.lastName,
+                    nic: investor.nic,
+                    address: investor.address
+                };
+                name = `${investor.firstName}`;
+            }
+        } else if (user.role === "AGENCY") {
+            const agency = await Agency.findOne({ firebaseId });
+            if (agency) {
+                roleData = {
+                    agencyName: agency.agencyName,
+                    country: agency.country,
+                    approveStatus: agency.approveStatus,
+                    tinNumber: agency.tinNumber,
+                    brUrl: agency.brUrl
+                };
+                name = agency.agencyName;
+            }
+        } else if (user.role === "ADMIN") {
+            const adminUser = await Admin.findOne({ firebaseId });
+            if (adminUser) {
+                roleData = {
+                    firstName: adminUser.firstName,
+                    lastName: adminUser.lastName,
+                    nic: adminUser.nic
+                };
+                name = `${adminUser.firstName}`;
+            }
+        }
+
+        // Step 4: Return all in one nice object
+        const profile = {
+            firebaseId: user.firebaseId,
+            displayName: user.displayName || firebaseData.displayName,
+            email: firebaseData.email,
+            emailVerified: firebaseData.emailVerified,
+            profileImageUrl: user.profileImageUrl || firebaseData.photoURL,
+            status: user.isActive,
+            role: user.role,
+            name: name,
+            createdAt: user.createdAt.toDateString(),
+            updatedAt: user.updatedAt.toDateString(),
+            extra: roleData
+        };
+
+        console.log(profile.status);
+
+        res.status(200).json({ success: true, data: profile });
+
+    } catch (error) {
+        console.error("Error fetching profile:", error);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+});
+
+
+userRouter.patch("/update-agency-status/:firebaseId", async (req, res) => {
+    const { firebaseId } = req.params;
+    const { status } = req.body;
+
+    console.log(firebaseId)
+
+    if (!["APPROVED", "REJECTED"].includes(status)) {
+        return res.status(400).json({ message: "Invalid status value." });
+    }
+
+    try {
+        const agency = await Agency.findOneAndUpdate(
+            { firebaseId },
+            { approveStatus: status },
+            { new: true },
+        );
+
+        if (!agency) {
+            return res.status(404).json({ message: "Agency not found." });
+        }
+
+        res.status(200).json({ message: "Status updated.", agency });
+    } catch (error) {
+        console.error("Error updating agency status:", error);
+        res.status(500).json({ message: "Internal Server Error." });
     }
 });
 
