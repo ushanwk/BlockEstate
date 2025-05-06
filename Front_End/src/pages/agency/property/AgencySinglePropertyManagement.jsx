@@ -9,8 +9,9 @@ import { Blocks, DollarSign, LayoutTemplate, Ruler, House, BedDouble, Car } from
 import axios from "axios";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import {Button} from "../../../components/common/Button.jsx";
 
-export const SinglePropertyManagement = () => {
+export const AgencySinglePropertyManagement = () => {
     const { id } = useParams();
     const [property, setProperty] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -96,7 +97,6 @@ export const SinglePropertyManagement = () => {
                     <TextField
                         label="Property Title"
                         value={property.title || ''}
-                        readOnly
                     />
 
                     <div className="flex items-center gap-5">
@@ -105,7 +105,6 @@ export const SinglePropertyManagement = () => {
                             <CountryComboBox
                                 selectedCountry={property.country}
                                 value={property.country}
-                                readOnly
                             />
                         </div>
 
@@ -113,7 +112,6 @@ export const SinglePropertyManagement = () => {
                             <TextField
                                 label="Located City"
                                 value={property.city || ''}
-                                readOnly
                             />
                         </div>
 
@@ -121,7 +119,6 @@ export const SinglePropertyManagement = () => {
                             <TextField
                                 label="Located Address"
                                 value={property.address || ''}
-                                readOnly
                             />
                         </div>
                     </div>
@@ -130,7 +127,6 @@ export const SinglePropertyManagement = () => {
                         <TextArea
                             label="Description"
                             value={property.description || ''}
-                            readOnly
                         />
                     </div>
                 </div>
@@ -145,7 +141,7 @@ export const SinglePropertyManagement = () => {
                             icon={Blocks}
                             label="Total Blocks"
                             value={property.totalBlocks || ''}
-                            readOnly
+                            disabled="disabled"
                         />
                     </div>
 
@@ -154,7 +150,7 @@ export const SinglePropertyManagement = () => {
                             icon={DollarSign}
                             label="Block Price"
                             value={property.blockPrice || ''}
-                            readOnly
+                            disabled="disabled"
                         />
                     </div>
 
@@ -163,7 +159,7 @@ export const SinglePropertyManagement = () => {
                             icon={DollarSign}
                             label="Block Rental"
                             value={property.blockRental || ''}
-                            readOnly
+                            disabled="disabled"
                         />
                     </div>
 
@@ -172,7 +168,7 @@ export const SinglePropertyManagement = () => {
                             icon={LayoutTemplate}
                             label="Rem Blocks"
                             value={property.remBlocks || ''}
-                            readOnly
+                            disabled="disabled"
                         />
                     </div>
                 </div>
@@ -187,7 +183,7 @@ export const SinglePropertyManagement = () => {
                             icon={Ruler}
                             label="Size"
                             value={property.size || ''}
-                            readOnly
+                            disabled="disabled"
                         />
                     </div>
 
@@ -196,8 +192,7 @@ export const SinglePropertyManagement = () => {
                             icon={House}
                             label="No of Houses"
                             value={property.noOfHouses || ''}
-                            readOnly
-                        />
+                            disabled="disabled"                        />
                     </div>
 
                     <div className="w-full">
@@ -205,7 +200,7 @@ export const SinglePropertyManagement = () => {
                             icon={BedDouble}
                             label="No of Rooms"
                             value={property.noOfRooms || ''}
-                            readOnly
+                            disabled="disabled"
                         />
                     </div>
 
@@ -214,8 +209,19 @@ export const SinglePropertyManagement = () => {
                             icon={Car}
                             label="No of Garages"
                             value={property.noOfGarages || ''}
-                            readOnly
+                            disabled="disabled"
                         />
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div className="flex items-center gap-3 mt-10">
+                    <div className="w-36">
+                        <Button children="Update Changes"/>
+                    </div>
+                    <div className="w-16">
+                        <Button children="Clear" bgColor="#999999" hoverColor="#888888" />
                     </div>
                 </div>
             </section>

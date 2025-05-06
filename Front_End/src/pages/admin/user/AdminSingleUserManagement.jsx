@@ -7,7 +7,7 @@ import { Button } from "../../../components/common/Button.jsx";
 import { TextField } from "../../../components/common/TextField.jsx";
 import { PasswordField } from "../../../components/common/PasswordField.jsx";
 
-export const SingleUserManagement = () => {
+export const AdminSingleUserManagement = () => {
     const { userId } = useParams();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);

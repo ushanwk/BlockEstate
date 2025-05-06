@@ -5,6 +5,7 @@ import admin from "firebase-admin";
 import Agency from "../models/agency.model.js";
 import Admin from "../models/admin.model.js";
 import Investor from "../models/investor.model.js";
+import Property from "../models/property.model.js";
 
 const userRouter = Router();
 
@@ -107,20 +108,25 @@ userRouter.get("/get-agency-users", verifyFirebaseToken, async (req, res) => {
             };
         });
 
-        // Step 3: Get agency-specific data from another collection
+        // Step 3: Get agency-specific data from Agency collection
         const agencyDetails = await Agency.find({});
-        const agencyUsersAg = {};
-        agencyDetails.forEach(ag => {
-            agencyUsersAg[ag.firebaseId] = {
-                country: ag.country,
-                approveStatus: ag.approveStatus
-            };
-        });
+        const agencyMap = {};
+        for (const ag of agencyDetails) {
+            // 🆕 Step 3.1: Count how many properties this agency has listed
+            const propertyCount = await Property.countDocuments({ agencyId: ag.firebaseId });
 
-        // Step 4: Combine everything
+            agencyMap[ag.firebaseId] = {
+                country: ag.country,
+                approveStatus: ag.approveStatus,
+                agencyName: ag.agencyName,
+                propertyCount: propertyCount // add property count here
+            };
+        }
+
+        // Step 4: Merge all info together
         const allAgencyUsers = agencyUsers.map(dbUser => {
             const firebaseData = firebaseUserMap[dbUser.firebaseId] || {};
-            const ag = agencyUsersAg[dbUser.firebaseId] || {};
+            const ag = agencyMap[dbUser.firebaseId] || {};
 
             return {
                 firebaseId: dbUser.firebaseId,
@@ -134,8 +140,9 @@ userRouter.get("/get-agency-users", verifyFirebaseToken, async (req, res) => {
                 emailVerified: firebaseData.emailVerified,
                 country: ag.country || null,
                 approvalStatus: ag.approveStatus || "PENDING",
+                agencyName: ag.agencyName || "NOTSET",
+                propertyCount: ag.propertyCount || 0 // 🆕 new field
             };
-
         });
 
         res.status(200).json({ success: true, data: allAgencyUsers });
@@ -144,6 +151,7 @@ userRouter.get("/get-agency-users", verifyFirebaseToken, async (req, res) => {
         res.status(500).json({ success: false, message: "Server Error" });
     }
 });
+
 
 
 userRouter.get("/get-profile/:firebaseId", verifyFirebaseToken, async (req, res) => {
@@ -258,6 +266,29 @@ userRouter.patch("/update-agency-status/:firebaseId", async (req, res) => {
         res.status(500).json({ message: "Internal Server Error." });
     }
 });
+
+
+userRouter.get("/get-agency-status/:firebaseId", async (req, res) => {
+    const { firebaseId } = req.params;
+
+    try {
+        const agency = await Agency.findOne({ firebaseId });
+
+        if (!agency) {
+            return res.status(404).json({ message: "Agency not found." });
+        }
+
+        return res.status(200).json({
+            firebaseId: agency.firebaseId,
+            agencyName: agency.agencyName,
+            approveStatus: agency.approveStatus,
+        });
+    } catch (error) {
+        console.error("Error fetching agency status:", error);
+        return res.status(500).json({ message: "Internal server error." });
+    }
+});
+
 
 
 

@@ -3,6 +3,8 @@ import multer from "multer";
 import admin from "../config/firebaseAdmin.config.js";
 import Property from "../models/property.model.js";
 import mongoose from "mongoose";
+import Agency from "../models/agency.model.js";
+import {sendPropertyAddedEmail} from "../services/email.service.js";
 
 
 const propertyRouter = Router();
@@ -49,7 +51,7 @@ propertyRouter.post("/create", upload, async (req, res) => {
 
         // ✅ Step 3: Create and save property using manually set _id
         const newProperty = new Property({
-            _id: newPropertyId, // assign the custom _id
+            _id: newPropertyId,
             title,
             country,
             city,
@@ -71,6 +73,21 @@ propertyRouter.post("/create", upload, async (req, res) => {
         });
 
         await newProperty.save();
+
+
+        const agency = await Agency.findOne({ firebaseId: agencyId });
+
+        if (agency && agency.firebaseId) {
+            try {
+                const firebaseUser = await admin.auth().getUser(agency.firebaseId);
+
+                if (firebaseUser.email) {
+                    await sendPropertyAddedEmail(firebaseUser.email, agency.agencyName, title);
+                }
+            } catch (emailErr) {
+                console.error("Failed to send property added email:", emailErr);
+            }
+        }
 
         return res.status(201).json({
             message: "Property created successfully!",
@@ -113,6 +130,40 @@ propertyRouter.get('/getAll', async (req, res) => {
     }
 });
 
+
+propertyRouter.get('/getByAgency/:agencyId', async (req, res) => {
+    const { agencyId } = req.params;
+
+    try {
+        const properties = await Property.find({ agencyId }, {
+            _id: 1,
+            title: 1,
+            totalBlocks: 1,
+            blockPrice: 1,
+            country: 1,
+            city: 1,
+            size: 1
+        });
+
+        const transformed = properties.map(p => ({
+            id: p._id,
+            name: p.title,
+            totalBlocks: p.totalBlocks,
+            blockPrice: p.blockPrice,
+            country: p.country,
+            city: p.city,
+            size: p.size
+        }));
+
+        return res.status(200).json(transformed);
+    } catch (error) {
+        console.error("Failed to fetch properties for agency:", error);
+        return res.status(500).json({ error: "Failed to load agency properties" });
+    }
+});
+
+
+
 propertyRouter.get('/get/:id', async (req, res) => {
     const { id } = req.params;
 
@@ -129,6 +180,8 @@ propertyRouter.get('/get/:id', async (req, res) => {
         res.status(500).json({ message: 'Server error while fetching property' });
     }
 });
+
+
 
 
 export default propertyRouter;

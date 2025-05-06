@@ -11,7 +11,7 @@ import axios from "axios";
 import {toast} from "sonner";
 
 
-export const SingleAgencyManagement = () => {
+export const AdminSingleAgencyManagement = () => {
 
     const { agencyId } = useParams();
     const [loading, setLoading] = useState(true);

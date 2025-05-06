@@ -16,18 +16,20 @@ import {AgencyAccountSetup} from "../pages/auth/agency/AgencyAccountSetup.jsx";
 import {AgencyApprovePage} from "../pages/auth/agency/AgencyApprovePage.jsx";
 import {AdminDashboardLayout} from "../layouts/AdminDashboardLayout.jsx";
 import {AdminDashboard} from "../pages/admin/dashboard/AdminDashboard.jsx";
-import {UserManagement} from "../pages/admin/user/UserManagement.jsx";
-import {SingleUserManagement} from "../pages/admin/user/SingleUserManagement.jsx";
-import {AgenciesManagement} from "../pages/admin/agency/AgenciesManagement.jsx";
-import {SingleAgencyManagement} from "../pages/admin/agency/SingleAgencyManagement.jsx";
+import {AdminUserManagement} from "../pages/admin/user/AdminUserManagement.jsx";
+import {AdminSingleUserManagement} from "../pages/admin/user/AdminSingleUserManagement.jsx";
+import {AdminAgenciesManagement} from "../pages/admin/agency/AdminAgenciesManagement.jsx";
+import {AdminSingleAgencyManagement} from "../pages/admin/agency/AdminSingleAgencyManagement.jsx";
 import {AgencyDashboardLayout} from "../layouts/AgencyDashboardLayout.jsx";
 import {AgencyDashboard} from "../pages/agency/dashboard/AgencyDashboard.jsx";
-import {PropertyManagement} from "../pages/agency/property/PropertyManagement.jsx";
-import {ProfileManagement} from "../pages/agency/profile/ProfileManagement.jsx";
-import {SponsorshipManagement} from "../pages/agency/sponsorship/SponsorshipManagement.jsx";
-import {FinanceManagement} from "../pages/agency/financial/FinanceManagement.jsx";
-import {AddNewProperty} from "../pages/agency/property/AddNewProperty.jsx";
-import {SinglePropertyManagement} from "../pages/agency/property/SinglePropertyManagement.jsx";
+import {AgencyPropertyManagement} from "../pages/agency/property/AgencyPropertyManagement.jsx";
+import {AgencyProfileManagement} from "../pages/agency/profile/AgencyProfileManagement.jsx";
+import {AgencySponsorshipManagement} from "../pages/agency/sponsorship/AgencySponsorshipManagement.jsx";
+import {AgencyFinanceManagement} from "../pages/agency/financial/AgencyFinanceManagement.jsx";
+import {AgencyAddNewProperty} from "../pages/agency/property/AgencyAddNewProperty.jsx";
+import {AgencySinglePropertyManagement} from "../pages/agency/property/AgencySinglePropertyManagement.jsx";
+import {AdminPropertyManagement} from "../pages/admin/property/AdminPropertyManagement.jsx";
+import {AdminSinglePropertyManagement} from "../pages/admin/property/AdminSinglePropertyManagement.jsx";
 
 export const Index = () => {
     return (
@@ -62,34 +64,37 @@ export const Index = () => {
                 <Route path="/admin" element={<AdminDashboardLayout />}>
                     <Route index element={<AdminDashboard />} />
 
-                    <Route path="user" element={<UserManagement />} />
-                    <Route path="user/:userId" element={<SingleUserManagement />} />
+                    <Route path="user" element={<AdminUserManagement />} />
+                    <Route path="user/:userId" element={<AdminSingleUserManagement />} />
 
-                    <Route path="property" element={<UserManagement />} />
-
-                    <Route path="agency" element={<AgenciesManagement />} />
-                    <Route path="agency/:agencyId" element={<SingleAgencyManagement />} />
+                    <Route path="property" element={<AdminPropertyManagement />} />
+                    <Route path="property/:id" element={<AdminSinglePropertyManagement />} />
 
 
-                    <Route path="resale" element={<UserManagement />} />
-                    <Route path="transaction" element={<UserManagement />} />
-                    <Route path="sponsored" element={<UserManagement />} />
-                    <Route path="analytic" element={<UserManagement />} />
-                    <Route path="setting" element={<UserManagement />} />
-                    <Route path="profile" element={<UserManagement />} />
+                    <Route path="agency" element={<AdminAgenciesManagement />} />
+                    <Route path="agency/:agencyId" element={<AdminSingleAgencyManagement />} />
+
+
+
+                    <Route path="resale" element={<AdminUserManagement />} />
+                    <Route path="transaction" element={<AdminUserManagement />} />
+                    <Route path="sponsored" element={<AdminUserManagement />} />
+                    <Route path="analytic" element={<AdminUserManagement />} />
+                    <Route path="setting" element={<AdminUserManagement />} />
+                    <Route path="profile" element={<AdminUserManagement />} />
                 </Route>
 
                 {/* Agency Routes */}
                 <Route path="/agency" element={<AgencyDashboardLayout />}>
                     <Route index element={<AgencyDashboard />} />
 
-                    <Route path="properties" element={<PropertyManagement />} />
-                    <Route path="properties/:id" element={<SinglePropertyManagement />}></Route>
-                    <Route path="properties/add" element={<AddNewProperty />} />
+                    <Route path="properties" element={<AgencyPropertyManagement />} />
+                    <Route path="properties/:id" element={<AgencySinglePropertyManagement />}></Route>
+                    <Route path="properties/add" element={<AgencyAddNewProperty />} />
 
-                    <Route path="profile" element={<ProfileManagement />} />
-                    <Route path="sponsorships" element={<SponsorshipManagement />} />
-                    <Route path="financials" element={<FinanceManagement />} />
+                    <Route path="profile" element={<AgencyProfileManagement />} />
+                    <Route path="sponsorships" element={<AgencySponsorshipManagement />} />
+                    <Route path="financials" element={<AgencyFinanceManagement />} />
                 </Route>
 
             </Routes>

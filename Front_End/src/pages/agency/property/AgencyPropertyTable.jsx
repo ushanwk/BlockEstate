@@ -6,8 +6,10 @@ import {
 } from 'lucide-react';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {onAuthStateChanged} from "firebase/auth";
+import {auth} from "../../../firebase/firebase.config.js";
 
-export const PropertyTable = ({ filters }) => {
+export const AgencyPropertyTable = ({ filters }) => {
     const [allProperties, setAllProperties] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -19,9 +21,23 @@ export const PropertyTable = ({ filters }) => {
     useEffect(() => {
         const fetchProperties = async () => {
             try {
+
+                const user = await new Promise((resolve, reject) => {
+                    const unsubscribe = onAuthStateChanged(auth, (user) => {
+                        unsubscribe();
+                        if (user) {
+                            resolve(user);
+                        } else {
+                            reject("User not signed in");
+                        }
+                    });
+                });
+
+                const agencyId = user.uid;
+
                 setLoading(true);
                 setError(null);
-                const response = await axios.get('http://localhost:5500/api/property/getAll');
+                const response = await axios.get(`http://localhost:5500/api/property/getByAgency/${agencyId}`);
                 setAllProperties(response.data);
             } catch (err) {
                 console.error("Failed to fetch properties:", err);

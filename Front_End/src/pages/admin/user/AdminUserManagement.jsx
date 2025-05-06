@@ -3,9 +3,9 @@ import { Header } from "../../../components/admin/Header.jsx";
 import { SearchField } from "../../../components/common/SearchField.jsx";
 import { ComboBox } from "../../../components/common/ComboBox.jsx";
 import { Button } from "../../../components/common/Button.jsx";
-import { UsersTable } from "./UsersTable.jsx";
+import { AdminUsersTable } from "./AdminUsersTable.jsx";
 
-export const UserManagement = () => {
+export const AdminUserManagement = () => {
     const [filters, setFilters] = useState({
         searchTerm: '',
         role: null,
@@ -101,7 +101,7 @@ export const UserManagement = () => {
                 <div className="py-4 px-2 ml-3 mr-3 text-[12px] flex justify-between">
                     <div className="dark:text-white/50 text-black/50 bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded-[3px] cursor-pointer">Export Details</div>
                 </div>
-                <UsersTable filters={filters} />
+                <AdminUsersTable filters={filters} />
             </section>
         </main>
     )

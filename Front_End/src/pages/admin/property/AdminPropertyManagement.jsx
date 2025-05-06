@@ -4,10 +4,10 @@ import { SearchField } from "../../../components/common/SearchField.jsx";
 import { ComboBox } from "../../../components/common/ComboBox.jsx";
 import { CountryComboBox } from "../../../components/common/CountryComboBox.jsx";
 import { Button } from "../../../components/common/Button.jsx";
-import { PropertyTable } from "./PropertyTable.jsx";
+import { AdminPropertyTable } from "./AdminPropertyTable.jsx";
 import {useNavigate} from "react-router-dom";
 
-export const PropertyManagement = () => {
+export const AdminPropertyManagement = () => {
 
     const navigate = useNavigate();
 
@@ -51,10 +51,6 @@ export const PropertyManagement = () => {
 
     const handleMaxPriceChange = (value) => {
         setFilters({ ...filters, maxPrice: value });
-    };
-
-    const handleStatusChange = (value) => {
-        setFilters({ ...filters, status: value });
     };
 
     const handleClear = () => {
@@ -127,12 +123,8 @@ export const PropertyManagement = () => {
             <section className="w-full mt-5 rounded-[5px] bg-white dark:bg-[var(--color-dark-bg-primary)] border border-[var(--color-primary)]/10 flex flex-col">
                 <div className="py-4 px-2 ml-3 mr-3 text-[12px] flex justify-between">
                     <div className="dark:text-white/50 text-black/50 bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded-[3px] cursor-pointer flex items-center justify-center">Export Details</div>
-
-                    <div className="w-36">
-                        <Button green="green" children="Add New Property" onclick={()=>{navigate('add')}} />
-                    </div>
                 </div>
-                <PropertyTable filters={filters} />
+                <AdminPropertyTable filters={filters} />
             </section>
         </main>
     )

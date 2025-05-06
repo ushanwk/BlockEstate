@@ -14,7 +14,7 @@ import {auth} from "../../../firebase/firebase.config.js";
 import {toast} from "sonner";
 
 
-export const AddNewProperty = () => {
+export const AgencyAddNewProperty = () => {
     const [formData, setFormData] = useState({
         title: "",
         country: "",

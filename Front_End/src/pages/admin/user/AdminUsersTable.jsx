@@ -9,7 +9,7 @@ import { auth } from "../../../firebase/firebase.config.js";
 import axios from "axios";
 import { onAuthStateChanged } from "firebase/auth";
 
-export const UsersTable = ({ filters }) => {
+export const AdminUsersTable = ({ filters }) => {
     const [allUsers, setAllUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);

@@ -3,10 +3,10 @@ import {SearchField} from "../../../components/common/SearchField.jsx";
 import {ComboBox} from "../../../components/common/ComboBox.jsx";
 import {Button} from "../../../components/common/Button.jsx";
 import {useRef, useState} from "react";
-import {AgenciesTable} from "./AgenciesTable.jsx";
+import {AdminAgenciesTable} from "./AdminAgenciesTable.jsx";
 import {CountryComboBox} from "../../../components/common/CountryComboBox.jsx";
 
-export const AgenciesManagement = () => {
+export const AdminAgenciesManagement = () => {
 
     const [filters, setFilters] = useState({
         searchTerm: '',
@@ -95,7 +95,7 @@ export const AgenciesManagement = () => {
                 <div className="py-4 px-2 ml-3 mr-3 text-[12px] flex justify-between">
                     <div className="dark:text-white/50 text-black/50 bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded-[3px] cursor-pointer">Export Details</div>
                 </div>
-                <AgenciesTable filters={filters} />
+                <AdminAgenciesTable filters={filters} />
             </section>
         </main>
     )

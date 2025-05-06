@@ -32,14 +32,25 @@ export const LoginPage = () => {
             const res = await fetch(`http://localhost:5500/api/auth/check-firebase-user/${firebaseId}`);
             const data = await res.json();
 
-            console.log(data.exists)
+            console.log(data)
 
             if (data.exists) {
                 toast.success("Login successfully!", {
                     description: "Your have successfully logged in",
                 });
 
-                navigate("/");
+
+                if(data.user.role === "INVESTOR") {
+                    navigate("/");
+                }
+
+                if(data.user.role === "ADMIN") {
+                    navigate("/admin");
+                }
+                if(data.user.role === "AGENCY") {
+                    navigate("/agency");
+                }
+
             } else {
                 await result.user.delete();
                 toast.error("Account not registered.", {

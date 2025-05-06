@@ -13,7 +13,7 @@ const InvestorWalletSchema = new mongoose.Schema({
     },
     mnemonic: {
         type: String,
-        required: true, // Consider encrypting this
+        required: true,
     },
 }, { timestamps: true });
 

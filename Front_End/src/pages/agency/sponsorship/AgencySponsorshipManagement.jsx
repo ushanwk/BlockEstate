@@ -1,4 +1,4 @@
-export const SponsorshipManagement = () => {
+export const AgencySponsorshipManagement = () => {
     return (
         <>SponsorshipManagement</>
     )
