@@ -12,9 +12,14 @@ import axios from "axios";
 import {onAuthStateChanged} from "firebase/auth";
 import {auth} from "../../../firebase/firebase.config.js";
 import {toast} from "sonner";
+import {FullScreenLoader} from "../../../components/common/FullScreenLoader.jsx";
+import {useNavigate} from "react-router-dom";
 
 
 export const AgencyAddNewProperty = () => {
+
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         title: "",
         country: "",
@@ -32,6 +37,7 @@ export const AgencyAddNewProperty = () => {
     });
 
     const [images, setImages] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (field, value) => {
         setFormData(prev => ({ ...prev, [field]: value }));
@@ -67,6 +73,8 @@ export const AgencyAddNewProperty = () => {
         console.log("Uploaded Images:", images);
 
         try {
+            setLoading(true);
+
             const formPayload = new FormData();
 
             // Append form fields
@@ -107,6 +115,10 @@ export const AgencyAddNewProperty = () => {
                 }
             );
 
+            setLoading(false);
+
+            navigate("/agency/properties");
+
             toast.success("Successfully Created", {
                 description: "Property created successfully",
             });
@@ -137,6 +149,11 @@ export const AgencyAddNewProperty = () => {
         });
         setImages([]);
     };
+
+
+    if(loading) {
+        return (<FullScreenLoader />)
+    }
 
     return (
         <main>

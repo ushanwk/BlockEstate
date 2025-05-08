@@ -30,6 +30,8 @@ import {AgencyAddNewProperty} from "../pages/agency/property/AgencyAddNewPropert
 import {AgencySinglePropertyManagement} from "../pages/agency/property/AgencySinglePropertyManagement.jsx";
 import {AdminPropertyManagement} from "../pages/admin/property/AdminPropertyManagement.jsx";
 import {AdminSinglePropertyManagement} from "../pages/admin/property/AdminSinglePropertyManagement.jsx";
+import {AdminProfileManagement} from "../pages/admin/profile/AdminProfileManagement.jsx";
+import {AgencyAddSponsorship} from "../pages/agency/sponsorship/AgencyAddSponsorship.jsx";
 
 export const Index = () => {
     return (
@@ -81,7 +83,8 @@ export const Index = () => {
                     <Route path="sponsored" element={<AdminUserManagement />} />
                     <Route path="analytic" element={<AdminUserManagement />} />
                     <Route path="setting" element={<AdminUserManagement />} />
-                    <Route path="profile" element={<AdminUserManagement />} />
+
+                    <Route path="profile" element={<AdminProfileManagement />} />
                 </Route>
 
                 {/* Agency Routes */}
@@ -93,7 +96,10 @@ export const Index = () => {
                     <Route path="properties/add" element={<AgencyAddNewProperty />} />
 
                     <Route path="profile" element={<AgencyProfileManagement />} />
+
                     <Route path="sponsorships" element={<AgencySponsorshipManagement />} />
+                    <Route path="sponsorships/add" element={<AgencyAddSponsorship />} />
+
                     <Route path="financials" element={<AgencyFinanceManagement />} />
                 </Route>
 

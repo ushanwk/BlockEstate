@@ -7,6 +7,9 @@ import {useState} from "react";
 import {toast} from "sonner";
 import axios from "axios";
 import {FullScreenLoader} from "../../../components/common/FullScreenLoader.jsx";
+import {useNavigate} from "react-router-dom";
+import {signInWithEmailAndPassword} from "firebase/auth";
+import {auth} from "../../../firebase/firebase.config.js";
 
 export const AgencyApprovePage = () => {
 
@@ -16,6 +19,7 @@ export const AgencyApprovePage = () => {
     });
 
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     function base64ToFile(base64String, filename) {
         const arr = base64String.split(",");
@@ -76,9 +80,13 @@ export const AgencyApprovePage = () => {
                 );
                 setLoading(false);
 
+                navigate("/agency");
+
                 toast.success("Registration successfully!", {
                     description: "Your account created successfully",
                 });
+
+
             }catch (error) {
                 console.error("Error fetching:", error);
                 toast.error("Registration Failed", {
@@ -118,6 +126,10 @@ export const AgencyApprovePage = () => {
                     },
                 }
             );
+
+            await signInWithEmailAndPassword(auth, savedData.email, savedData.password);
+
+            navigate("/agency");
 
             setLoading(false);
 

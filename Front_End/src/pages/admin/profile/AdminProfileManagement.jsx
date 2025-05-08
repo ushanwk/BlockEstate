@@ -6,7 +6,7 @@ import React, {useEffect, useState} from "react";
 import {onAuthStateChanged} from "firebase/auth";
 import {auth} from "../../../firebase/firebase.config.js";
 
-export const AgencyProfileManagement = () => {
+export const AdminProfileManagement = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [user, setUser] = useState({});
@@ -106,7 +106,7 @@ export const AgencyProfileManagement = () => {
             <Header />
 
             <section className="w-full mt-16">
-                <h1 className="dark:text-white text-[30px] font-light">Profile Management</h1>
+                <h1 className="dark:text-white text-[30px] font-light">Prfile Management</h1>
                 <p className="text-[12px] font-light mt-[-5px] text-[#999999]">Keep track of all registered users and ensure a secure platform experience.</p>
             </section>
 

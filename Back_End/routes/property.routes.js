@@ -162,6 +162,26 @@ propertyRouter.get('/getByAgency/:agencyId', async (req, res) => {
     }
 });
 
+propertyRouter.get('/getIdName/:agencyId', async (req, res) => {
+    const { agencyId } = req.params;
+
+    try {
+        const properties = await Property.find({ agencyId }, {
+            _id: 1,
+            title: 1
+        });
+
+        const transformed = properties.map(p => ({
+            id: p._id,
+            name: p.title
+        }));
+
+        return res.status(200).json(transformed);
+    } catch (error) {
+        console.error("Failed to fetch properties for agency:", error);
+        return res.status(500).json({ error: "Failed to load agency properties" });
+    }
+});
 
 
 propertyRouter.get('/get/:id', async (req, res) => {

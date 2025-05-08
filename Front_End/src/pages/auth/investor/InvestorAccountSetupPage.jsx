@@ -10,6 +10,8 @@ import imageCompression from "browser-image-compression";
 import axios from "axios";
 import {FullScreenLoader} from "../../../components/common/FullScreenLoader.jsx";
 import {useNavigate} from "react-router-dom";
+import {signInWithEmailAndPassword} from "firebase/auth";
+import {auth} from "../../../firebase/firebase.config.js";
 
 export const InvestorAccountSetupPage = () => {
 
@@ -202,11 +204,16 @@ export const InvestorAccountSetupPage = () => {
                     },
                 }
             );
+
+            await signInWithEmailAndPassword(auth, savedData.email, formData.password);
+
             setLoading(false);
 
             toast.success("Registration successfully!", {
                 description: "Your account created successfully",
             });
+
+            navigate("/");
 
         } catch (error) {
             console.error("Error fetching:", error);
