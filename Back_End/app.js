@@ -8,6 +8,8 @@ import cors from "cors";
 import adminRouter from "./routes/admin.routes.js";
 import userRouter from "./routes/user.routes.js";
 import propertyRouter from "./routes/property.routes.js";
+import paymentRouter from "./routes/payment.routes.js";
+import sponsorshipRoutes from "./routes/sponsorship.routes.js";
 
 
 const app = express();
@@ -22,6 +24,8 @@ app.use('/api/auth/', authRouter);
 app.use('/api/admin/', adminRouter);
 app.use('/api/user/', userRouter);
 app.use('/api/property/', propertyRouter);
+app.use('/api/payment/', paymentRouter);
+app.use('/api/sponsorship/', sponsorshipRoutes);
 
 app.use(errorMiddleware);
 

@@ -6,6 +6,7 @@ import {ComboBox} from "../../../components/common/ComboBox.jsx";
 import {onAuthStateChanged} from "firebase/auth";
 import {auth} from "../../../firebase/firebase.config.js";
 import axios from "axios";
+import {toast} from "sonner";
 
 export const AgencyAddSponsorship = () => {
 
@@ -16,6 +17,7 @@ export const AgencyAddSponsorship = () => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [propertyOptions, setPropertyOptions] = useState([]);
     const [selectedProperty, setSelectedProperty] = useState(null);
+    const [paymentMethod, setPaymentMethod] = useState('stripe');
 
 
     // Helper to calculate the number of days between two dates
@@ -65,6 +67,57 @@ export const AgencyAddSponsorship = () => {
     const propertyRef = useRef(null);
 
 
+
+    async function handleCheckout() {
+
+        try {
+            if (!selectedProperty || !startDate || !endDate || !totalPrice) {
+                toast.error("Invalid Input", {
+                    description: "All fields are required.",
+                });
+                return;
+            }
+
+            const days = calculateDays(startDate, endDate);
+
+            console.log(days);
+
+            if (days < 1) {
+                toast.error("Invalid Dates", {
+                    description: "Date gap is not valid",
+                });
+                return;
+            }
+
+            console.log(selectedProperty.name);
+
+            const res = await axios.post("http://localhost:5500/api/payment/pay-sponsor", {
+                propertyId: selectedProperty.id,
+                title: selectedProperty.name,
+                days: days,
+                price: totalPrice,
+            });
+
+            if (res.data.success) {
+
+                localStorage.setItem("addSponsorship", JSON.stringify({
+                    propertyId: selectedProperty.id,
+                    startingDate: startDate,
+                    endingDate: endDate,
+                    amountPaid: totalPrice,
+                }));
+
+                window.location.href = res.data.url;
+            } else {
+                alert("Failed to create Stripe session.");
+            }
+        } catch (err) {
+            console.error("Checkout error:", err);
+            alert("Something went wrong during checkout.");
+        }
+    }
+
+
     return (
         <main>
             <Header />
@@ -93,7 +146,6 @@ export const AgencyAddSponsorship = () => {
                         value={selectedProperty}
                         onChange={(selected) => {
                             setSelectedProperty(selected);
-                            console.log(selected);
                         }}
                         placeholder="Select a property"
                     />
@@ -132,8 +184,39 @@ export const AgencyAddSponsorship = () => {
                             </div>
                         </div>
 
+                        {/* Payment Method Selection */}
+                        <div className="mt-14">
+                            <label className="block text-[13px] mb-2 text-left dark:text-[#ffffff] dark:font-extralight">
+                                Payment Method
+                            </label>
+                            <div className="flex gap-8">
+                                <label className="flex items-center gap-2">
+                                    <input
+                                        type="radio"
+                                        name="paymentMethod"
+                                        value="stripe"
+                                        checked={paymentMethod === 'stripe'}
+                                        onChange={() => setPaymentMethod('stripe')}
+                                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-gray-600"
+                                    />
+                                    <span className="text-sm text-gray-700 dark:text-gray-300">Pay with Stripe</span>
+                                </label>
+                                <label className="flex items-center gap-2">
+                                    <input
+                                        type="radio"
+                                        name="paymentMethod"
+                                        value="crypto"
+                                        checked={paymentMethod === 'crypto'}
+                                        onChange={() => setPaymentMethod('crypto')}
+                                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-gray-600"
+                                    />
+                                    <span className="text-sm text-gray-700 dark:text-gray-300">Pay with Crypto</span>
+                                </label>
+                            </div>
+                        </div>
+
                         <div className="mt-6">
-                            <Button children="Continue to checkout" />
+                            <Button onclick={handleCheckout} children="Continue to checkout" />
                         </div>
                     </div>
                 </div>

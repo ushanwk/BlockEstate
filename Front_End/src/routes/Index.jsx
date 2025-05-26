@@ -32,6 +32,8 @@ import {AdminPropertyManagement} from "../pages/admin/property/AdminPropertyMana
 import {AdminSinglePropertyManagement} from "../pages/admin/property/AdminSinglePropertyManagement.jsx";
 import {AdminProfileManagement} from "../pages/admin/profile/AdminProfileManagement.jsx";
 import {AgencyAddSponsorship} from "../pages/agency/sponsorship/AgencyAddSponsorship.jsx";
+import {AgencySponsorPaymentSuccess} from "../pages/agency/sponsorship/AgencySponsorPaymentSuccess.jsx";
+import {AgencySponsorPaymentFailed} from "../pages/agency/sponsorship/AgencySponsorPaymentFailed.jsx";
 
 export const Index = () => {
     return (
@@ -99,6 +101,8 @@ export const Index = () => {
 
                     <Route path="sponsorships" element={<AgencySponsorshipManagement />} />
                     <Route path="sponsorships/add" element={<AgencyAddSponsorship />} />
+                    <Route path="sponsorships/success" element={<AgencySponsorPaymentSuccess/>} />
+                    <Route path="sponsorships/failed" element={<AgencySponsorPaymentFailed/>} />
 
                     <Route path="financials" element={<AgencyFinanceManagement />} />
                 </Route>

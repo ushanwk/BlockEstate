@@ -18,11 +18,6 @@ const SponsorshipSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    status: {
-        type: String,
-        enum: ['RUNNING', 'CLOSED'],
-        default: 'RUNNING',
-    }
 }, { timestamps: true });
 
 const Sponsorship = mongoose.model('Sponsorship', SponsorshipSchema);
