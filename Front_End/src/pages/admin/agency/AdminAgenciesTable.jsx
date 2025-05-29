@@ -3,7 +3,7 @@ import {
     Building, Mail, Home, MapPin,
     CheckCircle, XCircle, Clock,
     Edit, Trash2, ChevronLeft,
-    ChevronRight, Loader2
+    ChevronRight, Loader2, Eye
 } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../../firebase/firebase.config.js";
@@ -256,7 +256,7 @@ export const AdminAgenciesTable = ({ filters }) => {
                                         className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
                                         title="Edit"
                                     >
-                                        <Edit className="h-5 w-5" />
+                                        <Eye className="h-5 w-5" />
                                     </button>
                                     <button
                                         onClick={() => handleDelete(agency.id)}

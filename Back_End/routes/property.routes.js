@@ -5,6 +5,8 @@ import Property from "../models/property.model.js";
 import mongoose from "mongoose";
 import Agency from "../models/agency.model.js";
 import {sendPropertyAddedEmail} from "../services/email.service.js";
+import {createAsset, findAccountAssets} from "../services/blockchain.service.js";
+import {SYSTEM_WALLET_ADDR} from "../config/env.config.js";
 
 
 const propertyRouter = Router();
@@ -15,6 +17,7 @@ const upload = multer({ storage }).fields([
 ]);
 
 propertyRouter.post("/create", upload, async (req, res) => {
+
     try {
         const {
             title, country, city, address, description,
@@ -49,6 +52,14 @@ propertyRouter.post("/create", upload, async (req, res) => {
             imageUrls.push(imageUrl);
         }
 
+
+        //Algorand
+        const unit = title.substring(0, 8);       // Max 8 characters
+        const assetName = title.substring(0, 32); // Max 32 characters
+
+        const assetId = await createAsset(unit, assetName, remBlocks);
+
+
         // ✅ Step 3: Create and save property using manually set _id
         const newProperty = new Property({
             _id: newPropertyId,
@@ -65,7 +76,7 @@ propertyRouter.post("/create", upload, async (req, res) => {
             noOfHouses,
             noOfRooms,
             noOfGarages,
-            assetId: "NOT SET",
+            assetId: assetId,
             agencyId,
             imageOneUrl: imageUrls[0],
             imageTwoUrl: imageUrls[1],
@@ -202,6 +213,58 @@ propertyRouter.get('/get/:id', async (req, res) => {
 });
 
 
+propertyRouter.delete('/delete/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const deletedProperty = await Property.findByIdAndDelete(id);
+
+        if (!deletedProperty) {
+            return res.status(404).json({ message: 'Property not found' });
+        }
+
+        res.status(200).json({ message: 'Property deleted successfully', deletedProperty });
+    } catch (error) {
+        console.error('Error deleting property:', error);
+        res.status(500).json({ message: 'Server error while deleting property' });
+    }
+})
+
+propertyRouter.get('/exchange', async (req, res) => {
+    try {
+        const properties = await Property.find({}, 'title assetId');
+        const result = [];
+
+        for (const prop of properties) {
+            let assetInfo = null;
+
+            if (prop.assetId && prop.assetId !== "NOT SET") {
+                assetInfo = await findAccountAssets(prop.assetId);
+            }
+
+            // assetInfo can be null, so destructure carefully
+            const holding = assetInfo?.holding;
+            const metadata = assetInfo?.metadata;
+
+            console.log('holding', holding);
+            console.log('metadata', metadata);
+
+            result.push({
+                property: prop.title,
+                assetId: prop.assetId,
+                unitName: metadata?.['unit-name'] || "N/A",
+                assetName: metadata?.name || "N/A",
+                unitAmount: holding?.amount || "N/A",
+                creator: metadata?.creator || "N/A",
+            });
+        }
+
+        res.status(200).json(result);
+    } catch (error) {
+        console.error("Error fetching property and asset data:", error);
+        res.status(500).json({ message: "Failed to fetch exchange data." });
+    }
+});
 
 
 export default propertyRouter;

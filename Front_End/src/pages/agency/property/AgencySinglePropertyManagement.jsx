@@ -77,13 +77,13 @@ export const AgencySinglePropertyManagement = () => {
             <section className="mt-12">
                 <div className="flex gap-4 mt-6">
                     <div className="w-[300px] h-[200px]">
-                        <img src={property.imageOneUrl}  alt="img"/>
+                        <img src={property.imageOneUrl} className="w-[300px] h-[200px]"  alt="img"/>
                     </div>
                     <div className="w-[300px] h-[200px]">
-                        <img src={property.imageTwoUrl}  alt="img"/>
+                        <img src={property.imageTwoUrl} className="w-[300px] h-[200px]"  alt="img"/>
                     </div>
                     <div className="w-[300px] h-[200px]">
-                        <img src={property.imageThreeUrl}  alt="img"/>
+                        <img src={property.imageThreeUrl} className="w-[300px] h-[200px]"  alt="img"/>
                     </div>
                 </div>
             </section>

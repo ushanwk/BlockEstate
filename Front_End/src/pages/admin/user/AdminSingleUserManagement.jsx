@@ -116,14 +116,7 @@ export const AdminSingleUserManagement = () => {
                             </span>
                             )}
                         </div>
-                        <div className="flex flex-col gap-1">
-                            <div className="flex gap-1">
-                                <Button children="Upload a new photo" />
-                            </div>
-                            <div>
-                                <p className="text-gray-700 dark:text-gray-300 text-[8px]">SVG, PNG, JPG or GIF (max 800x800px)</p>
-                            </div>
-                        </div>
+
                     </div>
 
                     <div className="text-end flex flex-col gap-[5px]">
@@ -158,14 +151,6 @@ export const AdminSingleUserManagement = () => {
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-3 mt-3">
-                        <div className="w-36">
-                            <Button children="Save Changes" />
-                        </div>
-                        <div className="w-16">
-                            <Button children="Clear" bgColor="#999999" hoverColor="#888888" />
-                        </div>
-                    </div>
                 </div>
 
             </section>

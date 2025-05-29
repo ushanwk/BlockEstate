@@ -231,26 +231,26 @@ export const AdminDashboardLayout = () => {
                     </div>
                 </div>
 
-                <div className="w-full flex flex-col gap-3 mt-2">
-                    <div
-                        className={`flex gap-[8px] items-center text-[14px] pl-3 w-full h-10 text-center rounded-md cursor-pointer 
-                        ${activeTab === "resale" ? "bg-[var(--color-primary)]/10 border-1 border-[var(--color-primary)]" : "hover:bg-gray-100 dark:hover:bg-gray-800"}`}
-                        onClick={() => navigate("/admin/resale")}
-                    >
-                        {/* Light Mode Image */}
-                        <img src={ResaleBlack} alt="resale Black"
-                             className={`w-[16px] pb-[1px] ${activeTab === "resale" ? "hidden" : "block dark:hidden"}`} />
+                {/*<div className="w-full flex flex-col gap-3 mt-2">*/}
+                {/*    <div*/}
+                {/*        className={`flex gap-[8px] items-center text-[14px] pl-3 w-full h-10 text-center rounded-md cursor-pointer */}
+                {/*        ${activeTab === "resale" ? "bg-[var(--color-primary)]/10 border-1 border-[var(--color-primary)]" : "hover:bg-gray-100 dark:hover:bg-gray-800"}`}*/}
+                {/*        onClick={() => navigate("/admin/resale")}*/}
+                {/*    >*/}
+                {/*        /!* Light Mode Image *!/*/}
+                {/*        <img src={ResaleBlack} alt="resale Black"*/}
+                {/*             className={`w-[16px] pb-[1px] ${activeTab === "resale" ? "hidden" : "block dark:hidden"}`} />*/}
 
-                        {/* Dark Mode Image */}
-                        <img src={ResaleWhite} alt="resale White"
-                             className={`w-[16px] pb-[1px] ${activeTab === "resale" ? "hidden" : "hidden dark:block"}`} />
+                {/*        /!* Dark Mode Image *!/*/}
+                {/*        <img src={ResaleWhite} alt="resale White"*/}
+                {/*             className={`w-[16px] pb-[1px] ${activeTab === "resale" ? "hidden" : "hidden dark:block"}`} />*/}
 
-                        {/* Selected Tab Image (Blue) */}
-                        <img src={ResaleBlue} alt="resale Blue"
-                             className={`w-[16px] pb-[1px] ${activeTab === "resale" ? "block" : "hidden"}`} />
-                        <p className={`${activeTab === "resale" ? "text-[var(--color-primary)]" : "text-black dark:text-white"}`}>Resale Listings</p>
-                    </div>
-                </div>
+                {/*        /!* Selected Tab Image (Blue) *!/*/}
+                {/*        <img src={ResaleBlue} alt="resale Blue"*/}
+                {/*             className={`w-[16px] pb-[1px] ${activeTab === "resale" ? "block" : "hidden"}`} />*/}
+                {/*        <p className={`${activeTab === "resale" ? "text-[var(--color-primary)]" : "text-black dark:text-white"}`}>Resale Listings</p>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
                 <div className="w-full flex flex-col gap-3 mt-2">
                     <div
@@ -269,7 +269,7 @@ export const AdminDashboardLayout = () => {
                         {/* Selected Tab Image (Blue) */}
                         <img src={TransactionBlue} alt="transaction Blue"
                              className={`w-[16px] pb-[1px] ${activeTab === "transaction" ? "block" : "hidden"}`} />
-                        <p className={`${activeTab === "transaction" ? "text-[var(--color-primary)]" : "text-black dark:text-white"}`}>Transaction Details</p>
+                        <p className={`${activeTab === "transaction" ? "text-[var(--color-primary)]" : "text-black dark:text-white"}`}>Blockchain Exchange</p>
                     </div>
                 </div>
 
@@ -315,26 +315,26 @@ export const AdminDashboardLayout = () => {
                     </div>
                 </div>
 
-                <div className="w-full flex flex-col gap-3 mt-2">
-                    <div
-                        className={`flex gap-[8px] items-center text-[14px] pl-3 w-full h-10 text-center rounded-md cursor-pointer 
-                        ${activeTab === "setting" ? "bg-[var(--color-primary)]/10 border-1 border-[var(--color-primary)]" : "hover:bg-gray-100 dark:hover:bg-gray-800"}`}
-                        onClick={() => navigate("/admin/setting")}
-                    >
-                        {/* Light Mode Image */}
-                        <img src={SettingsBlack} alt="setting Black"
-                             className={`w-[16px] pb-[1px] ${activeTab === "setting" ? "hidden" : "block dark:hidden"}`} />
+                {/*<div className="w-full flex flex-col gap-3 mt-2">*/}
+                {/*    <div*/}
+                {/*        className={`flex gap-[8px] items-center text-[14px] pl-3 w-full h-10 text-center rounded-md cursor-pointer */}
+                {/*        ${activeTab === "setting" ? "bg-[var(--color-primary)]/10 border-1 border-[var(--color-primary)]" : "hover:bg-gray-100 dark:hover:bg-gray-800"}`}*/}
+                {/*        onClick={() => navigate("/admin/setting")}*/}
+                {/*    >*/}
+                {/*        /!* Light Mode Image *!/*/}
+                {/*        <img src={SettingsBlack} alt="setting Black"*/}
+                {/*             className={`w-[16px] pb-[1px] ${activeTab === "setting" ? "hidden" : "block dark:hidden"}`} />*/}
 
-                        {/* Dark Mode Image */}
-                        <img src={SettingWhite} alt="setting White"
-                             className={`w-[16px] pb-[1px] ${activeTab === "setting" ? "hidden" : "hidden dark:block"}`} />
+                {/*        /!* Dark Mode Image *!/*/}
+                {/*        <img src={SettingWhite} alt="setting White"*/}
+                {/*             className={`w-[16px] pb-[1px] ${activeTab === "setting" ? "hidden" : "hidden dark:block"}`} />*/}
 
-                        {/* Selected Tab Image (Blue) */}
-                        <img src={SettingsBlue} alt="setting Blue"
-                             className={`w-[16px] pb-[1px] ${activeTab === "setting" ? "block" : "hidden"}`} />
-                        <p className={`${activeTab === "setting" ? "text-[var(--color-primary)]" : "text-black dark:text-white"}`}>System Settings</p>
-                    </div>
-                </div>
+                {/*        /!* Selected Tab Image (Blue) *!/*/}
+                {/*        <img src={SettingsBlue} alt="setting Blue"*/}
+                {/*             className={`w-[16px] pb-[1px] ${activeTab === "setting" ? "block" : "hidden"}`} />*/}
+                {/*        <p className={`${activeTab === "setting" ? "text-[var(--color-primary)]" : "text-black dark:text-white"}`}>System Settings</p>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
                 <div className="w-full flex flex-col gap-3 mt-2">
                     <div

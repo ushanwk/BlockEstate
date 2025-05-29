@@ -1,6 +1,7 @@
 import {Header} from "../components/website/Header.jsx";
 import {Footer} from "../components/website/Footer.jsx";
 import {Outlet} from "react-router-dom";
+import ChatBot from "../components/chatbot/ChatBot.jsx";
 
 export const WebsiteLayout = () => {
     return (
@@ -12,6 +13,8 @@ export const WebsiteLayout = () => {
             </main>
 
             <Footer />
+
+            <ChatBot />
         </div>
     )
 }

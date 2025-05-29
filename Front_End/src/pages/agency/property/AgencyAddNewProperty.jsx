@@ -69,9 +69,6 @@ export const AgencyAddNewProperty = () => {
     };
 
     const handleSave = async () => {
-        console.log("Form Data:", formData);
-        console.log("Uploaded Images:", images);
-
         try {
             setLoading(true);
 

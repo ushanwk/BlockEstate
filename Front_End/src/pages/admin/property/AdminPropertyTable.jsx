@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import {
     Home, MapPin, Layers, DollarSign,
     Ruler, Edit, Trash2, ChevronLeft,
-    ChevronRight, Loader2, Search
+    ChevronRight, Loader2, Search, Eye
 } from 'lucide-react';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {toast} from "sonner";
 
 export const AdminPropertyTable = ({ filters }) => {
     const [allProperties, setAllProperties] = useState([]);
@@ -62,7 +63,20 @@ export const AdminPropertyTable = ({ filters }) => {
         navigate(`${propertyId}`);
     };
 
-    const handleDelete = (propertyId) => console.log(`Delete property ${propertyId}`);
+    const handleDelete = async (propertyId) => {
+        try {
+            const response = await axios.delete(`http://localhost:5500/api/property/delete/${propertyId}`);
+
+            toast.success("Successfully Deleted", {
+                description: "Property Deleted successfully",
+            });
+
+            window.location.reload();
+        } catch (error) {
+            console.error('Error deleting property:', error.response?.data || error.message);
+        }
+    };
+
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     const renderPageNumbers = () => {
@@ -210,7 +224,7 @@ export const AdminPropertyTable = ({ filters }) => {
                                         className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
                                         title="Edit"
                                     >
-                                        <Edit className="h-5 w-5" />
+                                        <Eye className="h-5 w-5" />
                                     </button>
                                     <button
                                         onClick={() => handleDelete(property.id)}

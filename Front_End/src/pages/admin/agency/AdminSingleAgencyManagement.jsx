@@ -223,14 +223,6 @@ export const AdminSingleAgencyManagement = () => {
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-3 mt-3">
-                        <div className="w-36">
-                            <Button children="Save Changes" />
-                        </div>
-                        <div className="w-16">
-                            <Button children="Clear" bgColor="#999999" hoverColor="#888888" />
-                        </div>
-                    </div>
                 </div>
 
             </section>
@@ -271,36 +263,6 @@ export const AdminSingleAgencyManagement = () => {
                 </div>
             </section>
 
-            <section className="w-full mt-5 rounded-[5px] bg-white dark:bg-[var(--color-dark-bg-primary)] border border-[var(--color-primary)]/10 items-center px-8 py-6">
-                <h1 className="dark:text-white text-[18px] font-light">Change Password</h1>
-
-                <div>
-                    <div className="flex items-center gap-5 mt-6">
-                        <div className="w-full">
-                            <PasswordField label="Current Password" placeholder="Enter current password" />
-                        </div>
-                        <div className="w-full"></div>
-                    </div>
-
-                    <div className="flex items-center gap-5 mt-1">
-                        <div className="w-full">
-                            <PasswordField label="New Password" placeholder="Enter new password" />
-                        </div>
-                        <div className="w-full">
-                            <PasswordField label="Confirm Password" placeholder="Re-enter password" />
-                        </div>
-                    </div>
-
-                    <div className="flex items-center gap-3 mt-3">
-                        <div className="w-36">
-                            <Button children="Change Password" />
-                        </div>
-                        <div className="w-16">
-                            <Button children="Clear" bgColor="#999999" hoverColor="#888888" />
-                        </div>
-                    </div>
-                </div>
-            </section>
         </main>
     )
 }

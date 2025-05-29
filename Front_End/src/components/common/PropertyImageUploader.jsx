@@ -50,7 +50,7 @@ export const PropertyImageUploader = ({ maxImages = 3, onImagesChange }) => {
                         <img
                             src={image.preview}
                             alt={`Property ${index + 1}`}
-                            className="w-full h-full object-cover rounded-md border border-gray-300 dark:border-gray-600"
+                            className="object-cover rounded-md border border-gray-300 dark:border-gray-600 w-[300px] h-[200px]"
                         />
                         <button
                             onClick={(e) => removeImage(index, e)}

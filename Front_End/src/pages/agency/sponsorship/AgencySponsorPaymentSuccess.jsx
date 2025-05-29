@@ -1,13 +1,11 @@
 import {Button} from "../../../components/common/Button.jsx";
 import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
 import axios from "axios";
 
 export const AgencySponsorPaymentSuccess = () => {
     const navigate = useNavigate();
 
-
-    useEffect(() => {
+    function saveSponsorship(){
         const sponsorData = JSON.parse(localStorage.getItem("addSponsorship"));
         if (!sponsorData) return;
 
@@ -30,7 +28,7 @@ export const AgencySponsorPaymentSuccess = () => {
         };
 
         addSponsorship();
-    }, []);
+    }
 
     return (
         <div className="fixed inset-0 backdrop-blur-sm bg-white/30 dark:bg-black/30 flex justify-center items-center z-50">
@@ -67,7 +65,11 @@ export const AgencySponsorPaymentSuccess = () => {
 
                 <div className="text-center flex items-center justify-center w-full">
                     <div className="w-36">
-                        <Button children="Go Back" onclick={()=>{navigate("/agency/sponsorships")}} />
+                        <Button children="Go Back" onclick={()=>{
+                                navigate("/agency/sponsorships")
+                                saveSponsorship();
+                            }
+                        } />
                     </div>
                 </div>
             </div>

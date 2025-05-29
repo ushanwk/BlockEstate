@@ -106,7 +106,7 @@ export const AdminProfileManagement = () => {
             <Header />
 
             <section className="w-full mt-16">
-                <h1 className="dark:text-white text-[30px] font-light">Prfile Management</h1>
+                <h1 className="dark:text-white text-[30px] font-light">Profile Management</h1>
                 <p className="text-[12px] font-light mt-[-5px] text-[#999999]">Keep track of all registered users and ensure a secure platform experience.</p>
             </section>
 
@@ -166,7 +166,7 @@ export const AdminProfileManagement = () => {
                             <TextField label="Display Name" placeholder={user.name} />
                         </div>
                         <div className="w-full">
-                            <label className="block text-[13px] mb-2 text-left dark:text-[#ffffff] dark:font-extralight">Registered Country</label>
+                            <label className="block text-[13px] mb-2 text-left dark:text-[#ffffff] dark:font-extralight">Registered Email</label>
                             <div className="w-full p-2 text-[12px] rounded-[5px] dark:text-[#ffffff] border dark:border-[#5D5D65] border-[#D9D9D9] dark:font-extralight bg-gray-200 dark:bg-gray-700">
                                 {user.email}
                             </div>

@@ -3,6 +3,9 @@ import AgencyCount from '../../../assets/icons/admin/dashboard/AgencyCount.png';
 import InvestorCount from '../../../assets/icons/admin/dashboard/InvestorCount.png';
 import PropertyCount from '../../../assets/icons/admin/dashboard/PropertyCount.png';
 import ResaleCount from '../../../assets/icons/admin/dashboard/ResaleCount.png';
+import PlatformGrowthChart from "../../../components/admin/PlatformGrowthChart.jsx";
+import AgencyStatusPieChart from "../../../components/admin/AgencyStatusPieChart.jsx";
+import InvestorArrivalBarChart from "../../../components/admin/InvestorArrivalBarChart.jsx";
 
 export const AdminDashboard = () => {
     return (
@@ -60,17 +63,23 @@ export const AdminDashboard = () => {
                 </div>
             </section>
 
-            <section className="w-full h-96 mt-8 rounded-[5px] bg-white dark:bg-[var(--color-dark-bg-primary)] border border-[var(--color-primary)]/10 py-5 px-6">
+            <section className="w-full h-[400px] mt-8 rounded-[5px] bg-white dark:bg-[var(--color-dark-bg-primary)] border border-[var(--color-primary)]/10 py-5 px-6">
                 <h1 className="dark:text-white text-[18px] font-light">Platform Growth Analytics</h1>
+
+                <PlatformGrowthChart />
             </section>
 
             <section className="flex gap-5 mt-5">
                 <section className="w-full h-96 rounded-[5px] bg-white dark:bg-[var(--color-dark-bg-primary)] border border-[var(--color-primary)]/10 py-5 px-6">
-                    <h1 className="dark:text-white text-[18px] font-light">Platform Growth Analytics</h1>
+                    <h1 className="dark:text-white text-[18px] font-light">Agency Status</h1>
+
+                    <AgencyStatusPieChart />
                 </section>
 
                 <section className="w-full h-96 rounded-[5px] bg-white dark:bg-[var(--color-dark-bg-primary)] border border-[var(--color-primary)]/10 py-5 px-6">
-                    <h1 className="dark:text-white text-[18px] font-light">Platform Growth Analytics</h1>
+                    <h1 className="dark:text-white text-[18px] font-light">Investor Arriving</h1>
+
+                    <InvestorArrivalBarChart />
                 </section>
             </section>
         </main>

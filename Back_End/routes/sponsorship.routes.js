@@ -33,13 +33,56 @@ sponsorshipRouter.post("/create", async (req, res) => {
     }
 });
 
-// GET all sponsorships for a specific agency
 sponsorshipRouter.get('/agency/:agencyId', async (req, res) => {
     const { agencyId } = req.params;
 
     try {
         // Step 1: Get all properties owned by the agency
         const properties = await Property.find({ agencyId }, '_id');
+
+        const propertyIds = properties.map(p => p._id);
+
+        // Step 2: Get sponsorships for those properties
+        const sponsorships = await Sponsorship.find({ propertyId: { $in: propertyIds } })
+            .populate('propertyId', 'title') // populate only the 'name' of the property
+            .lean(); // plain JS objects
+
+        const now = new Date();
+
+        // Step 3: Format sponsorship data
+        const enrichedSponsorships = sponsorships.map(sponsorship => {
+            let status = 'UPCOMING';
+            if (now >= new Date(sponsorship.startingDate) && now <= new Date(sponsorship.endingDate)) {
+                status = 'RUNNING';
+            } else if (now > new Date(sponsorship.endingDate)) {
+                status = 'EXPIRED';
+            }
+
+            console.log(sponsorship)
+
+            return {
+                _id: sponsorship._id,
+                propertyName: sponsorship.propertyId?.title || 'Unknown Property',
+                startingDate: sponsorship.startingDate,
+                endingDate: sponsorship.endingDate,
+                amountPaid: sponsorship.amountPaid,
+                status,
+            };
+        });
+
+        res.status(200).json(enrichedSponsorships);
+    } catch (error) {
+        console.error('Error fetching sponsorships for agency:', error.message);
+        res.status(500).json({ message: 'Server error while fetching sponsorships' });
+    }
+});
+
+
+sponsorshipRouter.get('/agency', async (req, res) => {
+
+    try {
+        // Step 1: Get all properties owned by the agency
+        const properties = await Property.find();
 
         const propertyIds = properties.map(p => p._id);
 

@@ -10,6 +10,8 @@ import userRouter from "./routes/user.routes.js";
 import propertyRouter from "./routes/property.routes.js";
 import paymentRouter from "./routes/payment.routes.js";
 import sponsorshipRoutes from "./routes/sponsorship.routes.js";
+import chatRoutes from "./routes/chat.routes.js";
+import investorRouter from "./routes/investor.routes.js";
 
 
 const app = express();
@@ -26,6 +28,9 @@ app.use('/api/user/', userRouter);
 app.use('/api/property/', propertyRouter);
 app.use('/api/payment/', paymentRouter);
 app.use('/api/sponsorship/', sponsorshipRoutes);
+app.use('/api/ask-ai/', chatRoutes);
+app.use('/api/investor/', investorRouter);
+
 
 app.use(errorMiddleware);
 

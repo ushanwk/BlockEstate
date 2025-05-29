@@ -34,6 +34,8 @@ import {AdminProfileManagement} from "../pages/admin/profile/AdminProfileManagem
 import {AgencyAddSponsorship} from "../pages/agency/sponsorship/AgencyAddSponsorship.jsx";
 import {AgencySponsorPaymentSuccess} from "../pages/agency/sponsorship/AgencySponsorPaymentSuccess.jsx";
 import {AgencySponsorPaymentFailed} from "../pages/agency/sponsorship/AgencySponsorPaymentFailed.jsx";
+import {AdminSponsorshipManagement} from "../pages/admin/sponsorship/AdminSponsorshipManagement.jsx";
+import {BlockchainExchange} from "../pages/admin/exchange/BlockchainExchange.jsx";
 
 export const Index = () => {
     return (
@@ -79,11 +81,14 @@ export const Index = () => {
                     <Route path="agency/:agencyId" element={<AdminSingleAgencyManagement />} />
 
 
-
                     <Route path="resale" element={<AdminUserManagement />} />
-                    <Route path="transaction" element={<AdminUserManagement />} />
-                    <Route path="sponsored" element={<AdminUserManagement />} />
+
+                    <Route path="transaction" element={<BlockchainExchange />} />
+
+                    <Route path="sponsored" element={<AdminSponsorshipManagement />} />
+
                     <Route path="analytic" element={<AdminUserManagement />} />
+
                     <Route path="setting" element={<AdminUserManagement />} />
 
                     <Route path="profile" element={<AdminProfileManagement />} />
